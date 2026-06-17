@@ -1,0 +1,64 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Package release
+        run: |
+          mkdir -p dist
+          # Create release archive with SKILLS included
+          tar czf dist/cttc-auto-learn.tar.gz \
+            --exclude='.git' \
+            --exclude='dist' \
+            --exclude='__pycache__' \
+            --exclude='.venv' \
+            --exclude='output' \
+            --exclude='logs' \
+            --exclude='*.log' \
+            -C .. cttc-auto-learn
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/cttc-auto-learn.tar.gz
+          generate_release_notes: true
+          body: |
+            ## 📦 cttc-auto-learn ${{ github.ref_name }}
+
+            ### 人类用户
+            ```bash
+            # 下载解压
+            wget https://github.com/gandli/cttc-auto-learn/releases/latest/download/cttc-auto-learn.tar.gz
+            tar xzf cttc-auto-learn.tar.gz
+            cd cttc-auto-learn
+            # 安装依赖
+            uv sync
+            # 运行
+            uv run python main.py
+            ```
+
+            ### AI Agent 用户
+            ```bash
+            # 下载并安装 SKILL
+            wget https://github.com/gandli/cttc-auto-learn/releases/latest/download/cttc-auto-learn.tar.gz
+            tar xzf cttc-auto-learn.tar.gz
+            cp cttc-auto-learn/SKILLS/SKILL.md ~/.hermes/skills/cttc-auto-learn/
+            ```
+            安装后对 Agent 说「帮我刷学时」即可。
+
+            ### 包含内容
+            - ✅ 完整源码
+            - ✅ SKILLS/SKILL.md（AI Agent 工作流）
+            - ✅ scripts/（工具脚本）

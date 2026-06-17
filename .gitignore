@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+
+# 测试
+.pytest_cache/
+.coverage
+htmlcov/
+tests/__pycache__/
+
+# 凭证（敏感文件）
+output/auth-state.json
+output/chrome-profile/
+
+# 输出目录 — 仅保留文档分析
+output/*.json
+output/*.png
+output/*.log
+output/js/
+output/screenshots/
+
+# data & logs
+data/
+logs/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 临时文件
+*.tmp
+*.lock
+login
+relogin
+
+# 根目录散落的二维码图片
+qr-*.png
+qrcode-*.png
