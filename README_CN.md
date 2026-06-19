@@ -231,11 +231,16 @@ cttc-auto-learn/
 
 ### 🔜 计划开发
 
-**v0.1.0 — 易用性**
+**v0.1.0 — 易用性 + 刷班级**
 - 凭证加密存储（`auth-state.json` → `auth-state.enc`）
 - 会话自动续期（过期前自动刷新）
 - `config.yaml` 预设配置（目标学时、模式、无头模式等）
 - `python -m cttc` 入口点
+- **新增「刷班级」模式** — 自动完成班级培训课程（`--mode classes`）
+  - 获取我的班级列表（`/api/v1/human/class/findMyClassPage`）
+  - 遍历班级课程，逐个播放
+  - 统计集中培训学时（`classroom_completed / classroom_target`）
+  - 支持油猴脚本和 CDP 版本同步实现
 
 **v0.2.0 — 监控**
 - Web 仪表盘实时查看进度

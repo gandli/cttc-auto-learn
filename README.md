@@ -231,11 +231,16 @@ cttc-auto-learn/
 
 ### 🔜 Planned
 
-**v0.1.0 — Usability**
+**v0.1.0 — Usability + Classes Mode**
 - Credential encryption (`auth-state.json` → `auth-state.enc`)
 - Graceful session renewal (auto-refresh before expiry)
 - `config.yaml` for presets (target hours, mode, headless, etc.)
 - `python -m cttc` entry point
+- **New「Classes Mode」** — Auto-complete class training courses (`--mode classes`)
+  - Fetch my classes list (`/api/v1/human/class/findMyClassPage`)
+  - Traverse class courses, play each one
+  - Track classroom training hours (`classroom_completed / classroom_target`)
+  - Sync implementation for Tampermonkey and CDP versions
 
 **v0.2.0 — Monitoring**
 - Web dashboard for real-time progress viewing
