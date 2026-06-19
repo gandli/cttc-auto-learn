@@ -18,6 +18,18 @@ Automated video learning system for China Tobacco's online training platform ([m
 
 ---
 
+## 📸 Screenshots
+
+### Homepage
+
+![Homepage](docs/screenshots/01-homepage.png)
+
+### Login Page (APP QR Code)
+
+![Login Page](docs/screenshots/02-login-page.png)
+
+---
+
 ## 🚀 Quick Start
 
 ### Prerequisites

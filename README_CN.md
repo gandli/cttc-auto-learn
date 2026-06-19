@@ -18,6 +18,18 @@
 
 ---
 
+## 📸 操作截图
+
+### 首页
+
+![首页](docs/screenshots/01-homepage.png)
+
+### 登录页面（APP 扫码）
+
+![登录页面](docs/screenshots/02-login-page.png)
+
+---
+
 ## 🚀 快速开始
 
 ### 环境要求
