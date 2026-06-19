@@ -1,6 +1,8 @@
 # 📚 cttc-auto-learn · CDP 版 (Agent SKILL)
 
-烟草网络学院 (mooc.ctt.cn) 自动学习 — 通过 Agent SKILL 安装，Agent 使用 chrome-devtools MCP 控制你的 Chrome。
+[中文版](./README_CN.md) | English
+
+烟草网络学院 (mooc.ctt.cn) 自动学习 — Agent 通过 chrome-devtools MCP 控制你的 Chrome。
 
 ## ✨ 特点
 
