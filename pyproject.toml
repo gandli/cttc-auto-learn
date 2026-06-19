@@ -1,20 +1,9 @@
 [project]
-name = "cttc-login"
-version = "0.0.1"
-description = "烟草网络学院自动登录与学习工具"
+name = "cttc-auto-learn-cdp"
+version = "0.1.0"
+description = "烟草网络学院自动学习助手 — Chrome DevTools Protocol 版本"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "pillow>=12.2.0",
-    "playwright>=1.60.0",
-    "qrcode>=8.2",
-    "requests>=2.31.0",
-    "zxing-cpp>=2.2.0",
-]
-
-[project.optional-dependencies]
-test = [
-    "pytest>=8.0",
-    "pytest-asyncio>=0.24",
-    "pytest-cov>=5.0",
+    "websockets>=12.0",
 ]
