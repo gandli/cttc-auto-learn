@@ -23,13 +23,27 @@
 ### 环境要求
 
 - Python 3.11+
-- [uv](https://github.com/astral-sh/uv)（包管理器）
 - Windows 10/11
 
-### 安装
+### 克隆项目
 
 ```bash
-npx skills add gandli/cttc-auto-learn
+git clone https://github.com/gandli/cttc-auto-learn.git
+cd cttc-auto-learn
+```
+
+### 安装依赖
+
+**uv（推荐）：**
+
+```bash
+uv sync
+```
+
+**pip：**
+
+```bash
+pip install .
 ```
 
 ### 运行

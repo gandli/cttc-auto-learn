@@ -23,13 +23,27 @@ Automated video learning system for China Tobacco's online training platform ([m
 ### Prerequisites
 
 - Python 3.11+
-- [uv](https://github.com/astral-sh/uv) (package manager)
 - Windows 10/11
 
-### Installation
+### Clone
 
 ```bash
-npx skills add gandli/cttc-auto-learn
+git clone https://github.com/gandli/cttc-auto-learn.git
+cd cttc-auto-learn
+```
+
+### Install Dependencies
+
+**uv (recommended):**
+
+```bash
+uv sync
+```
+
+**pip:**
+
+```bash
+pip install .
 ```
 
 ### Run
