@@ -1,5 +1,7 @@
 # 📚 cttc-auto-learn · 油猴脚本版
 
+[中文版](./README_CN.md) | English
+
 烟草网络学院 (mooc.ctt.cn) 自动学习助手 — 油猴脚本版。
 
 ## ✨ 功能
