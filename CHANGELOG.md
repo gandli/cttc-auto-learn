@@ -2,20 +2,6 @@
 
 ## v0.0.1 (2026-06-20)
 
-- 599ca90 docs: README 增加人类使用说明（克隆、安装依赖、运行）
-- 5b59d7c docs: 支持 pip + venv 原生安装方式
-- b19f80e docs: add development roadmap to README
-- 1ddf71f ci: fix changelog workflow — use git log instead of requarks action
-
-## v0.0.1 (2026-06-20)
-
-- 599ca90 docs: README 增加人类使用说明（克隆、安装依赖、运行）
-- 5b59d7c docs: 支持 pip + venv 原生安装方式
-- b19f80e docs: add development roadmap to README
-- 1ddf71f ci: fix changelog workflow — use git log instead of requarks action
-
-## v0.0.1 (2026-06-20)
-
 ### Features
 - QR 扫码登录（APP + 微信双通道）
 - v22 快速登录：headless Chrome + HTTP 并行轮询
