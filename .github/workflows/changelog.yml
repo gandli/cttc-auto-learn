@@ -34,30 +34,55 @@ jobs:
           PREV_TAG=$(git tag --sort=-v:refname | sed -n '2p')
 
           if [ -z "$PREV_TAG" ]; then
-            # Only one tag — list all commits
             LOG=$(git log $TAG --oneline --no-merges --reverse)
           else
-            # Commits between previous and latest tag
             LOG=$(git log ${PREV_TAG}..${TAG} --oneline --no-merges --reverse)
           fi
 
-          # Build changelog
-          {
-            echo "# Changelog"
-            echo ""
-            echo "## $TAG ($(git log -1 --format=%ai $TAG | cut -d' ' -f1))"
-            echo ""
-            echo "$LOG" | while read -r line; do
-              echo "- $line"
-            done
-          } > /tmp/changelog_new.md
-
-          # Append old changelog content (skip header)
+          # Extract commit hashes already in CHANGELOG.md
+          EXISTING=""
           if [ -f CHANGELOG.md ]; then
-            tail -n +2 CHANGELOG.md >> /tmp/changelog_new.md
+            EXISTING=$(grep -oE '^[a-f0-9]{7,}' CHANGELOG.md || true)
           fi
 
-          mv /tmp/changelog_new.md CHANGELOG.md
+          # Filter out commits already listed
+          NEW_COMMITS=""
+          while IFS= read -r line; do
+            HASH=$(echo "$line" | grep -oE '^[a-f0-9]{7,}')
+            if [ -n "$HASH" ] && ! echo "$EXISTING" | grep -q "$HASH"; then
+              NEW_COMMITS="${NEW_COMMITS}${line}\n"
+            fi
+          done <<< "$LOG"
+
+          # If no new commits, skip
+          if [ -z "$(echo -e "$NEW_COMMITS" | tr -d '[:space:]')" ]; then
+            echo "No new commits to add"
+            exit 0
+          fi
+
+          # Build new section
+          DATE=$(git log -1 --format=%ai $TAG | cut -d' ' -f1)
+          {
+            echo "## $TAG ($DATE)"
+            echo ""
+            echo -e "$NEW_COMMITS" | while IFS= read -r line; do
+              [ -n "$line" ] && echo "- $line"
+            done
+            echo ""
+          } > /tmp/new_section.md
+
+          # Insert after "# Changelog" header
+          if [ -f CHANGELOG.md ] && head -1 CHANGELOG.md | grep -q "^# Changelog"; then
+            # Insert new section after header
+            sed -i '2r /tmp/new_section.md' CHANGELOG.md
+          else
+            # Create new changelog
+            {
+              echo "# Changelog"
+              echo ""
+              cat /tmp/new_section.md
+            } > CHANGELOG.md
+          fi
 
       - name: Commit Changes
         run: |
