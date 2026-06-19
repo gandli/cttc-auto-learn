@@ -40,13 +40,18 @@ cd cttc-auto-learn
 uv sync
 ```
 
-**pip：**
+**pip + venv（Python 原生）：**
 
 ```bash
+python -m venv .venv
+source .venv/bin/activate  # Linux/macOS
+.venv\Scripts\activate     # Windows
 pip install .
 ```
 
 ### 运行
+
+**uv：**
 
 ```bash
 # 刷学时（默认）
@@ -60,6 +65,15 @@ uv run python main.py --mode courses
 
 # 刷任务
 uv run python main.py --mode tasks
+```
+
+**pip（已激活 venv）：**
+
+```bash
+python main.py
+python main.py --mode topics
+python main.py --mode courses
+python main.py --mode tasks
 ```
 
 **参数说明：**
