@@ -214,6 +214,47 @@ cttc-auto-learn/
 
 ---
 
+## 🗺️ Roadmap
+
+### ✅ Completed (v0.0.1)
+
+| Module | Description |
+|--------|-------------|
+| QR Login | APP + WeChat dual-channel QR code login |
+| v22 Fast Login | Headless Chrome + HTTP parallel polling |
+| Four Modes | hours / topics / courses / tasks |
+| Auto Playback | Video auto-play with progress monitoring |
+| Study Hour Tracking | API-based credit stats, auto-stop on target |
+| DataManager | REST API data fetching |
+| StudyPlanner | Intelligent learning plan generation |
+| Testing | 168 tests passed (login, playback, progress, monitoring, scheduler) |
+
+### 🔜 Planned
+
+**v0.1.0 — Usability**
+- Credential encryption (`auth-state.json` → `auth-state.enc`)
+- Graceful session renewal (auto-refresh before expiry)
+- `config.yaml` for presets (target hours, mode, headless, etc.)
+- `python -m cttc` entry point
+
+**v0.2.0 — Monitoring**
+- Web dashboard for real-time progress viewing
+- Email / WeChat notification on task completion
+- Learning history and statistics export (CSV / JSON)
+
+**v0.3.0 — Intelligence**
+- Smart course scheduling (priority, difficulty, deadline)
+- Automatic exam preparation with question bank
+- Multi-account support
+
+**v1.0.0 — Production**
+- Docker containerization
+- GitHub Actions CI/CD
+- Cross-platform support (Linux / macOS)
+- PyPI release (`pip install cttc-auto-learn`)
+
+---
+
 ## 📄 License
 
 MIT
