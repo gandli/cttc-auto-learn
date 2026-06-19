@@ -60,9 +60,13 @@ jobs:
           # Read existing changelog
           existing_hashes = set()
           if os.path.exists("CHANGELOG.md"):
-              with open("CHANGELOG.md") as f:
+              with open("CHANGELOG.md", newline="") as f:
                   content = f.read()
+              # Normalize line endings for regex
+              content = content.replace("\r\n", "\n").replace("\r", "\n")
               existing_hashes = set(re.findall(r'^[a-f0-9]{7,}', content, re.MULTILINE))
+
+          print(f"Existing hashes: {existing_hashes}")
 
           # Filter new commits
           new_lines = []
@@ -88,8 +92,10 @@ jobs:
 
           # Insert into changelog
           if os.path.exists("CHANGELOG.md"):
-              with open("CHANGELOG.md") as f:
+              with open("CHANGELOG.md", newline="") as f:
                   lines = f.readlines()
+              # Normalize line endings
+              lines = [l.replace("\r\n", "\n").replace("\r", "\n") for l in lines]
               # Insert after first "# Changelog" line
               for i, line in enumerate(lines):
                   if line.startswith("# Changelog"):
@@ -97,10 +103,10 @@ jobs:
                       break
               else:
                   lines.append(new_section)
-              with open("CHANGELOG.md", "w") as f:
+              with open("CHANGELOG.md", "w", newline="\n") as f:
                   f.writelines(lines)
           else:
-              with open("CHANGELOG.md", "w") as f:
+              with open("CHANGELOG.md", "w", newline="\n") as f:
                   f.write(f"# Changelog\n{new_section}")
 
           print(f"Added {len(new_lines)} new commits")
