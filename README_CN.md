@@ -104,7 +104,13 @@ python main.py --mode tasks
 
 ### AI Agent 使用
 
-安装 SKILL 后，只需对 Agent 说：
+安装 SKILL：
+
+```bash
+npx skills add gandli/cttc-auto-learn
+```
+
+安装后，只需对 Agent 说：
 
 ```
 帮我刷学时
@@ -116,6 +122,7 @@ python main.py --mode tasks
 帮我刷专题
 帮我刷课程
 帮我刷任务
+帮我刷班级
 ```
 
 Agent 会自动执行：

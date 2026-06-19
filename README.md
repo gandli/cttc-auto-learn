@@ -104,7 +104,13 @@ Credentials are saved in `output/auth-state.json`, no need to scan again.
 
 ### AI Agent Usage
 
-After installing the SKILL, simply say to your Agent:
+Install the SKILL:
+
+```bash
+npx skills add gandli/cttc-auto-learn
+```
+
+After installation, simply say to your Agent:
 
 ```
 Help me complete my study hours
@@ -116,6 +122,7 @@ or
 Help me complete topics
 Help me complete courses
 Help me complete tasks
+Help me complete classes
 ```
 
 The Agent will automatically:
