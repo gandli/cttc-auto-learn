@@ -1,259 +1,69 @@
-# 🎓 cttc-auto-learn
+# 📚 cttc-auto-learn · CDP 版本
 
-[中文版](./README_CN.md) | English
+烟草网络学院 (mooc.ctt.cn) 自动学习助手 — Chrome DevTools Protocol 版本。
 
-Automated video learning system for China Tobacco's online training platform ([mooc.ctt.cn](https://mooc.ctt.cn)). Supports four modes: study hours, topics, courses, and tasks. Built with Playwright.
+## ✨ 特点
 
-## ✨ Features
+- 🔌 **CDP 连接** — 连接已运行的 Chrome，无需启动新浏览器
+- 🔐 **复用登录** — 直接使用 Chrome 已登录的会话
+- 📡 **API 优先** — 通过 CDP 执行 fetch 请求获取数据
+- 🎯 **四种模式** — 刷任务、刷专题、刷课程、刷学时
 
-- 🔐 **QR Login** — WeChat QR code scan, session persistence via `auth-state.json`
-- 📺 **Auto Playback** — Play video courses sequentially, track to 100% completion
-- 📊 **Study Hour Monitoring** — Real-time API interception for credit / cadre-education stats
-- 🎯 **Target-Driven** — Configurable target hours (default: 50h), auto-exit when reached
-- 🛡️ **Anti-Detection** — Periodic mouse movement (every 25 min), single-instance lock, single-tab enforcement
-- 🔄 **Crash Recovery** — Auto-restart up to 5 times on browser crash, force-kill stale processes
-- 📈 **Real-time Status** — Live status file (`output/status.json`) for external monitoring
-- 🖥️ **Terminal Dashboard** — Interactive monitoring panel with progress bars
-- 🎮 **Four Modes** — Study hours, topics, courses, tasks
+## 🚀 使用方法
 
----
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Python 3.11+
-- Windows 10/11
-
-### Clone
+### 1. 启动 Chrome（开启远程调试）
 
 ```bash
-git clone https://github.com/gandli/cttc-auto-learn.git
-cd cttc-auto-learn
+# Windows
+chrome.exe --remote-debugging-port=9222
+
+# macOS
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222
+
+# Linux
+google-chrome --remote-debugging-port=9222
 ```
 
-### Install Dependencies
-
-**uv (recommended):**
+### 2. 安装依赖
 
 ```bash
-uv sync
+pip install websockets
 ```
 
-**pip + venv (Python native):**
+### 3. 运行脚本
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate  # Linux/macOS
-.venv\Scripts\activate     # Windows
-pip install .
+python cdp_auto_learn.py
 ```
 
-### Run
-
-**uv:**
+### 4. 参数说明
 
 ```bash
-# Study hours (default)
-uv run python main.py
+# 刷学时（默认）
+python cdp_auto_learn.py --mode hours --target 50
 
-# Topics
-uv run python main.py --mode topics
+# 刷任务
+python cdp_auto_learn.py --mode tasks
 
-# Courses
-uv run python main.py --mode courses
+# 刷专题
+python cdp_auto_learn.py --mode topics
 
-# Tasks
-uv run python main.py --mode tasks
+# 刷课程
+python cdp_auto_learn.py --mode courses
+
+# 指定 Chrome 调试端口
+python cdp_auto_learn.py --port 9222
+
+# 无头模式（不打开新标签页）
+python cdp_auto_learn.py --headless
 ```
 
-**pip (venv activated):**
+## ⚠️ 注意事项
 
-```bash
-python main.py
-python main.py --mode topics
-python main.py --mode courses
-python main.py --mode tasks
-```
-
-**Parameters:**
-- `--mode hours` - Study hours (default)
-- `--mode topics` - Complete topics
-- `--mode courses` - Complete all courses
-- `--mode tasks` - Complete tasks
-- `--target 50` - Target hours (default: 50)
-- `--headless` - Headless mode
-
-1. A browser window will open showing the login page
-2. Scan the QR code with WeChat
-3. After login, the script automatically starts learning
-
-Credentials are saved in `output/auth-state.json`, no need to scan again.
-
-### AI Agent Usage
-
-After installing the SKILL, simply say to your Agent:
-
-```
-Help me complete my study hours
-```
-
-or
-
-```
-Help me complete topics
-Help me complete courses
-Help me complete tasks
-```
-
-The Agent will automatically:
-1. Check and clone the project
-2. Install Python dependencies
-3. Open browser for login (scan QR on first run)
-4. Play video courses automatically
-5. Monitor study hour progress
-6. Auto-exit when target is reached
-
----
-
-## 🎮 Four Running Modes
-
-| Mode | Command | Description | Trigger |
-|------|---------|-------------|---------|
-| Study Hours | `--mode hours` | Play videos to accumulate study hours (default) | "Help me with study hours" |
-| Topics | `--mode topics` | Complete topic courses | "Help me complete topics" |
-| Courses | `--mode courses` | Complete all incomplete courses | "Help me complete courses" |
-| Tasks | `--mode tasks` | Complete specified tasks | "Help me complete tasks" |
-
-### Study Hours Mode (Default)
-
-```bash
-uv run python main.py --mode hours --target 50
-```
-
-- Play videos to accumulate study hours
-- Auto-exit when target hours reached
-- Refresh study hours via API every 30 minutes
-
-### Topics Mode
-
-```bash
-uv run python main.py --mode topics
-```
-
-- Auto-discover and complete topic courses
-- Traverse all courses within topics
-
-### Courses Mode
-
-```bash
-uv run python main.py --mode courses
-```
-
-- Complete all incomplete courses
-- Skip already completed courses
-
-### Tasks Mode
-
-```bash
-uv run python main.py --mode tasks
-```
-
-- Complete specified tasks
-- Fetch task list via API
-
----
-
-## 📊 Real-time Monitoring
-
-### View Status File
-
-```bash
-cat output/status.json | python -m json.tool
-```
-
-### Terminal Dashboard
-
-```bash
-uv run python scripts/monitor.py
-```
-
-### Status Fields
-
-| Field | Description |
-|-------|-------------|
-| `status` | Current state: playing/paused/completed |
-| `video_progress` | Current video playback progress (%) |
-| `study_hours_current` | Current study hours |
-| `study_hours_target` | Target study hours |
-| `courses_completed` | Number of completed courses |
-| `courses_pending` | Number of pending courses |
-
----
-
-## 📁 Project Structure
-
-```
-cttc-auto-learn/
-├── main.py              # Entry point
-├── cttc/                # Core modules
-│   ├── login.py         # Login (QR code, credentials)
-│   ├── player.py        # Video playback
-│   ├── course.py        # Course management
-│   ├── status.py        # Status reporting
-│   └── ...
-├── scripts/             # Utility scripts
-│   └── monitor.py       # Terminal monitoring dashboard
-├── SKILLS/              # AI Agent workflow
-│   └── SKILL.md         # Auto-executed after installation
-├── output/              # Output directory
-│   ├── auth-state.json  # Login credentials
-│   └── status.json      # Real-time status
-└── logs/                # Log directory
-```
-
----
-
-## 🗺️ Roadmap
-
-### ✅ Completed (v0.0.1)
-
-| Module | Description |
-|--------|-------------|
-| QR Login | APP + WeChat dual-channel QR code login |
-| v22 Fast Login | Headless Chrome + HTTP parallel polling |
-| Four Modes | hours / topics / courses / tasks |
-| Auto Playback | Video auto-play with progress monitoring |
-| Study Hour Tracking | API-based credit stats, auto-stop on target |
-| DataManager | REST API data fetching |
-| StudyPlanner | Intelligent learning plan generation |
-| Testing | 168 tests passed (login, playback, progress, monitoring, scheduler) |
-
-### 🔜 Planned
-
-**v0.1.0 — Usability**
-- Credential encryption (`auth-state.json` → `auth-state.enc`)
-- Graceful session renewal (auto-refresh before expiry)
-- `config.yaml` for presets (target hours, mode, headless, etc.)
-- `python -m cttc` entry point
-
-**v0.2.0 — Monitoring**
-- Web dashboard for real-time progress viewing
-- Email / WeChat notification on task completion
-- Learning history and statistics export (CSV / JSON)
-
-**v0.3.0 — Intelligence**
-- Smart course scheduling (priority, difficulty, deadline)
-- Automatic exam preparation with question bank
-- Multi-account support
-
-**v1.0.0 — Production**
-- Docker containerization
-- GitHub Actions CI/CD
-- Cross-platform support (Linux / macOS)
-- PyPI release (`pip install cttc-auto-learn`)
-
----
+- 必须先启动 Chrome 并开启 `--remote-debugging-port=9222`
+- Chrome 中需要已登录烟草网络学院（或脚本会提示扫码）
+- 每次只能播放一个视频（平台限制）
+- 不要手动操作脚本正在控制的标签页
 
 ## 📄 License
 
