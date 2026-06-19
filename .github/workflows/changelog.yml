@@ -28,61 +28,83 @@ jobs:
           echo "tag=$TAG" >> $GITHUB_OUTPUT
 
       - name: Generate Changelog
-        id: changelog
         run: |
-          TAG=${{ steps.latest_tag.outputs.tag }}
-          PREV_TAG=$(git tag --sort=-v:refname | sed -n '2p')
+          python3 - <<'PYEOF'
+          import subprocess, re, os
 
-          if [ -z "$PREV_TAG" ]; then
-            LOG=$(git log $TAG --oneline --no-merges --reverse)
-          else
-            LOG=$(git log ${PREV_TAG}..${TAG} --oneline --no-merges --reverse)
-          fi
+          tag = "${{ steps.latest_tag.outputs.tag }}"
 
-          # Extract commit hashes already in CHANGELOG.md
-          EXISTING=""
-          if [ -f CHANGELOG.md ]; then
-            EXISTING=$(grep -oE '^[a-f0-9]{7,}' CHANGELOG.md || true)
-          fi
+          # Get previous tag
+          tags = subprocess.check_output(
+              ["git", "tag", "--sort=-v:refname"],
+              text=True
+          ).strip().split("\n")
+          prev_tag = tags[1] if len(tags) > 1 else None
 
-          # Filter out commits already listed
-          NEW_COMMITS=""
-          while IFS= read -r line; do
-            HASH=$(echo "$line" | grep -oE '^[a-f0-9]{7,}')
-            if [ -n "$HASH" ] && ! echo "$EXISTING" | grep -q "$HASH"; then
-              NEW_COMMITS="${NEW_COMMITS}${line}\n"
-            fi
-          done <<< "$LOG"
+          # Get commits between tags
+          if prev_tag:
+              log = subprocess.check_output(
+                  ["git", "log", f"{prev_tag}..{tag}", "--oneline", "--no-merges", "--reverse"],
+                  text=True
+              ).strip()
+          else:
+              log = subprocess.check_output(
+                  ["git", "log", tag, "--oneline", "--no-merges", "--reverse"],
+                  text=True
+              ).strip()
 
-          # If no new commits, skip
-          if [ -z "$(echo -e "$NEW_COMMITS" | tr -d '[:space:]')" ]; then
-            echo "No new commits to add"
-            exit 0
-          fi
+          if not log:
+              print("No commits found")
+              exit(0)
+
+          # Read existing changelog
+          existing_hashes = set()
+          if os.path.exists("CHANGELOG.md"):
+              with open("CHANGELOG.md") as f:
+                  content = f.read()
+              existing_hashes = set(re.findall(r'^[a-f0-9]{7,}', content, re.MULTILINE))
+
+          # Filter new commits
+          new_lines = []
+          for line in log.split("\n"):
+              m = re.match(r'^([a-f0-9]{7,})\s+(.*)', line)
+              if m:
+                  hash_, msg = m.group(1), m.group(2)
+                  if hash_ not in existing_hashes:
+                      new_lines.append(f"- {hash_} {msg}")
+
+          if not new_lines:
+              print("No new commits to add")
+              exit(0)
+
+          # Get tag date
+          date = subprocess.check_output(
+              ["git", "log", "-1", "--format=%ai", tag],
+              text=True
+          ).strip().split()[0]
 
           # Build new section
-          DATE=$(git log -1 --format=%ai $TAG | cut -d' ' -f1)
-          {
-            echo "## $TAG ($DATE)"
-            echo ""
-            echo -e "$NEW_COMMITS" | while IFS= read -r line; do
-              [ -n "$line" ] && echo "- $line"
-            done
-            echo ""
-          } > /tmp/new_section.md
+          new_section = f"\n## {tag} ({date})\n\n" + "\n".join(new_lines) + "\n"
 
-          # Insert after "# Changelog" header
-          if [ -f CHANGELOG.md ] && head -1 CHANGELOG.md | grep -q "^# Changelog"; then
-            # Insert new section after header
-            sed -i '2r /tmp/new_section.md' CHANGELOG.md
-          else
-            # Create new changelog
-            {
-              echo "# Changelog"
-              echo ""
-              cat /tmp/new_section.md
-            } > CHANGELOG.md
-          fi
+          # Insert into changelog
+          if os.path.exists("CHANGELOG.md"):
+              with open("CHANGELOG.md") as f:
+                  lines = f.readlines()
+              # Insert after first "# Changelog" line
+              for i, line in enumerate(lines):
+                  if line.startswith("# Changelog"):
+                      lines.insert(i + 1, new_section)
+                      break
+              else:
+                  lines.append(new_section)
+              with open("CHANGELOG.md", "w") as f:
+                  f.writelines(lines)
+          else:
+              with open("CHANGELOG.md", "w") as f:
+                  f.write(f"# Changelog\n{new_section}")
+
+          print(f"Added {len(new_lines)} new commits")
+          PYEOF
 
       - name: Commit Changes
         run: |
