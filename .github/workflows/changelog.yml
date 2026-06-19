@@ -24,19 +24,40 @@ jobs:
       - name: Get Latest Tag
         id: latest_tag
         run: |
-          TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          TAG=$(git tag --sort=-v:refname | head -n1)
           echo "tag=$TAG" >> $GITHUB_OUTPUT
 
       - name: Generate Changelog
         id: changelog
-        uses: requarks/changelog-action@v1
-        with:
-          token: ${{ github.token }}
-          tag: ${{ steps.latest_tag.outputs.tag }}
-
-      - name: Update CHANGELOG.md
         run: |
-          echo "${{ steps.changelog.outputs.changelog }}" > CHANGELOG.md
+          TAG=${{ steps.latest_tag.outputs.tag }}
+          PREV_TAG=$(git tag --sort=-v:refname | sed -n '2p')
+
+          if [ -z "$PREV_TAG" ]; then
+            # Only one tag — list all commits
+            LOG=$(git log $TAG --oneline --no-merges --reverse)
+          else
+            # Commits between previous and latest tag
+            LOG=$(git log ${PREV_TAG}..${TAG} --oneline --no-merges --reverse)
+          fi
+
+          # Build changelog
+          {
+            echo "# Changelog"
+            echo ""
+            echo "## $TAG ($(git log -1 --format=%ai $TAG | cut -d' ' -f1))"
+            echo ""
+            echo "$LOG" | while read -r line; do
+              echo "- $line"
+            done
+          } > /tmp/changelog_new.md
+
+          # Append old changelog content (skip header)
+          if [ -f CHANGELOG.md ]; then
+            tail -n +2 CHANGELOG.md >> /tmp/changelog_new.md
+          fi
+
+          mv /tmp/changelog_new.md CHANGELOG.md
 
       - name: Commit Changes
         run: |
