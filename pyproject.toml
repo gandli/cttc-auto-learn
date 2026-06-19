@@ -1,9 +1,0 @@
-[project]
-name = "cttc-auto-learn-cdp"
-version = "0.1.0"
-description = "烟草网络学院自动学习助手 — Chrome DevTools Protocol 版本"
-readme = "README.md"
-requires-python = ">=3.11"
-dependencies = [
-    "websockets>=12.0",
-]
