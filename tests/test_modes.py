@@ -62,7 +62,7 @@ class TestModes:
                 timeout=0.2
             )
         
-        log.info.assert_any_call("🎯 模式: 刷学时")
+        log.info.assert_any_call("🎯 模式: 刷网络自学学时")
 
     @pytest.mark.asyncio
     async def test_mode_topics_no_topics(self, mock_deps):

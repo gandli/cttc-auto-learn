@@ -32,12 +32,176 @@ from cttc.planner import StudyPlanner
 
 
 # ──────────────────────────────────────────────
-# 用户交互 — 询问新目标
+# 用户交互 — 数据看板 & 目标选择
 # ──────────────────────────────────────────────
+
+def show_user_dashboard(data: dict) -> None:
+    """展示用户当前数据摘要"""
+    stats = data.get("study_stats", {})
+    courses = data.get("courses", [])
+    topics = data.get("topics", [])
+    tasks = data.get("tasks", [])
+
+    online = stats.get("online_completed", 0)
+    online_target = stats.get("online_target", 0)
+    classroom = stats.get("classroom_completed", 0)
+    classroom_target = stats.get("classroom_target", 0)
+
+    # 课程统计
+    total_courses = len(courses)
+    completed_courses = sum(1 for c in courses if c.get("status") == "已完成")
+    required_courses = [c for c in courses if c.get("required") == "必修"]
+    required_done = sum(1 for c in required_courses if c.get("status") == "已完成")
+    pending_courses = sum(1 for c in courses if c.get("status") in ("学习中", "未开始"))
+
+    # 任务统计
+    active_tasks = [t for t in tasks if t.get("status") == "进行中"]
+    expired_tasks = [t for t in tasks if t.get("status") == "已过期"]
+
+    # 专题统计
+    topics_incomplete = 0
+    for t in topics:
+        tc = t.get("courses", [])
+        if any(c.get("status") != "已完成" for c in tc):
+            topics_incomplete += 1
+
+    print(f"\n{'='*55}")
+    print(f"  📊 用户数据概览")
+    print(f"{'='*55}")
+
+    # 学时
+    print(f"\n  ⏱️  学时进度:")
+    if online_target:
+        pct = online / online_target * 100
+        bar = "█" * int(pct / 5) + "░" * (20 - int(pct / 5))
+        flag = " ✅" if online >= online_target else ""
+        print(f"     网络自学: {online:.1f}/{online_target:.0f}h [{bar}] {pct:.0f}%{flag}")
+    if classroom_target:
+        pct = classroom / classroom_target * 100
+        bar = "█" * int(pct / 5) + "░" * (20 - int(pct / 5))
+        flag = " ✅" if classroom >= classroom_target else ""
+        print(f"     集中培训: {classroom:.1f}/{classroom_target:.0f}h [{bar}] {pct:.0f}%{flag}")
+
+    # 课程
+    print(f"\n  📚  课程:")
+    print(f"     总计: {total_courses} 门 (已完成 {completed_courses}, 待学 {pending_courses})")
+    if required_courses:
+        print(f"     必修: {len(required_courses)} 门 (已完成 {required_done})")
+
+    # 专题
+    print(f"\n  📖  专题: {len(topics)} 个 (未完成 {topics_incomplete})")
+
+    # 任务
+    print(f"\n  📋  任务: {len(tasks)} 个 (进行中 {len(active_tasks)}, 已过期 {len(expired_tasks)})")
+    for t in active_tasks[:3]:
+        name = t.get("name", "")[:40]
+        deadline = t.get("deadline", "")
+        print(f"     • {name} (截止: {deadline})")
+    if len(active_tasks) > 3:
+        print(f"     ... 还有 {len(active_tasks) - 3} 个")
+
+    print(f"\n{'='*55}")
+
+
+def ask_user_goal(data: dict) -> tuple[str, float] | None:
+    """询问用户刷课目标
+
+    Returns:
+        (mode, target_hours) 或 None 表示退出
+        mode: "hours" | "topics" | "courses" | "tasks"
+    """
+    stats = data.get("study_stats", {})
+    courses = data.get("courses", [])
+    tasks = data.get("tasks", [])
+    topics = data.get("topics", [])
+
+    online = stats.get("online_completed", 0)
+    online_target = stats.get("online_target", 0)
+    classroom = stats.get("classroom_completed", 0)
+    classroom_target = stats.get("classroom_target", 0)
+
+    pending_courses = sum(1 for c in courses if c.get("status") in ("学习中", "未开始"))
+    active_tasks = [t for t in tasks if t.get("status") == "进行中"]
+
+    # 生成推荐
+    suggestions = []
+    if online_target and online < online_target:
+        remaining = online_target - online
+        suggestions.append(("hours", online_target, f"刷网络自学学时 (还差 {remaining:.1f}h 达标)"))
+    if classroom_target and classroom < classroom_target:
+        remaining = classroom_target - classroom
+        suggestions.append(("hours_classroom", classroom_target, f"刷集中培训学时 (还差 {remaining:.1f}h 达标)"))
+    if active_tasks:
+        suggestions.append(("tasks", 0, f"完成 {len(active_tasks)} 个进行中的任务"))
+    if topics:
+        topics_incomplete = sum(1 for t in topics
+                                if any(c.get("status") != "已完成" for c in t.get("courses", [])))
+        if topics_incomplete:
+            suggestions.append(("topics", 0, f"完成 {topics_incomplete} 个未完成的专题"))
+    if pending_courses:
+        suggestions.append(("courses", 0, f"刷完 {pending_courses} 门待学课程"))
+
+    print(f"\n  🎯 请选择刷课目标:\n")
+
+    # 显示推荐选项
+    for i, (mode, target, desc) in enumerate(suggestions, 1):
+        print(f"     {i}. {desc}")
+
+    # 补充通用选项
+    offset = len(suggestions) + 1
+    print(f"     {offset}. 刷网络自学学时 (自定义目标)")
+    print(f"     {offset+1}. 无限制刷课 (所有课程)")
+    print(f"     {offset+2}. 退出程序")
+
+    print()
+
+    while True:
+        try:
+            choice = input("  请输入选项编号: ").strip()
+        except (EOFError, KeyboardInterrupt):
+            return None
+
+        try:
+            idx = int(choice)
+        except ValueError:
+            print("  ⚠️ 请输入数字")
+            continue
+
+        # 推荐选项
+        if 1 <= idx <= len(suggestions):
+            mode, target, _ = suggestions[idx - 1]
+            # 如果是自定义学时目标，需要输入
+            if mode == "hours":
+                return ("hours", target)
+            elif mode == "hours_classroom":
+                return ("hours_classroom", target)
+            else:
+                return (mode, 0)
+
+        # 自定义学时
+        if idx == offset:
+            default_target = online_target if online_target else 50
+            try:
+                val = input(f"  请输入目标学时 (默认 {default_target}h): ").strip()
+                target = float(val) if val else default_target
+            except (ValueError, EOFError, KeyboardInterrupt):
+                target = default_target
+            return ("hours", target)
+
+        # 无限制
+        if idx == offset + 1:
+            return ("courses", float("inf"))
+
+        # 退出
+        if idx == offset + 2:
+            return None
+
+        print("  ⚠️ 无效选项")
+
 
 def ask_new_target(current_hours: float, old_target: float) -> float | None:
     """达到目标后询问用户是否继续
-    
+
     Returns:
         新的目标学时，None 表示退出
     """
@@ -49,13 +213,13 @@ def ask_new_target(current_hours: float, old_target: float) -> float | None:
     print(f"  2. 无限制继续刷课")
     print(f"  3. 退出程序")
     print()
-    
+
     while True:
         try:
             choice = input("请输入选项 (1/2/3): ").strip()
         except (EOFError, KeyboardInterrupt):
             return None
-        
+
         if choice == "1":
             while True:
                 try:
@@ -142,15 +306,20 @@ async def login_flow(config: Config, log: Logger):
 # 刷学时模式
 # ──────────────────────────────────────────────
 
-async def mode_hours(client, config, log, progress, status, courses, monitor):
-    """刷学时模式 - 播放视频累计学时"""
+async def mode_hours(client, config, log, progress, status, courses, monitor, track="online"):
+    """刷学时模式 - 播放视频累计学时
+
+    Args:
+        track: "online" (网络自学) 或 "classroom" (集中培训)
+    """
     data_mgr = DataManager(client.page, config, log)
-    log.info("🎯 模式: 刷学时")
-    
+    track_label = "网络自学" if track == "online" else "集中培训"
+    log.info(f"🎯 模式: 刷{track_label}学时")
+
     # 使用 API 获取学时统计（无需导航到学习中心）
     current_hours = 0.0
     stats = await data_mgr.fetch_study_stats()
-    if stats and stats.get("online_completed"):
+    if stats:
         online = stats.get("online_completed", 0)
         online_target = stats.get("online_target", 0)
         classroom = stats.get("classroom_completed", 0)
@@ -158,8 +327,12 @@ async def mode_hours(client, config, log, progress, status, courses, monitor):
         log.info(f"📊 网络自学: {online}/{online_target} 小时 ({online/online_target*100:.1f}%)" if online_target else f"📊 网络自学: {online} 小时")
         if classroom_target:
             log.info(f"📊 集中培训: {classroom}/{classroom_target} 小时 ({classroom/classroom_target*100:.1f}%)")
-        progress.record_study_time(online)
-        current_hours = online
+        if track == "classroom":
+            progress.record_study_time(classroom)
+            current_hours = classroom
+        else:
+            progress.record_study_time(online)
+            current_hours = online
 
     # 目标检查
     target_hours = config.target_hours
@@ -191,12 +364,18 @@ async def mode_hours(client, config, log, progress, status, courses, monitor):
                 try:
                     update_result = await data_mgr.update_progress()
                     stats = update_result.get("study_stats", {})
-                    if stats and stats.get("online_completed"):
+                    if stats:
                         online = stats.get("online_completed", 0)
                         online_target = stats.get("online_target", 0)
-                        log.info(f"📊 刷新学时: {online}/{online_target} 小时 ({online/online_target*100:.1f}%)" if online_target else f"📊 刷新学时: {online} 小时")
-                        progress.record_study_time(online)
-                        status.set_study_hours(online, target_hours or 0)
+                        classroom = stats.get("classroom_completed", 0)
+                        classroom_target = stats.get("classroom_target", 0)
+                        log.info(f"📊 刷新学时: 网络自学 {online}/{online_target}h, 集中培训 {classroom}/{classroom_target}h")
+                        if track == "classroom":
+                            progress.record_study_time(classroom)
+                            status.set_study_hours(classroom, target_hours or 0)
+                        else:
+                            progress.record_study_time(online)
+                            status.set_study_hours(online, target_hours or 0)
                     last_study_hours_refresh = current_time
                 except Exception as e:
                     log.warn(f"⚠️ 刷新数据失败: {e}")
@@ -679,55 +858,73 @@ async def mode_tasks(client, config, log, progress, status, courses, monitor):
 
 async def main():
     parser = argparse.ArgumentParser(description="烟草网络学院 - 全自动学习系统")
-    parser.add_argument("--mode", choices=["hours", "topics", "courses", "tasks"], 
-                        default="hours", help="运行模式 (默认: hours)")
-    parser.add_argument("--target", type=float, default=50.0, help="目标学时 (默认: 50)")
+    parser.add_argument("--mode", choices=["hours", "topics", "courses", "tasks"],
+                        default=None, help="运行模式 (默认: 交互式选择)")
+    parser.add_argument("--target", type=float, default=None, help="目标学时")
     parser.add_argument("--headless", action="store_true", help="无头模式")
     args = parser.parse_args()
-    
-    config = Config(headless=args.headless, target_hours=args.target)
+
+    config = Config(headless=args.headless, target_hours=args.target or 0)
     log = Logger(config.log_file)
     progress = ProgressManager(config, log)
     status = StatusReporter(config.output_dir)
-    
+
     log.info("🚀 烟草网络学院 - 自动学习系统")
     log.info("=" * 50)
-    log.info(f"📌 模式: {args.mode}")
-    log.info(f"🎯 目标: {args.target} 学时")
-    
+
     # 单实例检查
     if not check_single_instance(log):
         return
-    
+
     try:
         # 登录
         client, success, qr_paths = await login_flow(config, log)
         if not success:
             log.error("❌ 登录失败")
             return
-        
+
         # 初始化课程管理
         courses = CourseManager(client.page, config, log, progress)
         courses.setup_api_interceptor()
 
         # 登录后立即获取全部数据（任务、专题、课程、学时）
         data_mgr = DataManager(client.page, config, log)
-        await data_mgr.fetch_all()
-        
+        all_data = await data_mgr.fetch_all()
+
         # 初始化监控
         monitor = StudyMonitor(client.page, config, log, progress)
         monitor.setup_api_interceptor()
-        
+
+        # ── 交互式目标选择（除非 CLI 已指定 --mode）──
+        mode = args.mode
+        target_hours = args.target
+
+        if mode is None:
+            # 展示数据看板
+            show_user_dashboard(all_data)
+            # 询问目标
+            goal = ask_user_goal(all_data)
+            if goal is None:
+                log.info("👋 用户退出")
+                return
+            mode, target_hours = goal
+            config.target_hours = target_hours
+            log.info(f"📌 模式: {mode}")
+            if target_hours and target_hours != float("inf"):
+                log.info(f"🎯 目标: {target_hours}h")
+
         # 根据模式运行
-        if args.mode == "hours":
-            await mode_hours(client, config, log, progress, status, courses, monitor)
-        elif args.mode == "topics":
+        if mode == "hours":
+            await mode_hours(client, config, log, progress, status, courses, monitor, track="online")
+        elif mode == "hours_classroom":
+            await mode_hours(client, config, log, progress, status, courses, monitor, track="classroom")
+        elif mode == "topics":
             await mode_topics(client, config, log, progress, status, courses, monitor)
-        elif args.mode == "courses":
+        elif mode == "courses":
             await mode_courses(client, config, log, progress, status, courses, monitor)
-        elif args.mode == "tasks":
+        elif mode == "tasks":
             await mode_tasks(client, config, log, progress, status, courses, monitor)
-        
+
     except KeyboardInterrupt:
         log.info("\n⏹️ 用户中断")
     except Exception as e:

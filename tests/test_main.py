@@ -216,10 +216,11 @@ async def test_mode_hours_target_reached():
     data_mgr.fetch_topics = AsyncMock(return_value=[])
     data_mgr.fetch_courses = AsyncMock(return_value=[])
 
-    with patch("main.DataManager", return_value=data_mgr):
+    with patch("main.DataManager", return_value=data_mgr), \
+         patch("main.ask_new_target", return_value=None) as mock_ask:
         await mode_hours(client, config, log, progress, status, courses, monitor)
 
-    log.info.assert_any_call("🎉 已达到目标学时 50h (当前 50.0h)！")
+    mock_ask.assert_called_once_with(50.0, 50)
 
 
 # ── mode_topics 无专题 ──
