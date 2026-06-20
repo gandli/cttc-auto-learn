@@ -326,26 +326,35 @@ async def test_capture_qr_via_api_success(client):
 
 
 def test_fetch_qr_codes(client, config):
-    """测试完整 QR 获取流程"""
+    """测试完整 QR 获取流程（纯 HTTP API）"""
     import base64
     config.output_dir = str(Path(config.output_dir))
     (Path(config.output_dir)).mkdir(parents=True, exist_ok=True)
 
     valid_b64 = base64.b64encode(b"fake_qr_image_data").decode()
 
-    with patch.object(client, '_capture_qr_via_api', new_callable=AsyncMock) as mock_capture, \
+    with patch("cttc.login.http_req.get") as mock_get, \
          patch("cttc.login.http_req.post") as mock_post, \
          patch("cttc.login.generate_qr_png") as mock_qr:
 
-        mock_capture.return_value = ("https://loginCheck?uuid=test", valid_b64)
-        mock_post.return_value = MagicMock(json=MagicMock(return_value={"uuid": "wx-uuid-123"}))
+        # deriveQRCode 返回
+        mock_get.return_value = MagicMock(
+            status_code=200,
+            json=MagicMock(return_value={"uuid": "app-uuid-123", "data": valid_b64})
+        )
+        # createQRCode 返回
+        mock_post.return_value = MagicMock(
+            status_code=200,
+            json=MagicMock(return_value={"uuid": "wx-uuid-456"})
+        )
         mock_qr.return_value = "/path/to/qr.png"
 
         lc_url, wx_uuid, app_path, wx_path = client.fetch_qr_codes()
 
-        assert lc_url == "https://loginCheck?uuid=test"
-        assert wx_uuid == "wx-uuid-123"
-        mock_capture.assert_called_once()
+        assert "loginCheck" in lc_url
+        assert "app-uuid-123" in lc_url
+        assert wx_uuid == "wx-uuid-456"
+        mock_get.assert_called_once()
         mock_post.assert_called_once()
 
 
