@@ -5,6 +5,24 @@
 格式基于 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，
 并且本项目遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
+
+## [0.0.3] - 2026-06-20
+
+### 变更
+- 优化项目结构
+- 拆分 main.py 为模块化结构
+
+### 文档
+- CHANGELOG 格式改为 Keep a Changelog 规范
+- 添加 LICENSE、CONTRIBUTING.md、py.typed
+
+### 测试
+- 增加测试覆盖率 53% → 63%
+
+### 其他
+- changelog workflow 改为 Keep a Changelog 规范
+- 移动 qr-gen 日志到 logs/ 目录
+- release: v0.0.3
 ## [0.0.3] - 2026-06-20
 
 ### 新增
