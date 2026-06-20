@@ -123,14 +123,11 @@ def ask_user_goal(data: dict) -> tuple[str, float] | None:
     pending_courses = sum(1 for c in courses if c.get("status") in ("学习中", "未开始"))
     active_tasks = [t for t in tasks if t.get("status") == "进行中"]
 
-    # 生成推荐
+    # 生成推荐（仅线上可刷的目标）
     suggestions = []
     if online_target and online < online_target:
         remaining = online_target - online
         suggestions.append(("hours", online_target, f"刷网络自学学时 (还差 {remaining:.1f}h 达标)"))
-    if classroom_target and classroom < classroom_target:
-        remaining = classroom_target - classroom
-        suggestions.append(("hours_classroom", classroom_target, f"刷集中培训学时 (还差 {remaining:.1f}h 达标)"))
     if active_tasks:
         suggestions.append(("tasks", 0, f"完成 {len(active_tasks)} 个进行中的任务"))
     if topics:
@@ -170,13 +167,7 @@ def ask_user_goal(data: dict) -> tuple[str, float] | None:
         # 推荐选项
         if 1 <= idx <= len(suggestions):
             mode, target, _ = suggestions[idx - 1]
-            # 如果是自定义学时目标，需要输入
-            if mode == "hours":
-                return ("hours", target)
-            elif mode == "hours_classroom":
-                return ("hours_classroom", target)
-            else:
-                return (mode, 0)
+            return (mode, target)
 
         # 自定义学时
         if idx == offset:
@@ -915,9 +906,7 @@ async def main():
 
         # 根据模式运行
         if mode == "hours":
-            await mode_hours(client, config, log, progress, status, courses, monitor, track="online")
-        elif mode == "hours_classroom":
-            await mode_hours(client, config, log, progress, status, courses, monitor, track="classroom")
+            await mode_hours(client, config, log, progress, status, courses, monitor)
         elif mode == "topics":
             await mode_topics(client, config, log, progress, status, courses, monitor)
         elif mode == "courses":
