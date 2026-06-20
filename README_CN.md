@@ -214,21 +214,42 @@ uv run python scripts/monitor.py
 
 ```
 cttc-auto-learn/
-├── main.py              # 主入口
-├── cttc/                # 核心模块
-│   ├── login.py         # 登录（二维码、凭证）
-│   ├── player.py        # 视频播放
-│   ├── course.py        # 课程管理
-│   ├── status.py        # 状态报告
-│   └── ...
-├── scripts/             # 工具脚本
-│   └── monitor.py       # 终端监控面板
-├── SKILLS/              # AI Agent 工作流
-│   └── SKILL.md         # Agent 安装后自动执行
-├── output/              # 输出目录
-│   ├── auth-state.json  # 登录凭证
-│   └── status.json      # 实时状态
-└── logs/                # 日志目录
+├── main.py                # 主入口
+├── cttc/                  # 核心模块
+│   ├── login.py           # 登录（二维码、凭证）
+│   ├── player.py          # 视频播放
+│   ├── course.py          # 课程管理
+│   ├── data_manager.py    # API 数据获取
+│   ├── monitor.py         # 学时监控
+│   ├── progress.py        # 进度追踪
+│   ├── config.py          # 配置管理
+│   ├── logger.py          # 日志系统
+│   ├── qr.py              # 二维码生成
+│   ├── selectors.py       # CSS 选择器
+│   ├── status.py          # 状态报告
+│   └── process_manager.py # 进程管理
+├── scripts/               # 工具脚本
+│   ├── explore/           # API 探索脚本
+│   │   ├── api_explore.py
+│   │   ├── crawl_site.py
+│   │   └── ...
+│   ├── cdp_login_analyzer.py
+│   └── monitor.py         # 终端监控面板
+├── tests/                 # 测试文件 (168 tests)
+├── docs/                  # 文档
+│   ├── analysis/          # 技术分析报告
+│   └── crawl/             # API 爬取结果
+├── SKILLS/                # AI Agent 工作流
+│   └── cttc-auto-learn/
+│       └── SKILL.md       # Agent 安装后自动执行
+├── data/                  # 运行时数据 (gitignored)
+├── output/                # 输出目录 (gitignored)
+│   ├── auth-state.json    # 登录凭证
+│   ├── status.json        # 实时状态
+│   └── crawl/             # 爬取原始数据
+├── pyproject.toml         # 项目配置
+├── CHANGELOG.md           # 版本历史
+└── README.md
 ```
 
 ---

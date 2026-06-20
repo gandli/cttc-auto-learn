@@ -214,21 +214,42 @@ uv run python scripts/monitor.py
 
 ```
 cttc-auto-learn/
-├── main.py              # Entry point
-├── cttc/                # Core modules
-│   ├── login.py         # Login (QR code, credentials)
-│   ├── player.py        # Video playback
-│   ├── course.py        # Course management
-│   ├── status.py        # Status reporting
-│   └── ...
-├── scripts/             # Utility scripts
-│   └── monitor.py       # Terminal monitoring dashboard
-├── SKILLS/              # AI Agent workflow
-│   └── SKILL.md         # Auto-executed after installation
-├── output/              # Output directory
-│   ├── auth-state.json  # Login credentials
-│   └── status.json      # Real-time status
-└── logs/                # Log directory
+├── main.py                # Entry point
+├── cttc/                  # Core modules
+│   ├── login.py           # Login (QR code, credentials)
+│   ├── player.py          # Video playback
+│   ├── course.py          # Course management
+│   ├── data_manager.py    # API data fetching
+│   ├── monitor.py         # Study time monitoring
+│   ├── progress.py        # Progress tracking
+│   ├── config.py          # Configuration
+│   ├── logger.py          # Logging
+│   ├── qr.py              # QR code generation
+│   ├── selectors.py       # CSS selectors
+│   ├── status.py          # Status reporting
+│   └── process_manager.py # Process management
+├── scripts/               # Utility scripts
+│   ├── explore/           # API exploration scripts
+│   │   ├── api_explore.py
+│   │   ├── crawl_site.py
+│   │   └── ...
+│   ├── cdp_login_analyzer.py
+│   └── monitor.py         # Terminal monitoring dashboard
+├── tests/                 # Test files (168 tests)
+├── docs/                  # Documentation
+│   ├── analysis/          # Technical analysis reports
+│   └── crawl/             # API crawl results
+├── SKILLS/                # AI Agent workflow
+│   └── cttc-auto-learn/
+│       └── SKILL.md       # Auto-executed after installation
+├── data/                  # Runtime data (gitignored)
+├── output/                # Output directory (gitignored)
+│   ├── auth-state.json    # Login credentials
+│   ├── status.json        # Real-time status
+│   └── crawl/             # Crawl raw data
+├── pyproject.toml         # Project config
+├── CHANGELOG.md           # Version history
+└── README.md
 ```
 
 ---

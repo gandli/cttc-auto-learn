@@ -22,8 +22,11 @@ output/chrome-profile/
 output/*.json
 output/*.png
 output/*.log
+output/*.txt
 output/js/
 output/screenshots/
+output/crawl/*.json
+output/crawl/*.txt
 
 # data & logs
 data/
