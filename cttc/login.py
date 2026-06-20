@@ -330,11 +330,16 @@ class CTTCLogin:
             if time.time() - last_refresh > QR_LIFETIME and not stop.is_set():
                 self.log.info("🔄 二维码过期，刷新中...")
                 try:
-                    new_lc, new_wx, app_path, wx_path = self.fetch_qr_codes()
+                    # fetch_qr_codes 是 async，需要创建新 event loop
+                    loop = asyncio.new_event_loop()
+                    new_lc, new_wx, app_path, wx_path = loop.run_until_complete(self.fetch_qr_codes())
+                    loop.close()
                     lc_url = new_lc  # 更新 URL
                     last_refresh = time.time()
                     self.log.info(f"✅ 二维码已刷新: {app_path}, {wx_path}")
-                    # 通知调用者发送新二维码给用户
+                    # 输出特殊标记，Agent 可检测并发送新二维码
+                    print(f"QR_REFRESHED|{app_path}|{wx_path}", flush=True)
+                    # 通知调用者
                     if on_qr_refreshed:
                         try:
                             on_qr_refreshed(app_path, wx_path)

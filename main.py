@@ -79,6 +79,9 @@ async def login_flow(config: Config, log: Logger):
         log.info(f"🔄 二维码已刷新: {new_app_path}")
         qr_paths["app"] = new_app_path
         qr_paths["wechat"] = new_wx_path
+        # 写入信号文件，Agent 可检测并发送
+        signal_file = Path(config.output_dir) / "qr-refreshed.txt"
+        signal_file.write_text(f"{new_app_path}\n{new_wx_path}", encoding="utf-8")
     client._on_qr_refreshed = on_qr_refreshed
 
     # 4. HTTP 轮询检测登录（APP + 微信并行）
