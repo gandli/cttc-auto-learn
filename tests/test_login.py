@@ -325,7 +325,8 @@ async def test_capture_qr_via_api_success(client):
             result = (None, None)
 
 
-def test_fetch_qr_codes(client, config):
+@pytest.mark.asyncio
+async def test_fetch_qr_codes(client, config):
     """测试完整 QR 获取流程（headless Chrome + HTTP）"""
     import base64
     config.output_dir = str(Path(config.output_dir))
@@ -344,7 +345,7 @@ def test_fetch_qr_codes(client, config):
         )
         mock_qr.return_value = "/path/to/qr.png"
 
-        lc_url, wx_uuid, app_path, wx_path = client.fetch_qr_codes()
+        lc_url, wx_uuid, app_path, wx_path = await client.fetch_qr_codes()
 
         assert "loginCheck" in lc_url
         assert "uuid=test" in lc_url

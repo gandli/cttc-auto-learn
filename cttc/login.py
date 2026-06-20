@@ -217,7 +217,7 @@ class CTTCLogin:
         generate_qr_png(wx_url, str(path), size=200)
         return str(path.resolve())
 
-    def fetch_qr_codes(self) -> tuple:
+    async def fetch_qr_codes(self) -> tuple:
         """获取两个二维码：headless Chrome 捕获 loginCheck URL + HTTP 生成
 
         Returns:
@@ -226,9 +226,7 @@ class CTTCLogin:
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
         # 1. headless Chrome 捕获 loginCheck 完整 URL（需要 organizationId + key）
-        loop = asyncio.new_event_loop()
-        lc_url, app_b64 = loop.run_until_complete(self._capture_qr_via_api())
-        loop.close()
+        lc_url, app_b64 = await self._capture_qr_via_api()
 
         # 保存 APP 二维码
         app_path = None

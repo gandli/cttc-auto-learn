@@ -67,7 +67,7 @@ async def login_flow(config: Config, log: Logger):
         return client, True, qr_paths
 
     # 2. 纯 HTTP 获取二维码（<1秒）
-    lc_url, wx_uuid, app_path, wx_path = client.fetch_qr_codes()
+    lc_url, wx_uuid, app_path, wx_path = await client.fetch_qr_codes()
     qr_paths = {"app": app_path, "wechat": wx_path}
     
     log.info(f"📱 APP 二维码: {app_path}")
