@@ -18,7 +18,6 @@ from datetime import datetime
 from pathlib import Path
 
 from cttc.api import (
-    API_COURSE_DETAIL,
     API_COURSES,
     API_STUDY_STATS,
     API_TASKS,
@@ -40,13 +39,13 @@ async def crawl_site(config: Config, log: Logger):
     # 1. 登录
     log.info("🔐 登录中...")
     client = CTTCLogin(config, log)
-    await client.setup()
+    await client.start()
 
     # 尝试复用凭证
-    if config.state_file.exists():
-        log.info(f"🍪 发现已保存的凭证: {config.state_file.name}")
+    if client.state_file.exists():
+        log.info(f"🍪 发现已保存的凭证: {client.state_file.name}")
         try:
-            await client._ctx.add_cookies(json.loads(config.state_file.read_text("utf-8")).get("cookies", []))
+            await client._ctx.add_cookies(json.loads(client.state_file.read_text("utf-8")).get("cookies", []))
             await client.page.goto(config.base_url, wait_until="domcontentloaded", timeout=15000)
             await client.page.wait_for_timeout(3000)
             if await client.is_logged_in():
@@ -80,6 +79,8 @@ async def crawl_site(config: Config, log: Logger):
     if not courses:
         courses = await data_mgr._fetch_courses_dom()
 
+    output_dir = Path(config.output_dir)
+
     if courses:
         completed = sum(1 for c in courses if c["status"] == "已完成")
         in_progress = sum(1 for c in courses if c["status"] == "学习中")
@@ -99,7 +100,7 @@ async def crawl_site(config: Config, log: Logger):
         log.info(f"  📊 必修 {required} 门 | 选修 {elective} 门")
 
         # 按状态分类保存
-        _save_json(config.output_dir / "crawl" / "courses_all.json", {
+        _save_json(output_dir / "crawl" / "courses_all.json", {
             "total": len(courses),
             "items": courses,
         })
@@ -118,7 +119,7 @@ async def crawl_site(config: Config, log: Logger):
             "completed": completed,
         }
         log.info(f"  📊 共 {len(tasks)} 个 | 🔄{in_progress} ✅{completed}")
-        _save_json(config.output_dir / "crawl" / "tasks.json", {
+        _save_json(output_dir / "crawl" / "tasks.json", {
             "total": len(tasks),
             "items": tasks,
         })
@@ -133,7 +134,7 @@ async def crawl_site(config: Config, log: Logger):
             "total_courses": total_topic_courses,
         }
         log.info(f"  📊 共 {len(topics)} 个专题 | {total_topic_courses} 门课程")
-        _save_json(config.output_dir / "crawl" / "topics.json", {
+        _save_json(output_dir / "crawl" / "topics.json", {
             "total": len(topics),
             "items": topics,
         })
@@ -149,60 +150,49 @@ async def crawl_site(config: Config, log: Logger):
         classroom_target = stats.get("classroom_target", 0)
         log.info(f"  📊 网络自学: {online}/{online_target} 小时")
         log.info(f"  📊 集中培训: {classroom}/{classroom_target} 小时")
-        _save_json(config.output_dir / "crawl" / "study_stats.json", stats)
+        _save_json(output_dir / "crawl" / "study_stats.json", stats)
 
-    # 6. 分析课程详情（抽样前 20 门课程获取详细信息）
-    log.info("\n🔍 [5/5] 抽样分析课程详情（前 20 门）...")
-    sample_details = []
-    if courses:
-        sample = courses[:20]
-        for i, course in enumerate(sample, 1):
-            cid = course.get("course_id", "")
-            if not cid:
-                continue
-            try:
-                token = await data_mgr._get_token()
-                if not token:
-                    break
-                detail = await data_mgr._api_get(f"{API_COURSE_DETAIL}/{cid}")
-                if detail:
-                    sections = detail.get("sectionList", [])
-                    video_count = sum(
-                        1 for s in sections
-                        for item in s.get("sectionItems", [])
-                        if item.get("sectionItemType") == "13"
-                    )
-                    total_duration = sum(
-                        item.get("totalTime", 0)
-                        for s in sections
-                        for item in s.get("sectionItems", [])
-                    )
-                    sample_details.append({
-                        "course_id": cid,
-                        "title": course.get("title", ""),
-                        "sections": len(sections),
-                        "video_count": video_count,
-                        "total_duration_min": round(total_duration / 60, 1),
-                    })
-                    log.info(f"  [{i}/{len(sample)}] {course.get('title', '')[:30]} — {len(sections)} 章节, {video_count} 视频")
-                await asyncio.sleep(0.5)  # 限速
-            except Exception as e:
-                log.warn(f"  ⚠️ 获取详情失败: {e}")
-
-    if sample_details:
-        results["sample_details"] = sample_details
-        _save_json(config.output_dir / "crawl" / "course_details_sample.json", sample_details)
+    # 6. 课程学习时长分析
+    log.info("\n🔍 [5/5] 课程学习时长分析...")
+    study_times = [c['study_min'] for c in courses if c.get('study_min', 0) > 0]
+    if study_times:
+        avg_study = sum(study_times) / len(study_times)
+        max_study = max(study_times)
+        total_study = sum(study_times)
+        
+        results["study_time_analysis"] = {
+            "total_study_min": round(total_study, 1),
+            "total_study_hours": round(total_study / 60, 1),
+            "avg_study_min": round(avg_study, 1),
+            "max_study_min": round(max_study, 1),
+            "courses_with_study": len(study_times),
+        }
+        
+        # 最长课程 TOP 10
+        sorted_by_study = sorted(courses, key=lambda x: x.get('study_min', 0), reverse=True)[:10]
+        results["top_courses_by_study"] = [{
+            "title": c.get("title", ""),
+            "study_min": c.get("study_min", 0),
+            "status": c.get("status", ""),
+        } for c in sorted_by_study]
+        
+        log.info(f"  📊 总学习时长: {total_study:.1f} 分钟 ({total_study/60:.1f} 小时)")
+        log.info(f"  📊 平均学习时长: {avg_study:.1f} 分钟/门")
+        log.info(f"  📊 最长学习时长: {max_study:.1f} 分钟")
+        
+        _save_json(output_dir / "crawl" / "study_time_analysis.json", results["study_time_analysis"])
+        _save_json(output_dir / "crawl" / "top_courses.json", results["top_courses_by_study"])
 
     # 7. 生成汇总报告
     report = _generate_report(results)
-    report_path = config.output_dir / "crawl" / "REPORT.md"
+    report_path = output_dir / "crawl" / "REPORT.md"
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(report, encoding="utf-8")
     log.info(f"\n📄 报告已保存: {report_path.relative_to(Path.cwd())}")
 
     # 保存完整结果
-    _save_json(config.output_dir / "crawl" / "full_results.json", results)
-    log.info(f"📁 数据已保存到: {config.output_dir / 'crawl'}")
+    _save_json(output_dir / "crawl" / "full_results.json", results)
+    log.info(f"📁 数据已保存到: {output_dir / 'crawl'}")
 
     # 8. 打印报告
     print("\n" + report)
@@ -338,6 +328,36 @@ def _generate_report(results: dict) -> str:
                 lines.append(f"| {i} | {d.get('title', '')[:30]} | {d.get('video_count', 0)} | {d.get('total_duration_min', 0):.0f}分钟 |")
             lines.append("")
 
+    # 学习时长分析
+    sta = results.get("study_time_analysis", {})
+    top_courses = results.get("top_courses_by_study", [])
+    if sta:
+        lines.extend([
+            "### 学习时长分析",
+            "",
+            f"| 指标 | 数值 |",
+            f"|------|------|",
+            f"| 总学习时长 | **{sta.get('total_study_hours', 0)}** 小时 |",
+            f"| 平均学习时长 | {sta.get('avg_study_min', 0):.1f} 分钟/门 |",
+            f"| 最长学习时长 | {sta.get('max_study_min', 0):.1f} 分钟 |",
+            f"| 有学习记录的课程 | {sta.get('courses_with_study', 0)} 门 |",
+            "",
+        ])
+    
+    if top_courses:
+        lines.extend([
+            "#### 🏆 学习时长 TOP 10",
+            "",
+            "| 排名 | 课程名称 | 学习时长 | 状态 |",
+            "|------|----------|----------|------|",
+        ])
+        for i, c in enumerate(top_courses[:10], 1):
+            title = c.get("title", "")[:30]
+            if len(c.get("title", "")) > 30:
+                title += "..."
+            lines.append(f"| {i} | {title} | {c.get('study_min', 0):.0f}分钟 | {c.get('status', '')} |")
+        lines.append("")
+
     # 数据文件说明
     lines.extend([
         "---",
@@ -351,7 +371,8 @@ def _generate_report(results: dict) -> str:
         "| `crawl/tasks.json` | 任务列表 |",
         "| `crawl/topics.json` | 专题列表 |",
         "| `crawl/study_stats.json` | 学时统计 |",
-        "| `crawl/course_details_sample.json` | 课程详情抽样 |",
+        "| `crawl/study_time_analysis.json` | 学习时长分析 |",
+        "| `crawl/top_courses.json` | 学习时长 TOP 10 课程 |",
         "| `crawl/REPORT.md` | 本报告 |",
         "",
         "---",
