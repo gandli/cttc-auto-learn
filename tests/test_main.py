@@ -151,7 +151,7 @@ async def test_login_flow_timeout(config, log):
 @pytest.mark.asyncio
 async def test_enforce_single_tab_closes_extra():
     """测试关闭多余标签页"""
-    from main import enforce_single_tab
+    from cttc.modes import enforce_single_tab
 
     page = AsyncMock()
     extra_page = MagicMock()
@@ -172,7 +172,7 @@ async def test_enforce_single_tab_closes_extra():
 @pytest.mark.asyncio
 async def test_enforce_single_tab_no_extra():
     """测试无多余标签页"""
-    from main import enforce_single_tab
+    from cttc.modes import enforce_single_tab
 
     page = AsyncMock()
     ctx = MagicMock()
@@ -190,7 +190,7 @@ async def test_enforce_single_tab_no_extra():
 @pytest.mark.asyncio
 async def test_mode_hours_target_reached():
     """测试达到目标学时后退出"""
-    from main import mode_hours
+    from cttc.modes import mode_hours
 
     client = MagicMock()
     client.page = AsyncMock()
@@ -216,8 +216,8 @@ async def test_mode_hours_target_reached():
     data_mgr.fetch_topics = AsyncMock(return_value=[])
     data_mgr.fetch_courses = AsyncMock(return_value=[])
 
-    with patch("main.DataManager", return_value=data_mgr), \
-         patch("main.ask_new_target", return_value=None) as mock_ask:
+    with patch("cttc.modes.DataManager", return_value=data_mgr), \
+         patch("cttc.modes.ask_new_target", return_value=None) as mock_ask:
         await mode_hours(client, config, log, progress, status, courses, monitor)
 
     mock_ask.assert_called_once_with(50.0, 50)
@@ -229,7 +229,7 @@ async def test_mode_hours_target_reached():
 @pytest.mark.asyncio
 async def test_mode_topics_no_topics():
     """测试无专题时的处理"""
-    from main import mode_topics
+    from cttc.modes import mode_topics
 
     client = MagicMock()
     client.page = AsyncMock()
@@ -243,7 +243,7 @@ async def test_mode_topics_no_topics():
     data_mgr = AsyncMock()
     data_mgr.fetch_topics = AsyncMock(return_value=[])
 
-    with patch("main.DataManager", return_value=data_mgr):
+    with patch("cttc.modes.DataManager", return_value=data_mgr):
         await mode_topics(client, config, log, progress, status, courses, monitor)
 
     log.warn.assert_any_call("⚠️ 未找到专题课程")
@@ -255,7 +255,7 @@ async def test_mode_topics_no_topics():
 @pytest.mark.asyncio
 async def test_mode_courses_no_courses():
     """测试无待学习课程"""
-    from main import mode_courses
+    from cttc.modes import mode_courses
 
     client = MagicMock()
     client.page = AsyncMock()
@@ -269,7 +269,7 @@ async def test_mode_courses_no_courses():
     data_mgr = AsyncMock()
     data_mgr.fetch_courses = AsyncMock(return_value=[])
 
-    with patch("main.DataManager", return_value=data_mgr):
+    with patch("cttc.modes.DataManager", return_value=data_mgr):
         await mode_courses(client, config, log, progress, status, courses, monitor)
 
     log.warn.assert_any_call("⚠️ 没有待学习的课程")
@@ -281,7 +281,7 @@ async def test_mode_courses_no_courses():
 @pytest.mark.asyncio
 async def test_mode_tasks_no_tasks():
     """测试无任务"""
-    from main import mode_tasks
+    from cttc.modes import mode_tasks
 
     client = MagicMock()
     client.page = AsyncMock()
@@ -295,7 +295,7 @@ async def test_mode_tasks_no_tasks():
     data_mgr = AsyncMock()
     data_mgr.fetch_tasks = AsyncMock(return_value=[])
 
-    with patch("main.DataManager", return_value=data_mgr):
+    with patch("cttc.modes.DataManager", return_value=data_mgr):
         await mode_tasks(client, config, log, progress, status, courses, monitor)
 
     log.warn.assert_any_call("⚠️ 未找到任务")

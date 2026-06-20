@@ -51,7 +51,7 @@ class TestModes:
     @pytest.mark.asyncio
     async def test_mode_hours_logs_correctly(self, mock_deps):
         """测试刷学时模式日志输出"""
-        from main import mode_hours
+        from cttc.modes import mode_hours
         client, config, log, progress, status, courses, monitor = mock_deps
         
         courses.get_my_courses = AsyncMock(return_value=[])
@@ -67,7 +67,7 @@ class TestModes:
     @pytest.mark.asyncio
     async def test_mode_topics_no_topics(self, mock_deps):
         """测试刷专题模式 - 无专题"""
-        from main import mode_topics
+        from cttc.modes import mode_topics
         client, config, log, progress, status, courses, monitor = mock_deps
         
         courses.get_special_topics = AsyncMock(return_value=[])
@@ -81,7 +81,7 @@ class TestModes:
     async def test_mode_topics_with_topics(self, mock_deps):
         """测试刷专题模式 - 有专题"""
         from unittest.mock import patch
-        from main import mode_topics
+        from cttc.modes import mode_topics
         client, config, log, progress, status, courses, monitor = mock_deps
         
         # Mock DataManager
@@ -90,7 +90,7 @@ class TestModes:
             {"title": "测试专题", "href": "http://test.com/topic1", "courses": []}
         ])
         
-        with patch('main.DataManager', return_value=mock_data_mgr):
+        with patch('cttc.modes.DataManager', return_value=mock_data_mgr):
             await mode_topics(client, config, log, progress, status, courses, monitor)
         
         log.info.assert_any_call("🎯 模式: 刷专题")
@@ -100,14 +100,14 @@ class TestModes:
     async def test_mode_courses_no_courses(self, mock_deps):
         """测试刷课程模式 - 无课程"""
         from unittest.mock import patch
-        from main import mode_courses
+        from cttc.modes import mode_courses
         client, config, log, progress, status, courses, monitor = mock_deps
         
         # Mock DataManager
         mock_data_mgr = AsyncMock()
         mock_data_mgr.fetch_courses = AsyncMock(return_value=[])
         
-        with patch('main.DataManager', return_value=mock_data_mgr):
+        with patch('cttc.modes.DataManager', return_value=mock_data_mgr):
             await mode_courses(client, config, log, progress, status, courses, monitor)
         
         log.info.assert_any_call("🎯 模式: 刷课程")
@@ -117,7 +117,7 @@ class TestModes:
     async def test_mode_courses_with_courses(self, mock_deps):
         """测试刷课程模式 - 有课程"""
         from unittest.mock import patch
-        from main import mode_courses
+        from cttc.modes import mode_courses
         client, config, log, progress, status, courses, monitor = mock_deps
         
         # Mock DataManager
@@ -126,7 +126,7 @@ class TestModes:
             {"course_id": "course1", "title": "测试课程", "status": "学习中", "url": "http://test.com/course1"}
         ])
         
-        with patch('main.DataManager', return_value=mock_data_mgr):
+        with patch('cttc.modes.DataManager', return_value=mock_data_mgr):
             with pytest.raises(asyncio.TimeoutError):
                 await asyncio.wait_for(
                     mode_courses(client, config, log, progress, status, courses, monitor),
@@ -139,14 +139,14 @@ class TestModes:
     async def test_mode_tasks_logs_correctly(self, mock_deps):
         """测试刷任务模式日志输出"""
         from unittest.mock import patch
-        from main import mode_tasks
+        from cttc.modes import mode_tasks
         client, config, log, progress, status, courses, monitor = mock_deps
         
         # Mock DataManager
         mock_data_mgr = AsyncMock()
         mock_data_mgr.fetch_tasks = AsyncMock(return_value=[])
         
-        with patch('main.DataManager', return_value=mock_data_mgr):
+        with patch('cttc.modes.DataManager', return_value=mock_data_mgr):
             await mode_tasks(client, config, log, progress, status, courses, monitor)
         
         log.info.assert_any_call("🎯 模式: 刷任务")
@@ -155,7 +155,7 @@ class TestModes:
     async def test_mode_hours_fetches_study_stats(self, mock_deps):
         """测试刷学时模式获取学时统计"""
         from unittest.mock import patch
-        from main import mode_hours
+        from cttc.modes import mode_hours
         client, config, log, progress, status, courses, monitor = mock_deps
         
         # Mock DataManager
@@ -169,7 +169,7 @@ class TestModes:
             "study_stats": {"online_completed": 33, "online_target": 50}
         })
         
-        with patch('main.DataManager', return_value=mock_data_mgr):
+        with patch('cttc.modes.DataManager', return_value=mock_data_mgr):
             with pytest.raises(asyncio.TimeoutError):
                 await asyncio.wait_for(
                     mode_hours(client, config, log, progress, status, courses, monitor),
@@ -182,7 +182,7 @@ class TestModes:
     async def test_mode_hours_sets_target_hours(self, mock_deps):
         """测试刷学时模式设置目标学时"""
         from unittest.mock import patch
-        from main import mode_hours
+        from cttc.modes import mode_hours
         client, config, log, progress, status, courses, monitor = mock_deps
         
         config.target_hours = 50
@@ -198,7 +198,7 @@ class TestModes:
             "study_stats": {"online_completed": 33, "online_target": 50}
         })
         
-        with patch('main.DataManager', return_value=mock_data_mgr):
+        with patch('cttc.modes.DataManager', return_value=mock_data_mgr):
             with pytest.raises(asyncio.TimeoutError):
                 await asyncio.wait_for(
                     mode_hours(client, config, log, progress, status, courses, monitor),
@@ -211,7 +211,7 @@ class TestModes:
     async def test_mode_hours_skips_completed_courses(self, mock_deps):
         """测试刷学时模式跳过已完成课程"""
         from unittest.mock import patch
-        from main import mode_hours
+        from cttc.modes import mode_hours
         client, config, log, progress, status, courses, monitor = mock_deps
         
         # Mock DataManager
@@ -229,7 +229,7 @@ class TestModes:
         })
         progress.is_course_completed = MagicMock(side_effect=lambda x: x == "course1")
         
-        with patch('main.DataManager', return_value=mock_data_mgr):
+        with patch('cttc.modes.DataManager', return_value=mock_data_mgr):
             with pytest.raises(asyncio.TimeoutError):
                 await asyncio.wait_for(
                     mode_hours(client, config, log, progress, status, courses, monitor),
@@ -243,7 +243,7 @@ class TestModes:
     async def test_mode_topics_fetches_topics(self, mock_deps):
         """测试刷专题模式获取专题列表"""
         from unittest.mock import patch
-        from main import mode_topics
+        from cttc.modes import mode_topics
         client, config, log, progress, status, courses, monitor = mock_deps
         
         # Mock DataManager
@@ -252,7 +252,7 @@ class TestModes:
             {"title": "专题1", "href": "http://test.com/topic1", "courses": []}
         ])
         
-        with patch('main.DataManager', return_value=mock_data_mgr):
+        with patch('cttc.modes.DataManager', return_value=mock_data_mgr):
             await mode_topics(client, config, log, progress, status, courses, monitor)
         
         mock_data_mgr.fetch_topics.assert_called_once()
@@ -261,14 +261,14 @@ class TestModes:
     async def test_mode_courses_fetches_courses(self, mock_deps):
         """测试刷课程模式获取课程列表"""
         from unittest.mock import patch
-        from main import mode_courses
+        from cttc.modes import mode_courses
         client, config, log, progress, status, courses, monitor = mock_deps
         
         # Mock DataManager
         mock_data_mgr = AsyncMock()
         mock_data_mgr.fetch_courses = AsyncMock(return_value=[])
         
-        with patch('main.DataManager', return_value=mock_data_mgr):
+        with patch('cttc.modes.DataManager', return_value=mock_data_mgr):
             await mode_courses(client, config, log, progress, status, courses, monitor)
         
         mock_data_mgr.fetch_courses.assert_called_once()
