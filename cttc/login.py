@@ -218,41 +218,26 @@ class CTTCLogin:
         return str(path.resolve())
 
     def fetch_qr_codes(self) -> tuple:
-        """获取两个二维码：纯 HTTP API（<1秒）
+        """获取两个二维码：headless Chrome 捕获 loginCheck URL + HTTP 生成
 
         Returns:
             (loginCheck_url, wx_uuid, app_qr_path, wechat_qr_path)
         """
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
-        # 1. deriveQRCode → APP UUID + base64 图片
-        app_uuid = None
-        app_b64 = None
-        try:
-            resp = http_req.get(
-                f"{OAUTH_BASE}/deriveQRCode",
-                headers=HEADERS, timeout=10
-            )
-            if resp.status_code == 200:
-                data = resp.json()
-                app_uuid = data.get("uuid")
-                app_b64 = data.get("data")
-                self.log.info(f"📱 APP 二维码获取成功 (UUID: {app_uuid[:8]}...)")
-        except Exception as e:
-            self.log.warn(f"⚠️ deriveQRCode 失败: {e}")
+        # 1. headless Chrome 捕获 loginCheck 完整 URL（需要 organizationId + key）
+        loop = asyncio.new_event_loop()
+        lc_url, app_b64 = loop.run_until_complete(self._capture_qr_via_api())
+        loop.close()
 
         # 保存 APP 二维码
         app_path = None
         if app_b64:
             app_path = str(self.output_dir / "qrcode-app.png")
             Path(app_path).write_bytes(base64.b64decode(app_b64))
+            self.log.info("📱 APP 二维码获取成功")
 
-        # 2. 构造 loginCheck URL（APP 扫码轮询用）
-        # 格式: /oauth/api/v1/loginCheck?uuid={base64_uuid}&organizationId={enc}&key={enc}
-        # 由于需要从浏览器拦截完整 URL，这里先用 deriveQRCode 的 uuid
-        lc_url = f"{OAUTH_BASE}/loginCheck?uuid={app_uuid}" if app_uuid else None
-
-        # 3. createQRCode → 微信 UUID
+        # 2. createQRCode → 微信 UUID
         client_uuid = str(uuid_mod.uuid4())
         wx_uuid = client_uuid
         try:
@@ -263,11 +248,11 @@ class CTTCLogin:
             )
             if resp.status_code == 200:
                 wx_uuid = resp.json().get("uuid", client_uuid)
-                self.log.info(f"📱 微信 UUID 获取成功: {wx_uuid[:8]}...")
+                self.log.info(f"📱 微信 UUID 获取成功")
         except Exception as e:
             self.log.warn(f"⚠️ createQRCode 失败: {e}")
 
-        # 4. 生成微信二维码
+        # 3. 生成微信二维码
         wx_path = self._generate_wechat_qr(wx_uuid)
 
         self._qr_paths = {"app": app_path, "wechat": wx_path}
