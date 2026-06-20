@@ -24,11 +24,18 @@ jobs:
           import subprocess, re, os
           from datetime import datetime
 
-          # Get current tag
-          tag = subprocess.check_output(
-              ["git", "describe", "--tags", "--exact-match"],
-              text=True
-          ).strip()
+          # Get current tag (exact match for tag push, latest for manual dispatch)
+          try:
+              tag = subprocess.check_output(
+                  ["git", "describe", "--tags", "--exact-match"],
+                  text=True, stderr=subprocess.DEVNULL
+              ).strip()
+          except subprocess.CalledProcessError:
+              # workflow_dispatch: HEAD is not on a tag, use latest tag
+              tag = subprocess.check_output(
+                  ["git", "describe", "--tags", "--abbrev=0"],
+                  text=True
+              ).strip()
 
           # Get previous tag
           tags = subprocess.check_output(
