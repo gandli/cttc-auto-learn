@@ -314,21 +314,25 @@ class CTTCLogin:
         # 主循环：等待结果 + 定期刷新二维码
         start = time.time()
         last_refresh = time.time()
+        on_qr_refreshed = getattr(self, '_on_qr_refreshed', None)
 
         while not stop.is_set() and time.time() - start < timeout:
             stop.wait(3)
 
-            # 二维码过期刷新
+            # 二维码过期刷新（定时检测）
             if time.time() - last_refresh > QR_LIFETIME and not stop.is_set():
                 self.log.info("🔄 二维码过期，刷新中...")
                 try:
                     new_lc, new_wx, app_path, wx_path = self.fetch_qr_codes()
                     lc_url = new_lc  # 更新 URL
-                    # wx_uuid 在 _poll_wx 中通过闭包引用，需要更新
-                    # 但由于 threading 无法更新闭包变量，刷新仅更新 APP 端
-                    # 微信端的 UUID 在 createQRCode 时已固定
                     last_refresh = time.time()
-                    self.log.info(f"✅ 二维码已刷新")
+                    self.log.info(f"✅ 二维码已刷新: {app_path}, {wx_path}")
+                    # 通知调用者发送新二维码给用户
+                    if on_qr_refreshed:
+                        try:
+                            on_qr_refreshed(app_path, wx_path)
+                        except Exception as e:
+                            self.log.warn(f"⚠️ 刷新回调失败: {e}")
                 except Exception as e:
                     self.log.warn(f"⚠️ 刷新失败: {e}")
 
@@ -458,10 +462,11 @@ class CTTCLogin:
         }""")
 
     async def wait_for_login(self, timeout: int = 300) -> bool:
-        """等待扫码登录成功"""
+        """等待扫码登录成功（支持过期检测 + 自动刷新）"""
         start = time.time()
         login_success = False
         nonlocal_flag = {"done": False}
+        last_qr_check = time.time()
 
         async def on_frame_navigated(frame):
             nonlocal login_success
@@ -485,6 +490,39 @@ class CTTCLogin:
                         return True
                 except Exception:
                     pass
+
+                # 每 10 秒检测二维码是否过期
+                if time.time() - last_qr_check > 10:
+                    last_qr_check = time.time()
+                    try:
+                        if await self.is_qr_expired():
+                            self.log.warn("⚠️ 二维码已失效，正在刷新...")
+                            # 点击刷新按钮
+                            refreshed = await self.page.evaluate("""() => {
+                                const btns = document.querySelectorAll('.refresh, [class*="refresh"]');
+                                for (const btn of btns) {
+                                    if (btn.offsetParent !== null) { btn.click(); return true; }
+                                }
+                                return false;
+                            }""")
+                            if refreshed:
+                                await self.page.wait_for_timeout(3000)
+                                # 提取新二维码并保存
+                                try:
+                                    qrs = await self.extract_both_qrs()
+                                    new_paths = await self.save_both_qrs(qrs)
+                                    self.log.info(f"✅ 二维码已刷新: {new_paths}")
+                                    # 触发过期回调，通知用户
+                                    on_qr_refreshed = getattr(self, '_on_qr_refreshed', None)
+                                    if on_qr_refreshed:
+                                        on_qr_refreshed(new_paths.get("app"), new_paths.get("wechat"))
+                                except Exception as e:
+                                    self.log.warn(f"⚠️ 提取新二维码失败: {e}")
+                            else:
+                                self.log.warn("⚠️ 未找到刷新按钮")
+                    except Exception:
+                        pass
+
                 await self.page.wait_for_timeout(2000)
             return False
         finally:
