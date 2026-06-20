@@ -25,7 +25,7 @@ def save_qr_image(b64_data: str, output_path: str) -> str:
 
 
 def generate_qr_png(text: str, output_path: str, size: int = 200) -> str:
-    """生成二维码 PNG（从文本内容）"""
+    """生成二维码 PNG（从文本内容），返回相对路径"""
     import qrcode
     qr = qrcode.QRCode(version=1, box_size=10, border=2)
     qr.add_data(text)
@@ -35,7 +35,7 @@ def generate_qr_png(text: str, output_path: str, size: int = 200) -> str:
     path = Path(output_path)
     path.parent.mkdir(parents=True, exist_ok=True)
     img.save(str(path))
-    return str(path.resolve())
+    return str(path.name)  # 返回相对路径
 
 
 def print_qr_to_terminal(b64_data: str) -> bool:

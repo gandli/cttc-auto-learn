@@ -211,11 +211,11 @@ class CTTCLogin:
             await pw.stop()
 
     def _generate_wechat_qr(self, wx_uuid: str) -> str:
-        """生成微信二维码 PNG，返回文件路径"""
+        """生成微信二维码 PNG，返回相对路径"""
         wx_url = f"{WX_QR_BASE}/{wx_uuid}/v5/online"
         path = self.output_dir / "qrcode-wechat.png"
         generate_qr_png(wx_url, str(path), size=200)
-        return str(path.resolve())
+        return str(path.name)  # 返回相对路径
 
     async def fetch_qr_codes(self) -> tuple:
         """获取两个二维码：headless Chrome 捕获 loginCheck URL + HTTP 生成
@@ -466,7 +466,7 @@ class CTTCLogin:
             print(f"└──────────────────────────────────────────┘")
             print_qr_to_terminal(b64)
         self.log.info(f"📁 二维码已保存: {path}")
-        return str(Path(path).resolve())
+        return str(Path(path).name)  # 返回相对路径
 
     # ── 登录状态检测 ──
 
