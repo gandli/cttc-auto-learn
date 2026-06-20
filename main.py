@@ -16,6 +16,7 @@
 import argparse
 import asyncio
 import sys
+from pathlib import Path
 
 from cttc.config import Config
 from cttc.logger import Logger
