@@ -358,7 +358,8 @@ async def test_fetch_qr_codes(client, config):
 # v22: HTTP 轮询
 # ═══════════════════════════════════════════
 
-def test_poll_login_http_app_success(client):
+@pytest.mark.asyncio
+async def test_poll_login_http_app_success(client):
     """测试 APP 扫码成功"""
     with patch("cttc.login.http_req.get") as mock_get, \
          patch("cttc.login.http_req.post") as mock_post:
@@ -375,7 +376,7 @@ def test_poll_login_http_app_success(client):
         mock_wx_resp.json.return_value = None
         mock_post.return_value = mock_wx_resp
 
-        result = client._poll_login_http(
+        result = await client._poll_login_http(
             "https://loginCheck?uuid=test",
             "wx-uuid",
             timeout=5
@@ -386,7 +387,8 @@ def test_poll_login_http_app_success(client):
         assert result["data"]["access_token"] == "test_token_123"
 
 
-def test_poll_login_http_wx_success(client):
+@pytest.mark.asyncio
+async def test_poll_login_http_wx_success(client):
     """测试微信扫码成功"""
     with patch("cttc.login.http_req.get") as mock_get, \
          patch("cttc.login.http_req.post") as mock_post:
@@ -403,7 +405,7 @@ def test_poll_login_http_wx_success(client):
         mock_wx_resp.json.return_value = {"status": True, "openId": "wx_openid"}
         mock_post.return_value = mock_wx_resp
 
-        result = client._poll_login_http(
+        result = await client._poll_login_http(
             "https://loginCheck?uuid=test",
             "wx-uuid",
             timeout=5
@@ -414,7 +416,8 @@ def test_poll_login_http_wx_success(client):
         assert result["data"]["status"] is True
 
 
-def test_poll_login_http_timeout(client):
+@pytest.mark.asyncio
+async def test_poll_login_http_timeout(client):
     """测试轮询超时"""
     with patch("cttc.login.http_req.get") as mock_get, \
          patch("cttc.login.http_req.post") as mock_post:
@@ -426,7 +429,7 @@ def test_poll_login_http_timeout(client):
         mock_get.return_value = mock_resp
         mock_post.return_value = mock_resp
 
-        result = client._poll_login_http(
+        result = await client._poll_login_http(
             "https://loginCheck?uuid=test",
             "wx-uuid",
             timeout=2  # 2 秒超时
@@ -435,12 +438,13 @@ def test_poll_login_http_timeout(client):
         assert result is None
 
 
-def test_poll_login_http_network_error(client):
+@pytest.mark.asyncio
+async def test_poll_login_http_network_error(client):
     """测试网络错误不崩溃"""
     with patch("cttc.login.http_req.get", side_effect=Exception("Network error")), \
          patch("cttc.login.http_req.post", side_effect=Exception("Network error")):
 
-        result = client._poll_login_http(
+        result = await client._poll_login_http(
             "https://loginCheck?uuid=test",
             "wx-uuid",
             timeout=2

@@ -85,7 +85,7 @@ async def login_flow(config: Config, log: Logger):
     client._on_qr_refreshed = on_qr_refreshed
 
     # 4. HTTP 轮询检测登录（APP + 微信并行）
-    login_result = client._poll_login_http(lc_url, wx_uuid, timeout=300)
+    login_result = await client._poll_login_http(lc_url, wx_uuid, timeout=300)
 
     if login_result:
         log.info(f"🎉 登录成功！（{login_result['type']}）")

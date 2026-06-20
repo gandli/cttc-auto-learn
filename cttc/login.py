@@ -260,22 +260,20 @@ class CTTCLogin:
     # HTTP 轮询检测（并行 APP + 微信）
     # ═══════════════════════════════════════════
 
-    def _poll_login_http(self, lc_url: str, wx_uuid: str, timeout: int = 1800) -> Optional[dict]:
-        """并行 HTTP 轮询 loginCheck + checkUUIDStatus
+    async def _poll_login_http(self, lc_url: str, wx_uuid: str, timeout: int = 1800) -> Optional[dict]:
+        """并行 HTTP 轮询 loginCheck + checkUUIDStatus（async 版）
 
         Returns:
             {"type": "app"|"wechat", "data": {...}} or None
         """
         result = [None]
-        stop = threading.Event()
+        stop = asyncio.Event()
 
-        def poll_app():
-            check = 0
+        async def poll_app():
             start = time.time()
             url = lc_url
             while not stop.is_set() and time.time() - start < timeout:
                 if url:
-                    check += 1
                     try:
                         resp = http_req.get(url, headers=HEADERS, timeout=10)
                         ct = resp.headers.get("content-type", "")
@@ -288,13 +286,11 @@ class CTTCLogin:
                                 return
                     except Exception:
                         pass
-                stop.wait(3)
+                await asyncio.sleep(3)
 
-        def poll_wx():
-            check = 0
+        async def poll_wx():
             start = time.time()
             while not stop.is_set() and time.time() - start < timeout:
-                check += 1
                 try:
                     resp = http_req.post(
                         f"{OAUTH_BASE}/checkUUIDStatus?uuid={wx_uuid}",
@@ -311,12 +307,11 @@ class CTTCLogin:
                             return
                 except Exception:
                     pass
-                stop.wait(3)
+                await asyncio.sleep(3)
 
-        t1 = threading.Thread(target=poll_app, daemon=True)
-        t2 = threading.Thread(target=poll_wx, daemon=True)
-        t1.start()
-        t2.start()
+        # 启动并行轮询
+        t1 = asyncio.create_task(poll_app())
+        t2 = asyncio.create_task(poll_wx())
 
         # 主循环：等待结果 + 定期刷新二维码
         start = time.time()
@@ -324,17 +319,20 @@ class CTTCLogin:
         on_qr_refreshed = getattr(self, '_on_qr_refreshed', None)
 
         while not stop.is_set() and time.time() - start < timeout:
-            stop.wait(3)
+            try:
+                await asyncio.wait_for(stop.wait(), timeout=3)
+            except asyncio.TimeoutError:
+                pass
 
             # 二维码过期刷新（定时检测）
             if time.time() - last_refresh > QR_LIFETIME and not stop.is_set():
                 self.log.info("🔄 二维码过期，刷新中...")
                 try:
-                    # fetch_qr_codes 是 async，需要创建新 event loop
-                    loop = asyncio.new_event_loop()
-                    new_lc, new_wx, app_path, wx_path = loop.run_until_complete(self.fetch_qr_codes())
-                    loop.close()
-                    lc_url = new_lc  # 更新 URL
+                    new_lc, new_wx, app_path, wx_path = await self.fetch_qr_codes()
+                    lc_url = new_lc  # 更新 APP 轮询 URL
+                    # 重启 APP 轮询任务（使用新 URL）
+                    t1.cancel()
+                    t1 = asyncio.create_task(poll_app())
                     last_refresh = time.time()
                     self.log.info(f"✅ 二维码已刷新: {app_path}, {wx_path}")
                     # 输出特殊标记，Agent 可检测并发送新二维码
@@ -348,7 +346,10 @@ class CTTCLogin:
                 except Exception as e:
                     self.log.warn(f"⚠️ 刷新失败: {e}")
 
+        # 清理
         stop.set()
+        t1.cancel()
+        t2.cancel()
         return result[0]
 
     # ═══════════════════════════════════════════
