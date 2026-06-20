@@ -122,6 +122,12 @@ jobs:
           else:
               content = "# Changelog\n\n本项目所有重要更改都记录在此文件。\n\n格式基于 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，\n并且本项目遵循 [语义化版本](https://semver.org/lang/zh-CN/)。\n"
 
+          # Skip if version already exists
+          version_header = f"## [{version}]"
+          if version_header in content:
+              print(f"Changelog for {tag} already exists, skipping")
+              exit(0)
+
           # Insert after header (first ## line or end of header)
           lines = content.split("\n")
           insert_idx = 0
