@@ -57,45 +57,38 @@ async def enforce_single_tab(page, log):
 async def login_flow(config: Config, log: Logger):
     """完整登录流程，返回 (client, success, qr_paths)
     
-    v22 架构：纯 HTTP 获取二维码 + HTTP 轮询检测登录
+    浏览器方式：打开登录页 → 提取二维码 → 等待页面跳转
     """
     client = CTTCLogin(config, log)
+    await client.start()
     qr_paths = {"app": None, "wechat": None}
 
     # 1. 尝试 Cookie 恢复
     if await client.try_restore_session():
-        await client.start()
         return client, True, qr_paths
 
-    # 2. 纯 HTTP 获取二维码（<1秒）
-    lc_url, wx_uuid, app_path, wx_path = await client.fetch_qr_codes()
-    qr_paths = {"app": app_path, "wechat": wx_path}
-    
-    log.info(f"📱 APP 二维码: {app_path}")
-    log.info(f"📱 微信二维码: {wx_path}")
+    # 2. 打开登录页
+    await client.navigate_to_login()
+
+    # 3. 提取两种二维码
+    qrs = await client.extract_both_qrs()
+    qr_paths = await client.save_both_qrs(qrs)
+
+    log.info(f"📱 APP 二维码: {qr_paths.get('app')}")
+    log.info(f"📱 微信二维码: {qr_paths.get('wechat')}")
     log.info("⏳ 等待扫码...")
 
-    # 3. 设置过期回调 — 刷新后自动发送新二维码
-    def on_qr_refreshed(new_app_path, new_wx_path):
-        log.info(f"🔄 二维码已刷新: {new_app_path}")
-        qr_paths["app"] = new_app_path
-        qr_paths["wechat"] = new_wx_path
-        # 写入信号文件，Agent 可检测并发送
-        signal_file = Path(config.output_dir) / "qr-refreshed.txt"
-        signal_file.write_text(f"{new_app_path}\n{new_wx_path}", encoding="utf-8")
-    client._on_qr_refreshed = on_qr_refreshed
+    # 4. 等待登录（浏览器页面跳转检测 + token 检测）
+    success = await client.wait_for_login(timeout=300)
 
-    # 4. HTTP 轮询检测登录（APP + 微信并行）
-    login_result = await client._poll_login_http(lc_url, wx_uuid, timeout=300)
-
-    if login_result:
-        log.info(f"🎉 登录成功！（{login_result['type']}）")
-        # 用 headless Chrome 保存完整凭证
-        await client._save_auth_state(login_result["data"], login_result["type"])
-        await client.start()
+    if success:
+        log.info("🎉 登录成功！")
+        await client.page.wait_for_timeout(2000)
+        await client._save_state()
         return client, True, qr_paths
     else:
         log.error("❌ 登录超时")
+        await client.close()
         return client, False, qr_paths
 
 

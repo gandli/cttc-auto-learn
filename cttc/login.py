@@ -272,11 +272,17 @@ class CTTCLogin:
         async def poll_app():
             start = time.time()
             url = lc_url
+            poll_count = 0
             while not stop.is_set() and time.time() - start < timeout:
                 if url:
+                    poll_count += 1
                     try:
                         resp = http_req.get(url, headers=HEADERS, timeout=10)
                         ct = resp.headers.get("content-type", "")
+                        body = resp.text[:200]
+                        # 每 5 次轮询打印一次状态
+                        if poll_count % 5 == 1:
+                            self.log.debug(f"[APP] poll #{poll_count}: status={resp.status_code}, body={body}")
                         if "json" in ct:
                             data = resp.json()
                             if isinstance(data, dict) and data.get("access_token"):
@@ -284,8 +290,8 @@ class CTTCLogin:
                                 result[0] = {"type": "app", "data": data}
                                 stop.set()
                                 return
-                    except Exception:
-                        pass
+                    except Exception as e:
+                        self.log.debug(f"[APP] poll error: {e}")
                 await asyncio.sleep(3)
 
         async def poll_wx():
