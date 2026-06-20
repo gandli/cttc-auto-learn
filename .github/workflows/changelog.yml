@@ -71,26 +71,25 @@ jobs:
               m = re.match(r'^[a-f0-9]+\s+(.*)', line)
               if not m:
                   continue
-              msg = m.group(1).strip()
+              raw_msg = m.group(1).strip()
 
-              # Remove conventional commit prefix
-              msg = re.sub(r'^(feat|fix|docs|style|refactor|perf|test|chore|ci|build|revert)(\(.+?\))?!?:\s*', '', msg)
-
-              # Categorize
-              if any(line.startswith(p) for p in ['feat:', 'feat(']):
-                  categories["新增"].append(msg)
-              elif any(line.startswith(p) for p in ['fix:', 'fix(']):
-                  categories["修复"].append(msg)
-              elif any(line.startswith(p) for p in ['docs:', 'docs(']):
-                  categories["文档"].append(msg)
-              elif any(line.startswith(p) for p in ['refactor:', 'refactor(', 'style:', 'style(', 'perf:', 'perf(']):
-                  categories["变更"].append(msg)
-              elif any(line.startswith(p) for p in ['test:', 'test(']):
-                  categories["测试"].append(msg)
-              elif any(line.startswith(p) for p in ['chore:', 'chore(', 'ci:', 'ci(', 'build:', 'build(']):
-                  categories["其他"].append(msg)
+              # Categorize by original message prefix
+              if any(raw_msg.startswith(p) for p in ['feat:', 'feat(']):
+                  cat = "新增"
+              elif any(raw_msg.startswith(p) for p in ['fix:', 'fix(']):
+                  cat = "修复"
+              elif any(raw_msg.startswith(p) for p in ['docs:', 'docs(']):
+                  cat = "文档"
+              elif any(raw_msg.startswith(p) for p in ['refactor:', 'refactor(', 'style:', 'style(', 'perf:', 'perf(']):
+                  cat = "变更"
+              elif any(raw_msg.startswith(p) for p in ['test:', 'test(']):
+                  cat = "测试"
               else:
-                  categories["其他"].append(msg)
+                  cat = "其他"
+
+              # Remove conventional commit prefix for display
+              msg = re.sub(r'^(feat|fix|docs|style|refactor|perf|test|chore|ci|build|revert)(\(.+?\))?!?:\s*', '', raw_msg)
+              categories[cat].append(msg)
 
           # Get tag date
           date = subprocess.check_output(
@@ -141,7 +140,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout main
           git add CHANGELOG.md
           git commit -m "docs: update CHANGELOG.md for ${GITHUB_REF_NAME} [skip ci]" || exit 0
-          git pull --rebase
-          git push
+          git pull --rebase origin main
+          git push origin main
