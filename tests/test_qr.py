@@ -213,29 +213,34 @@ def test_generate_qr_png_creates_file(tmp_dir):
     """测试生成二维码 PNG"""
     output_path = str(tmp_dir / "test_qr.png")
     result = generate_qr_png("https://example.com", output_path)
-    assert Path(result).exists()
-    assert Path(result).stat().st_size > 0
+    # 返回相对路径，文件实际在 tmp_dir 中
+    assert result == "test_qr.png"
+    assert (tmp_dir / result).exists()
+    assert (tmp_dir / result).stat().st_size > 0
 
 
 def test_generate_qr_png_custom_size(tmp_dir):
     """测试自定义尺寸"""
     output_path = str(tmp_dir / "test_qr.png")
     result = generate_qr_png("https://example.com", output_path, size=300)
-    assert Path(result).exists()
+    assert result == "test_qr.png"
+    assert (tmp_dir / result).exists()
 
 
 def test_generate_qr_png_creates_parent_dirs(tmp_dir):
     """测试自动创建父目录"""
     output_path = str(tmp_dir / "subdir" / "deep" / "test_qr.png")
     result = generate_qr_png("https://example.com", output_path)
-    assert Path(result).exists()
+    assert result == "test_qr.png"
+    assert Path(output_path).exists()
 
 
-def test_generate_qr_png_returns_absolute_path(tmp_dir):
-    """测试返回绝对路径"""
+def test_generate_qr_png_returns_relative_path(tmp_dir):
+    """测试返回相对路径（文件名）"""
     output_path = str(tmp_dir / "test_qr.png")
     result = generate_qr_png("https://example.com", output_path)
-    assert Path(result).is_absolute()
+    assert not Path(result).is_absolute()
+    assert result == "test_qr.png"
 
 
 def test_generate_qr_png_different_content(tmp_dir):

@@ -144,7 +144,9 @@ async def test_show_qr(client, config, mock_page):
 
     with patch("cttc.login.print_qr_to_terminal"):
         result = await client.show_qr(b64, "测试", "test_qr.png")
-        assert Path(result).exists()
+        # 返回相对路径，文件实际在 output_dir 中
+        assert result == "test_qr.png"
+        assert (client.output_dir / result).exists()
 
 
 # ═══════════════════════════════════════════
