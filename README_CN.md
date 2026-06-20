@@ -20,13 +20,17 @@
 
 ## 📸 操作截图
 
-### 首页
+### 首页（已登录）
 
 ![首页](docs/screenshots/01-homepage.png)
 
-### 登录页面（APP 扫码）
+### 学习中心
 
-![登录页面](docs/screenshots/02-login-page.png)
+![学习中心](docs/screenshots/02-learning-center.png)
+
+### 任务页面
+
+![任务页面](docs/screenshots/03-course-list.png)
 
 ---
 
