@@ -1,8 +1,9 @@
-"""截图脚本：使用项目凭证访问视频播放页面并截图"""
+"""截图脚本：使用凭证访问视频播放页面并截图，自动遮盖个人信息"""
 import asyncio
 import json
 from pathlib import Path
 from playwright.async_api import async_playwright
+from PIL import Image, ImageFilter
 
 OUTPUT_DIR = Path("output")
 SCREENSHOT_DIR = Path("docs/screenshots")
@@ -10,23 +11,125 @@ AUTH_STATE = Path("output/auth-state.json")
 BASE_URL = "https://mooc.ctt.cn"
 
 
-async def check_logged_in(page) -> bool:
-    """检查是否已登录（与 cttc/login.py 一致）"""
+async def find_sensitive_elements(page) -> list[dict]:
+    """查找页面中的敏感信息元素（姓名、单位等）"""
     return await page.evaluate("""() => {
-        const text = document.body?.innerText || '';
-        const url = window.location.href;
-        const has_token = !!localStorage.getItem('token');
-        if (has_token) return true;
-        const has_logout = text.includes('退出') || text.includes('注销');
-        const not_login_page = !url.includes('/login') && !url.includes('/oauth/');
-        const has_user_info = !!document.querySelector('.user-avatar, .avatar, [class*="user-info"]');
-        return (has_logout || has_user_info) && not_login_page;
+        const sensitive = [];
+        
+        // 查找包含用户姓名的元素
+        const nameSelectors = [
+            '.user-name', '.username', '[class*="user-name"]', '[class*="username"]',
+            '.name', '.real-name', '[class*="real-name"]',
+            '.person-name', '[class*="person-name"]',
+        ];
+        
+        // 查找包含单位信息的元素
+        const orgSelectors = [
+            '.org-name', '.organization', '[class*="org-name"]', '[class*="organization"]',
+            '.dept-name', '[class*="dept-name"]', '[class*="department"]',
+            '.unit-name', '[class*="unit-name"]',
+        ];
+        
+        // 通用文本匹配
+        const textPatterns = [
+            /福建烟草/, /福州烟草/, /长乐市局/, /专卖办/,
+            /陈学新/, /陈/, /学新/
+        ];
+        
+        // 遍历所有元素
+        document.querySelectorAll('*').forEach(el => {
+            const text = el.textContent?.trim() || '';
+            const className = el.className || '';
+            const rect = el.getBoundingClientRect();
+            
+            if (rect.width === 0 || rect.height === 0) return;
+            
+            // 检查选择器匹配
+            const isNameEl = nameSelectors.some(s => el.matches(s) || el.closest(s));
+            const isOrgEl = orgSelectors.some(s => el.matches(s) || el.closest(s));
+            
+            // 检查文本匹配
+            const hasSensitiveText = textPatterns.some(p => p.test(text));
+            
+            if (isNameEl || isOrgEl || (hasSensitiveText && text.length < 50)) {
+                sensitive.push({
+                    x: Math.round(rect.left),
+                    y: Math.round(rect.top),
+                    w: Math.round(rect.width),
+                    h: Math.round(rect.height),
+                    text: text.substring(0, 20),
+                    type: isNameEl ? 'name' : isOrgEl ? 'org' : 'text'
+                });
+            }
+        });
+        
+        return sensitive;
     }""")
+
+
+def add_mosaic(img_path: Path, regions: list[dict], block_size: int = 8):
+    """给图片指定区域添加马赛克"""
+    img = Image.open(img_path)
+    
+    for region in regions:
+        x, y, w, h = region['x'], region['y'], region['w'], region['h']
+        
+        # 扩展区域，确保完全覆盖
+        padding = 5
+        x1 = max(0, x - padding)
+        y1 = max(0, y - padding)
+        x2 = min(img.width, x + w + padding)
+        y2 = min(img.height, y + h + padding)
+        
+        if x2 <= x1 or y2 <= y1:
+            continue
+        
+        # 裁剪区域
+        crop = img.crop((x1, y1, x2, y2))
+        
+        # 缩小再放大实现马赛克效果
+        cw, ch = crop.size
+        small = crop.resize((max(1, cw // block_size), max(1, ch // block_size)), Image.NEAREST)
+        mosaic = small.resize((cw, ch), Image.NEAREST)
+        
+        # 粘贴回原图
+        img.paste(mosaic, (x1, y1))
+    
+    img.save(img_path)
+    print(f"  ✅ 已处理: {img_path.name} ({len(regions)} 个区域)")
+
+
+async def take_screenshot(page, name: str, url: str = None):
+    """截图并自动遮盖敏感信息"""
+    if url:
+        await page.goto(url, wait_until="networkidle", timeout=30000)
+        await page.wait_for_timeout(3000)
+    
+    # 截图
+    img_path = SCREENSHOT_DIR / f"{name}.png"
+    await page.screenshot(path=str(img_path), full_page=False)
+    
+    # 查找敏感元素
+    sensitive = await find_sensitive_elements(page)
+    
+    if sensitive:
+        # 添加马赛克
+        add_mosaic(img_path, sensitive)
+        print(f"  🔒 遮盖了 {len(sensitive)} 个敏感区域")
+    else:
+        print(f"  ℹ️ 未发现敏感信息")
+    
+    return img_path
 
 
 async def main():
     SCREENSHOT_DIR.mkdir(parents=True, exist_ok=True)
-
+    
+    # 检查凭证
+    if not AUTH_STATE.exists():
+        print("❌ 凭证文件不存在，请先登录")
+        return
+    
     async with async_playwright() as p:
         browser = await p.chromium.launch(
             headless=True,
@@ -37,137 +140,26 @@ async def main():
             viewport={"width": 1280, "height": 800},
         )
         page = await context.new_page()
-
-        # 1. 首页 — 等待足够时间让 SPA 加载并恢复 token
-        print("[1/5] 访问首页...")
-        await page.goto(BASE_URL, wait_until="networkidle", timeout=30000)
-        await page.wait_for_timeout(8000)  # 与 try_restore_session 一致
-
-        logged_in = await check_logged_in(page)
-        print(f"  登录状态: {'✅ 已登录' if logged_in else '❌ 未登录'}")
-
-        if not logged_in:
-            print("  ⚠️ 凭证可能过期，尝试直接用 token 注入...")
-            # 从 auth-state.json 读取 token 并注入
-            state = json.loads(AUTH_STATE.read_text())
-            for origin in state.get("origins", []):
-                for item in origin.get("localStorage", []):
-                    if item.get("name") == "token":
-                        token_val = item["value"]
-                        # 转义单引号
-                        escaped = token_val.replace("'", "\\'")
-                        await page.evaluate("() => { localStorage.setItem('token', '" + escaped + "'); }")
-                        print("  📝 Token 已注入")
-                        break
-
-            # 刷新页面让 token 生效
-            await page.reload(wait_until="networkidle", timeout=30000)
-            await page.wait_for_timeout(8000)
-            logged_in = await check_logged_in(page)
-            print(f"  登录状态: {'✅ 已登录' if logged_in else '❌ 未登录'}")
-
-        await page.screenshot(path=str(SCREENSHOT_DIR / "01-homepage.png"), full_page=False)
-        print(f"  ✅ 首页截图保存")
-
-        if not logged_in:
-            print("\n❌ 凭证已完全过期，需要重新扫码登录")
-            await browser.close()
-            return
-
+        
+        # 1. 首页
+        print("[1/4] 首页...")
+        await take_screenshot(page, "01-homepage", BASE_URL)
+        
         # 2. 学习中心
-        print("[2/5] 访问学习中心...")
-        await page.goto(f"{BASE_URL}/#/center/index", wait_until="networkidle", timeout=30000)
-        await page.wait_for_timeout(5000)
-        await page.screenshot(path=str(SCREENSHOT_DIR / "02-learning-center.png"), full_page=False)
-        print(f"  ✅ 学习中心截图保存")
-
-        # 3. 获取课程
-        print("[3/5] 获取课程列表...")
-        token_raw = await page.evaluate("() => localStorage.getItem('token') || ''")
-        try:
-            token_data = json.loads(token_raw) if token_raw else {}
-            token = token_data.get("access_token", token_raw)
-        except (json.JSONDecodeError, AttributeError):
-            token = token_raw
-
-        courses = []
-        if token:
-            try:
-                courses_data = await page.evaluate(f"""async () => {{
-                    const r = await fetch("/api/v1/human/personCourse/list?page=1&pageSize=50&studyStatus=1", {{
-                        headers: {{"Authorization": "Bearer__{token}"}}
-                    }});
-                    if (!r.ok) return {{}};
-                    return r.json();
-                }}""")
-                courses = courses_data.get("data", {}).get("records", [])
-                print(f"  📚 找到 {len(courses)} 门进行中的课程")
-            except Exception as e:
-                print(f"  ⚠️ API 请求失败: {e}")
-
-        if not courses:
-            print("  ⚠️ 未找到进行中的课程，尝试获取所有课程...")
-            try:
-                courses_data = await page.evaluate(f"""async () => {{
-                    const r = await fetch("/api/v1/human/personCourse/list?page=1&pageSize=10", {{
-                        headers: {{"Authorization": "Bearer__{token}"}}
-                    }});
-                    if (!r.ok) return {{}};
-                    return r.json();
-                }}""")
-                courses = courses_data.get("data", {}).get("records", [])
-                print(f"  📚 找到 {len(courses)} 门课程")
-            except Exception:
-                pass
-
-        if courses:
-            course = courses[0]
-            course_id = course.get("courseId") or course.get("id")
-            course_name = course.get("courseName") or course.get("name", "未知课程")
-            print(f"  📚 目标课程: {course_name} (ID: {course_id})")
-
-            # 4. 课程详情页
-            print("[4/5] 访问课程详情页...")
-            course_url = f"{BASE_URL}/#/study/course/detail/{course_id}"
-            await page.goto(course_url, wait_until="networkidle", timeout=30000)
-            await page.wait_for_timeout(5000)
-            await page.screenshot(path=str(SCREENSHOT_DIR / "03-course-detail.png"), full_page=False)
-            print(f"  ✅ 课程详情截图保存")
-
-            # 5. 视频播放页
-            print("[5/5] 尝试进入视频播放页...")
-            # 查找课时链接并点击
-            lesson = await page.query_selector('.lesson-item a, .chapter-item a, [class*="lesson"] a, [class*="video"] a')
-            if lesson:
-                await lesson.click()
-                await page.wait_for_timeout(6000)
-            else:
-                # 尝试点击播放按钮
-                play_btn = await page.query_selector('.play-btn, [class*="play"], button:has-text("播放")')
-                if play_btn:
-                    await play_btn.click()
-                    await page.wait_for_timeout(6000)
-
-            await page.screenshot(path=str(SCREENSHOT_DIR / "04-video-player.png"), full_page=False)
-            print(f"  ✅ 视频播放页截图保存")
-        else:
-            print("  ⚠️ 无法获取课程列表")
-            # 截取课程页面
-            await page.goto(f"{BASE_URL}/#/study/course", wait_until="networkidle", timeout=30000)
-            await page.wait_for_timeout(3000)
-            await page.screenshot(path=str(SCREENSHOT_DIR / "03-course-list.png"), full_page=False)
-            print(f"  ✅ 课程页面截图保存")
-
-        # 6. 数据看板
-        print("[额外] 截取个人中心...")
-        await page.goto(f"{BASE_URL}/#/personal/info", wait_until="networkidle", timeout=30000)
-        await page.wait_for_timeout(3000)
-        await page.screenshot(path=str(SCREENSHOT_DIR / "05-personal-center.png"), full_page=False)
-        print(f"  ✅ 个人中心截图保存")
-
+        print("[2/4] 学习中心...")
+        await take_screenshot(page, "02-learning-center", f"{BASE_URL}/#/center/index")
+        
+        # 3. 课程页面
+        print("[3/4] 课程页面...")
+        await take_screenshot(page, "03-course-list", f"{BASE_URL}/#/study/course")
+        
+        # 4. 个人中心
+        print("[4/4] 个人中心...")
+        await take_screenshot(page, "05-personal-center", f"{BASE_URL}/#/center/index")
+        
         await browser.close()
-
-    print("\n📸 截图完成！文件列表:")
+    
+    print("\n📸 截图完成！")
     for f in sorted(SCREENSHOT_DIR.glob("*.png")):
         size_kb = f.stat().st_size / 1024
         print(f"  {f.name} ({size_kb:.1f} KB)")

@@ -497,12 +497,17 @@ class CTTCLogin:
             return (document.body?.innerText || '').includes('二维码已失效');
         }""")
 
-    async def wait_for_login(self, timeout: int = 300) -> bool:
-        """等待扫码登录成功（支持过期检测 + 自动刷新）"""
+    async def wait_for_login(self, timeout: int = 0) -> bool:
+        """等待扫码登录成功（支持过期检测 + 自动刷新）
+        
+        Args:
+            timeout: 超时秒数。0 或负数表示无限等待直到扫码成功。
+        """
         start = time.time()
         login_success = False
         nonlocal_flag = {"done": False}
         last_qr_check = time.time()
+        infinite = timeout <= 0  # 无限等待模式
 
         async def on_frame_navigated(frame):
             nonlocal login_success
@@ -515,7 +520,7 @@ class CTTCLogin:
         self.page.on("framenavigated", on_frame_navigated)
 
         try:
-            while time.time() - start < timeout:
+            while infinite or time.time() - start < timeout:
                 if login_success:
                     return True
                 url = self.page.url

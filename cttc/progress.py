@@ -59,6 +59,13 @@ class ProgressManager:
     def is_course_completed(self, course_id: str) -> bool:
         return self.get_course(course_id).get("status") == "completed"
 
+    def mark_course_completed(self, course_id: str):
+        """标记课程为已完成"""
+        self.update_course(course_id, {
+            "status": "completed",
+            "completed_at": datetime.now().isoformat()
+        })
+
     # ── 学时记录 ──
 
     def save_study_time(self):

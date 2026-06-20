@@ -95,6 +95,7 @@ uv run python main.py --mode tasks --headless
 **参数说明：**
 - `--mode` — 运行模式（hours/topics/courses/tasks）
 - `--target` — 目标学时（默认 50）
+- `--unlimited` — 无限制模式（跳过目标检查，持续刷课）
 - `--headless` — 无头模式（推荐，不显示浏览器窗口）
 
 ## 支持模式

@@ -74,8 +74,8 @@ async def login_flow(
     log.info(f"📱 微信二维码: {qr_paths.get('wechat')}")
     log.info("⏳ 等待扫码...")
 
-    # 4. 等待登录（浏览器页面跳转检测 + token 检测）
-    success = await client.wait_for_login(timeout=300)
+    # 4. 等待登录（无限等待，直到扫码成功）
+    success = await client.wait_for_login(timeout=0)
 
     if success:
         log.info("🎉 登录成功！")
@@ -105,10 +105,11 @@ async def main() -> None:
         help="运行模式 (默认: 交互式选择)",
     )
     parser.add_argument("--target", type=float, default=None, help="目标学时")
+    parser.add_argument("--unlimited", action="store_true", help="无限制模式（跳过目标检查）")
     parser.add_argument("--headless", action="store_true", help="无头模式")
     args = parser.parse_args()
 
-    config = Config(headless=args.headless, target_hours=args.target or 0)
+    config = Config(headless=args.headless, target_hours=args.target or 0, unlimited=args.unlimited)
     log = Logger(config.log_file)
     progress = ProgressManager(config, log)
     status = StatusReporter(config.output_dir)

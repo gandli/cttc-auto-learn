@@ -175,7 +175,13 @@ async def mode_hours(
     # 目标检查
     target_hours = config.target_hours
     status.set_study_hours(current_hours, target_hours or 0)
-    if target_hours:
+    
+    # 无限制模式：跳过目标检查
+    if config.unlimited:
+        target_hours = float("inf")
+        config.target_hours = target_hours
+        log.info(f"🎯 无限制模式，将持续学习所有可用课程")
+    elif target_hours:
         remaining = target_hours - current_hours
         if remaining <= 0:
             new_target = ask_new_target(current_hours, target_hours)
@@ -218,8 +224,8 @@ async def mode_hours(
                 except Exception as e:
                     log.warn(f"⚠️ 刷新数据失败: {e}")
 
-            # 目标检查
-            if target_hours:
+            # 目标检查（无限制模式跳过）
+            if not config.unlimited and target_hours:
                 current = progress.study_time.get("current_total", 0)
                 if current >= target_hours:
                     new_target = ask_new_target(current, target_hours)

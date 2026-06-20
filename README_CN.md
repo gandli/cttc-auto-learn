@@ -18,20 +18,6 @@
 
 ---
 
-## 📸 操作截图
-
-### 首页（已登录）
-
-![首页](docs/screenshots/01-homepage.png)
-
-### 学习中心
-
-![学习中心](docs/screenshots/02-learning-center.png)
-
-### 任务页面
-
-![任务页面](docs/screenshots/03-course-list.png)
-
 ---
 
 ## 🚀 快速开始

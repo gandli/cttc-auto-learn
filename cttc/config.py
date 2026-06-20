@@ -15,6 +15,7 @@ class Config:
 
     # ── 目标设置 ──
     target_hours: float = 50.0  # 目标学时（None=不限）
+    unlimited: bool = False  # 无限制模式（跳过目标检查）
 
     # ── 二维码设置 ──
     qr_refresh_cooldown: int = 15

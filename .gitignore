@@ -27,6 +27,10 @@ output/js/
 output/screenshots/
 output/crawl/*.json
 output/crawl/*.txt
+output/crawl/*.md
+
+# 截图已移除
+docs/screenshots/
 
 # data & logs
 data/
