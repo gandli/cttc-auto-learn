@@ -231,8 +231,9 @@ class CTTCLogin:
         # 保存 APP 二维码
         app_path = None
         if app_b64:
-            app_path = str(self.output_dir / "qrcode-app.png")
-            Path(app_path).write_bytes(base64.b64decode(app_b64))
+            full_path = self.output_dir / "qrcode-app.png"
+            full_path.write_bytes(base64.b64decode(app_b64))
+            app_path = str(full_path.name)  # 返回相对路径
             self.log.info("📱 APP 二维码获取成功")
 
         # 2. createQRCode → 微信 UUID
@@ -340,10 +341,11 @@ class CTTCLogin:
                     t1.cancel()
                     t1 = asyncio.create_task(poll_app())
                     last_refresh = time.time()
-                    self.log.info(f"✅ 二维码已刷新: {app_path}, {wx_path}")
-                    # 输出特殊标记，Agent 可检测并发送新二维码（使用相对路径）
+                    # 计算相对路径
                     rel_app = str(Path(app_path).relative_to(self.output_dir)) if app_path else ""
                     rel_wx = str(Path(wx_path).relative_to(self.output_dir)) if wx_path else ""
+                    self.log.info(f"✅ 二维码已刷新: {rel_app}, {rel_wx}")
+                    # 输出特殊标记，Agent 可检测并发送新二维码（使用相对路径）
                     print(f"QR_REFRESHED|{rel_app}|{rel_wx}", flush=True)
                     # 通知调用者
                     if on_qr_refreshed:
