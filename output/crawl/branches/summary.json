@@ -1,0 +1,119 @@
+[
+  {
+    "name": "网络学院",
+    "type": "总院",
+    "configId": "81b0c456-c6a8-4e25-9416-25f7cf5f6c06",
+    "pages": 12,
+    "courses": 0,
+    "subjects": 4,
+    "articles": 132
+  },
+  {
+    "name": "专卖分院",
+    "type": "分院",
+    "configId": "03e2ef50-92fe-4ad4-9391-6289127ab901",
+    "pages": 12,
+    "courses": 0,
+    "subjects": 4,
+    "articles": 132
+  },
+  {
+    "name": "安全生产分院",
+    "type": "分院",
+    "configId": "eb691412-0bbe-4405-922d-be20f18b5afd",
+    "pages": 12,
+    "courses": 0,
+    "subjects": 4,
+    "articles": 132
+  },
+  {
+    "name": "精益管理分院",
+    "type": "分院",
+    "configId": "4bba3cc7-900d-4641-9704-94d255c4df42",
+    "pages": 12,
+    "courses": 0,
+    "subjects": 4,
+    "articles": 132
+  },
+  {
+    "name": "网信分院",
+    "type": "分院",
+    "configId": "69ea081e-f533-49f8-ac33-79dde8275ea5",
+    "pages": 12,
+    "courses": 0,
+    "subjects": 4,
+    "articles": 132
+  },
+  {
+    "name": "物流分院",
+    "type": "分院",
+    "configId": "2ed3163d-d990-4ed8-9538-9860b01aad63",
+    "pages": 12,
+    "courses": 0,
+    "subjects": 4,
+    "articles": 132
+  },
+  {
+    "name": "营销分院",
+    "type": "分院",
+    "configId": "0334f9d7-4cdc-46d6-97a7-6c403690edc7",
+    "pages": 12,
+    "courses": 0,
+    "subjects": 4,
+    "articles": 132
+  },
+  {
+    "name": "农业分院",
+    "type": "分院",
+    "configId": "56f4b71e-c869-427a-aa77-eee1336cd361",
+    "pages": 12,
+    "courses": 0,
+    "subjects": 4,
+    "articles": 132
+  },
+  {
+    "name": "烟机设备分院",
+    "type": "分院",
+    "configId": "95cdfef5-6c6c-498e-a999-6b78bf16e623",
+    "pages": 12,
+    "courses": 0,
+    "subjects": 4,
+    "articles": 132
+  },
+  {
+    "name": "法律法规学习专区",
+    "type": "专区",
+    "configId": "c1fe8977-efcc-420e-9512-9d1f61fd055d",
+    "pages": 12,
+    "courses": 0,
+    "subjects": 4,
+    "articles": 132
+  },
+  {
+    "name": "组织人事学习专区",
+    "type": "专区",
+    "configId": "d0c9afaf-ebd9-424d-935a-48b05842a8cd",
+    "pages": 12,
+    "courses": 0,
+    "subjects": 4,
+    "articles": 132
+  },
+  {
+    "name": "卷烟工艺质量学习专区",
+    "type": "专区",
+    "configId": "246abad2-d4d8-4b0d-bdca-260b0c70d356",
+    "pages": 12,
+    "courses": 0,
+    "subjects": 4,
+    "articles": 132
+  },
+  {
+    "name": "财务与审计学习专区",
+    "type": "专区",
+    "configId": "ffa07f0e-6ad5-4b89-b4ce-f28ad202867c",
+    "pages": 12,
+    "courses": 0,
+    "subjects": 4,
+    "articles": 132
+  }
+]

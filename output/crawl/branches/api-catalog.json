@@ -1,0 +1,134 @@
+{
+  "/api/v1/system/setting": {
+    "count": 1,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/system/home-config/organization": {
+    "count": 4,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/system/rule-config/key-not-login": {
+    "count": 1,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/system/company-sync/get-company-by-id": {
+    "count": 1,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/system/home-config/gateway-config": {
+    "count": 5,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/system/topic/hot-all": {
+    "count": 1,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/system/skin-config/skin": {
+    "count": 1,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/system/rule-config/getkey": {
+    "count": 5,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/system/home-config/config": {
+    "count": 1,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/system/home-footer": {
+    "count": 1,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/system/home-nav": {
+    "count": 1,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/system/home-module": {
+    "count": 1,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/system/home-content/statistics": {
+    "count": 2,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/zxy-log/online/get-online-count-cache": {
+    "count": 2,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/system/home-footer/getLoginSumCount": {
+    "count": 1,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/system/home-content": {
+    "count": 2,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/system/home-interchange": {
+    "count": 1,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/training/student/class-info/open-class-info": {
+    "count": 1,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/system/home-advertisement": {
+    "count": 1,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/training/student/class-info/front/find-by-ids": {
+    "count": 1,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/system/home-news/industryDynamicsList": {
+    "count": 1,
+    "methods": [
+      "GET"
+    ]
+  },
+  "/api/v1/course-study/course-info/home/front/find-by-ids": {
+    "count": 1,
+    "methods": [
+      "GET"
+    ]
+  }
+}

@@ -1,0 +1,666 @@
+{
+  "/api/v1/system/home-config/organization": {
+    "methods": [
+      "GET"
+    ],
+    "count": 208,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": null
+  },
+  "/api/v1/system/setting": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": [
+      "redirectUri",
+      "shareTemplate",
+      "resourceConfigs",
+      "cdnPreviewAddress",
+      "menuLengthThreshold",
+      "currentUser",
+      "courseToolSwitch",
+      "courseScormFileUrl",
+      "organization",
+      "roleLength",
+      "courseScormWebUrl",
+      "dashboard",
+      "dataPermission",
+      "websiteTitle"
+    ]
+  },
+  "/api/v1/system/company-sync/get-company-by-id": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": [
+      "id",
+      "liveSupply",
+      "name"
+    ]
+  },
+  "/api/v1/system/rule-config/key-not-login": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": [
+      "desc",
+      "id",
+      "key",
+      "organizationId",
+      "status",
+      "type",
+      "value"
+    ]
+  },
+  "/api/v1/human/task/findMyTaskRemind": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": null
+  },
+  "/api/v1/system/home-config/personHomeConfig": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": [
+      "activityName",
+      "createMemberId",
+      "createMemberName",
+      "createTime",
+      "deleteFlag",
+      "description",
+      "enableHomeBrowse",
+      "enableNav",
+      "enableTime",
+      "haschild",
+      "id",
+      "language",
+      "logo",
+      "logo2",
+      "logo2Path",
+      "logoMini",
+      "logoMiniPath",
+      "logoPath",
+      "moduleConfigList",
+      "name",
+      "newModelSize",
+      "newTwoModelSize",
+      "organizationId",
+      "organizationName",
+      "organizationPath",
+      "pageviewApp",
+      "pageviewPc",
+      "parentId",
+      "seq",
+      "skinConfigId",
+      "state",
+      "type",
+      "visitsApp",
+      "visitsPc"
+    ]
+  },
+  "/api/v1/human/task/findMyTaskCalendar": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": null
+  },
+  "/api/v1/system/cadre-education/detail-hour-member": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": [
+      "hourSelf",
+      "hourTrain",
+      "id",
+      "requireClassHour",
+      "requireCourseHour"
+    ]
+  },
+  "/api/v1/system/skin-config/skin": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": null
+  },
+  "/api/v1/system/rule-config/getkey": {
+    "methods": [
+      "GET"
+    ],
+    "count": 260,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": [
+      "companyName",
+      "desc",
+      "id",
+      "key",
+      "organizationId",
+      "status",
+      "type",
+      "value"
+    ]
+  },
+  "/api/v1/system/topic/hot-all": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": null
+  },
+  "/api/v1/system/credit/detail-hour-member": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": [
+      "courseHourResult",
+      "id",
+      "maxScore",
+      "requireClassHour",
+      "requireCourseHour",
+      "totalClassHour",
+      "totalScore"
+    ]
+  },
+  "/api/v1/system/operation/announcement/person-list-all": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": null
+  },
+  "/api/v1/system/integral-result/grade": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": [
+      "createTime",
+      "headPortrait",
+      "id",
+      "integralGrade",
+      "maxScore",
+      "memberId",
+      "memberName",
+      "orgPath",
+      "organizationId",
+      "organizationName",
+      "totalScore"
+    ]
+  },
+  "/api/v1/system/msg-count": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": [
+      "atCount",
+      "count",
+      "createTime",
+      "id",
+      "innerCount",
+      "memberId",
+      "todoCount"
+    ]
+  },
+  "/api/v1/course-study/course-study-progress/history-and-now-duration": {
+    "methods": [
+      "GET"
+    ],
+    "count": 1,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": [
+      "studyTime"
+    ]
+  },
+  "/api/v1/system/message-notice/getCount": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": null
+  },
+  "/api/v1/system/home-config/config": {
+    "methods": [
+      "GET"
+    ],
+    "count": 260,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": [
+      "createTime",
+      "deleteFlag",
+      "description",
+      "enableHomeBrowse",
+      "enableNav",
+      "enableTime",
+      "haschild",
+      "id",
+      "language",
+      "logo",
+      "logo2",
+      "logo2Path",
+      "logoMini",
+      "logoMiniPath",
+      "logoPath",
+      "name",
+      "organizationId",
+      "organizationName",
+      "parentId",
+      "skinConfigId",
+      "state",
+      "type",
+      "visitsApp",
+      "visitsPc"
+    ]
+  },
+  "/api/v1/system/message-at-me/get-count": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": [
+      "num"
+    ]
+  },
+  "/api/v1/course-study/course-info/front/recommend": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": null
+  },
+  "/api/v1/system/home-nav": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": null
+  },
+  "/api/v1/system/home-footer": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": [
+      "clientType",
+      "configId",
+      "content",
+      "createTime",
+      "id"
+    ]
+  },
+  "/api/v1/system/home-module": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": null
+  },
+  "/api/v1/system/home-content/companyFooterMemberCount": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": [
+      "companyPcLoginCount",
+      "companyAppLoginCount",
+      "companyHomeCurYearCount",
+      "companySumLoginCount",
+      "companyHomeRegCount",
+      "companyHomeCurMonthCount"
+    ]
+  },
+  "/api/v1/system/home-content": {
+    "methods": [
+      "GET"
+    ],
+    "count": 260,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": null
+  },
+  "/api/v1/system/rule-config/key": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": [
+      "desc",
+      "id",
+      "key",
+      "organizationId",
+      "status",
+      "type",
+      "value"
+    ]
+  },
+  "/api/v1/system/home-footer/getLoginSumCount": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": null
+  },
+  "/api/v1/system/home-news": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": null
+  },
+  "/api/v1/training/home-lecturer": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": null
+  },
+  "/api/v1/system/home-advertisement": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": null
+  },
+  "/api/v1/course-study/course-total/course-finish-count": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": null
+  },
+  "/api/v1/course-study/course-front/companyLecturerCourseRank": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": null
+  },
+  "/api/v1/course-study/course-info/home/front/find-by-ids": {
+    "methods": [
+      "GET"
+    ],
+    "count": 156,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": null
+  },
+  "/api/v1/course-study/course-total/findCityRankValue": {
+    "methods": [
+      "GET"
+    ],
+    "count": 52,
+    "statuses": [
+      200
+    ],
+    "pages": [
+      "https://mooc.ctt.cn/",
+      "https://mooc.ctt.cn"
+    ],
+    "params": null,
+    "keys": null
+  }
+}

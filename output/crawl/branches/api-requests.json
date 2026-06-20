@@ -1,0 +1,478 @@
+[
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/setting?_=1781928788368",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928789.7602222,
+    "keys": [
+      "menuLengthThreshold",
+      "shareTemplate",
+      "courseToolSwitch",
+      "courseScormFileUrl",
+      "organization",
+      "resourceConfigs",
+      "courseScormWebUrl",
+      "dashboard",
+      "dataPermission",
+      "websiteTitle",
+      "cdnPreviewAddress"
+    ]
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-config/organization?_=1781928788369",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928789.7613409,
+    "count": 13
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/rule-config/key-not-login?organizationId=1&key=SYSTEM_EASYUI&_=1781928788371",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928789.9154682,
+    "keys": [
+      "desc",
+      "id",
+      "key",
+      "organizationId",
+      "status",
+      "type",
+      "value"
+    ]
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/company-sync/get-company-by-id?id=1&_=1781928788370",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928789.917465,
+    "keys": [
+      "id",
+      "liveSupply",
+      "name"
+    ]
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-config/organization?onlyCompanyHome=2&_=1781928788372",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928789.9254518,
+    "count": 14
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-config/gateway-config?_=1781928788373",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928789.9766746,
+    "keys": [
+      "createTime",
+      "deleteFlag",
+      "description",
+      "enableHomeBrowse",
+      "enableTime",
+      "haschild",
+      "id",
+      "language",
+      "logo",
+      "logo2",
+      "logo2Path",
+      "logoMini",
+      "logoMiniPath",
+      "logoPath",
+      "name",
+      "organizationId",
+      "organizationName",
+      "parentId",
+      "skinConfigId",
+      "state",
+      "type"
+    ]
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/topic/hot-all?limit=6&organizationId=1&_=1781928788375",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928789.977942,
+    "count": 6
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/skin-config/skin?organizationId=1&clientType=1&language=1&homeConfigId=81b0c456-c6a8-4e25-9416-25f7cf5f6c06&_=1781928788374",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928789.9790685
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/rule-config/getkey?key=DEFAULT_HOME_PAGE_CONFIGURATION&organizationId=1&_=1781928788377",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.03974,
+    "keys": [
+      "companyName",
+      "desc",
+      "id",
+      "key",
+      "organizationId",
+      "status",
+      "type",
+      "value"
+    ]
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/rule-config/getkey?key=DEFAULT_HOME_PAGE_CONFIGURATION&organizationId=1&_=1781928788376",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.0555515,
+    "keys": [
+      "companyName",
+      "desc",
+      "id",
+      "key",
+      "organizationId",
+      "status",
+      "type",
+      "value"
+    ]
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-config/gateway-config?configId=81b0c456-c6a8-4e25-9416-25f7cf5f6c06&_=1781928788378",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.0858335,
+    "keys": [
+      "createTime",
+      "deleteFlag",
+      "description",
+      "enableHomeBrowse",
+      "enableTime",
+      "haschild",
+      "id",
+      "language",
+      "logo",
+      "logo2",
+      "logo2Path",
+      "logoMini",
+      "logoMiniPath",
+      "logoPath",
+      "name",
+      "organizationId",
+      "organizationName",
+      "parentId",
+      "skinConfigId",
+      "state",
+      "type"
+    ]
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-config/organization?onlyCompanyHome=2&_=1781928788379",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.08814,
+    "count": 14
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/rule-config/getkey?key=BAY_WINDOW_CONFIG&organizationId=1&_=1781928788380",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.1018498,
+    "keys": [
+      "companyName",
+      "desc",
+      "id",
+      "key",
+      "organizationId",
+      "status",
+      "type",
+      "value"
+    ]
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/rule-config/getkey?key=DEFAULT_HOME_PAGE_CONFIGURATION&organizationId=1&_=1781928788381",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.1041598,
+    "keys": [
+      "companyName",
+      "desc",
+      "id",
+      "key",
+      "organizationId",
+      "status",
+      "type",
+      "value"
+    ]
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-config/gateway-config?configId=&orgId=1&_=1781928788382",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.1363082,
+    "keys": [
+      "createTime",
+      "deleteFlag",
+      "description",
+      "enableHomeBrowse",
+      "enableTime",
+      "haschild",
+      "id",
+      "language",
+      "logo",
+      "logo2",
+      "logo2Path",
+      "logoMini",
+      "logoMiniPath",
+      "logoPath",
+      "name",
+      "organizationId",
+      "organizationName",
+      "parentId",
+      "skinConfigId",
+      "state",
+      "type"
+    ]
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-config/config?configId=81b0c456-c6a8-4e25-9416-25f7cf5f6c06&orgId=1&_=1781928788383",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.1425335,
+    "keys": [
+      "createTime",
+      "deleteFlag",
+      "description",
+      "enableHomeBrowse",
+      "enableNav",
+      "enableTime",
+      "haschild",
+      "id",
+      "language",
+      "logo",
+      "logo2",
+      "logo2Path",
+      "logoMini",
+      "logoMiniPath",
+      "logoPath",
+      "name",
+      "organizationId",
+      "organizationName",
+      "parentId",
+      "skinConfigId",
+      "state",
+      "type",
+      "visitsApp",
+      "visitsPc"
+    ]
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-config/gateway-config?orgId=1&_=1781928788384",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.1870556,
+    "keys": [
+      "createTime",
+      "deleteFlag",
+      "description",
+      "enableHomeBrowse",
+      "enableTime",
+      "haschild",
+      "id",
+      "language",
+      "logo",
+      "logo2",
+      "logo2Path",
+      "logoMini",
+      "logoMiniPath",
+      "logoPath",
+      "name",
+      "organizationId",
+      "organizationName",
+      "parentId",
+      "skinConfigId",
+      "state",
+      "type"
+    ]
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-footer?homeConfigId=e6af3cc2-7c7f-437d-b0a2-9164eff3e340&clientType=1&_=1781928788385",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.1936536,
+    "keys": [
+      "clientType",
+      "configId",
+      "content",
+      "createTime",
+      "id"
+    ]
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/rule-config/getkey?key=SETTING_LANGUAGE&organizationId=1&_=1781928788386",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.2033849,
+    "keys": [
+      "companyName",
+      "desc",
+      "id",
+      "key",
+      "organizationId",
+      "status",
+      "type",
+      "value"
+    ]
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-nav?homeConfigId=81b0c456-c6a8-4e25-9416-25f7cf5f6c06&_=1781928788387",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.237154,
+    "count": 9
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-module?homeConfigId=e6af3cc2-7c7f-437d-b0a2-9164eff3e340&clientType=1&isLogin=2&_=1781928788388",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.2441497,
+    "count": 6
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-content/statistics?moduleHomeConfigId=111&_=1781928788389",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.2700047,
+    "keys": [
+      "COURSE_INFO_COUNT",
+      "MEMBER_COUNT",
+      "LOGIN_ALL_COUNT",
+      "LOGIN_MONTH_COUNT"
+    ]
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/zxy-log/online/get-online-count-cache?_=1781928788390",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.2719083,
+    "keys": [
+      "PC_ONLINE_LOGIN_COUNT",
+      "APP_ONLINE_LOGIN_COUNT"
+    ]
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-footer/getLoginSumCount?_=1781928788391",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.2853682
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-content?moduleHomeConfigId=9a771f33-a3dc-4deb-9f72-87162d6841e1&size=12&clientType=1&_=1781928788392",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.3012216,
+    "count": 12
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-content?moduleHomeConfigId=36facf45-fa68-4f88-b274-2239037d352e&size=12&clientType=1&_=1781928788393",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.328708,
+    "count": 12
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-interchange?organizationId=1&homeConfigId=e6af3cc2-7c7f-437d-b0a2-9164eff3e340&moduleHomeConfigId=b0bb9758-34ec-471b-9da3-56efaf5f09fc&size=4&_=1781928788394",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.340425,
+    "count": 4
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-content/statistics?moduleHomeConfigId=da7ec56d-c62d-400c-afd0-82d6b1ef0c4d&_=1781928788395",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.3836474,
+    "keys": [
+      "COURSE_INFO_COUNT",
+      "MEMBER_COUNT",
+      "LOGIN_ALL_COUNT",
+      "LOGIN_MONTH_COUNT"
+    ]
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/zxy-log/online/get-online-count-cache?_=1781928788396",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.3859673,
+    "keys": [
+      "PC_ONLINE_LOGIN_COUNT",
+      "APP_ONLINE_LOGIN_COUNT"
+    ]
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/training/student/class-info/open-class-info?_=1781928788397",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.3933353,
+    "count": 0
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-config/organization?onlyCompanyHome=1&_=1781928788399",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.4036458,
+    "count": 12
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-config/gateway-config?configId=81b0c456-c6a8-4e25-9416-25f7cf5f6c06&_=1781928788400",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.4117913,
+    "keys": [
+      "createTime",
+      "deleteFlag",
+      "description",
+      "enableHomeBrowse",
+      "enableTime",
+      "haschild",
+      "id",
+      "language",
+      "logo",
+      "logo2",
+      "logo2Path",
+      "logoMini",
+      "logoMiniPath",
+      "logoPath",
+      "name",
+      "organizationId",
+      "organizationName",
+      "parentId",
+      "skinConfigId",
+      "state",
+      "type"
+    ]
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-advertisement?moduleHomeConfigId=362e0569-3e40-4015-8781-2d9ca58d0cab&clientType=1&_=1781928788401",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.4417915,
+    "count": 8
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/training/student/class-info/front/find-by-ids?ids=54cbc534-4491-4a80-a76a-a164915cbafb%2C3747caee-45f8-4f0f-846a-b29fa002a3a2%2C72dd1ad0-6164-4547-95e8-6c88fe0d5f82%2C89eb1c21-3e23-4247-b7b3-932247792e5b%2C84054425-ea7d-4585-92f9-c1531278cf32%2C01401e2d-d679-41fd-ad0f-1eddc4208bf1%2C2c46363f-a09e-46c2-92b6-e04352576fcc%2Ced54c637-16c7-4672-8e9f-dcc6178dea17%2C032aeeb2-fdbb-47e8-9f0d-9152b7101c97%2Ca76db196-c230-4865-b560-e48c80f241b2%2C307413d8-3be2-4cdb-90ae-ba698d2d710a%2Ce83bc322-05ce-4f0d-adf7-3ff1c8281746&moduleHomeConfigId=9a771f33-a3dc-4deb-9f72-87162d6841e1&clientType=1&_=1781928788402",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.545841,
+    "count": 12
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/system/home-news/industryDynamicsList?moduleHomeConfigId=ccd375af-ca1b-4f0f-acd7-28d3d0ed1325&_=1781928788398",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.3967574,
+    "count": 3
+  },
+  {
+    "url": "https://mooc.ctt.cn/api/v1/course-study/course-info/home/front/find-by-ids?ids=103fbf23-648d-4f8c-aa63-f3bd049d2481%2C7a23b089-4fe4-4f54-8f6c-6b95675b7ba3%2Ceda113d6-c34f-4e4e-91c9-549a0f3cd4ef%2C688ab6f5-9a8e-4bd7-b3b2-78415b9a2df7%2C45238893-fca1-42dd-ab09-9cb488f9d7e9%2C7777d1f3-375f-40eb-9484-6b249183950c%2C4d5f5b10-a4b6-4665-bf86-e20558fe289a%2C368817cc-45f1-4dbb-830a-07d303860e1d%2C6a3e9d09-2e01-4ff9-8131-acf1765a03e8%2Cd58aca71-cc86-482d-9e67-1feacb78eeaa&moduleHomeConfigId=36facf45-fa68-4f88-b274-2239037d352e&clientType=1&selectSource=2&_=1781928788403",
+    "method": "GET",
+    "status": 200,
+    "timestamp": 1781928790.6485631,
+    "count": 10
+  }
+]

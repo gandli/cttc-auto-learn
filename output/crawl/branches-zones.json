@@ -1,0 +1,225 @@
+{
+  "organizations": {
+    "1": {
+      "id": "1",
+      "liveSupply": 3,
+      "name": "全行业"
+    }
+  },
+  "branch_links": [
+    {
+      "text": "学习中心",
+      "href": "javascript:void(0);"
+    },
+    {
+      "text": "教育培训中心开展2025年科级干部履职能力提升培训班（第一期）",
+      "href": "https://mooc.ctt.cn/#/news/detail/67455861-6006-4b1c-9d15-d9c7a225093d/0"
+    }
+  ],
+  "all_nav_links": [
+    {
+      "text": "专题\n                                        加强国有企业管",
+      "href": "https://mooc.ctt.cn/#/study/subject/detail/0dac0b1b-12bd-45d3-b99d-f1bbf770b903"
+    },
+    {
+      "text": "专题\n                                        国有企业人工智",
+      "href": "https://mooc.ctt.cn/#/study/subject/detail/8e930e92-8984-43b5-812b-743a02fafe0f"
+    },
+    {
+      "text": "专题\n                                        壮大战略性新兴",
+      "href": "https://mooc.ctt.cn/#/study/subject/detail/a66f4509-e869-4a9e-ab96-389272ab087f"
+    },
+    {
+      "text": "专题\n                                        数字时代风险与",
+      "href": "https://mooc.ctt.cn/#/study/subject/detail/edd3de94-7323-4cda-a4df-6a073089f3b2"
+    },
+    {
+      "text": "专题\n                                        深入学习贯彻习",
+      "href": "https://mooc.ctt.cn/#/study/subject/detail/e6bb8f5c-1a32-4481-98c4-c0604e2bddac"
+    },
+    {
+      "text": "学习中心",
+      "href": "javascript:void(0);"
+    },
+    {
+      "text": "退出",
+      "href": "javascript:;"
+    },
+    {
+      "text": "海晟投资公司2025年度中高层管理人员政治素养暨履职能力提升培训班圆满结业",
+      "href": "https://mooc.ctt.cn/#/news/detail/55a88109-213b-4c3d-a91c-a6dc4ebe0feb/0"
+    },
+    {
+      "text": "教育培训中心开展2025年科级干部履职能力提升培训班（第一期）",
+      "href": "https://mooc.ctt.cn/#/news/detail/67455861-6006-4b1c-9d15-d9c7a225093d/0"
+    },
+    {
+      "text": "省局（公司）举办专卖监管课程开发竞赛",
+      "href": "https://mooc.ctt.cn/#/news/detail/99440761-437b-4321-9338-71ac40085b96/0"
+    },
+    {
+      "text": "省局（公司）举办数字化领导能力及数字化转型形势与政策培训班",
+      "href": "https://mooc.ctt.cn/#/news/detail/d28d6263-1d23-4de0-891c-7a26a9462045/0"
+    },
+    {
+      "text": "福建烟草商业系统青年会计人才培养项目顺利开班",
+      "href": "https://mooc.ctt.cn/#/news/detail/2027d677-7de4-4b7c-8082-0a2e7e6ad059/0"
+    },
+    {
+      "text": "三明金叶公司举办业务骨干和技术技能人员履职能力提升培训班",
+      "href": "https://mooc.ctt.cn/#/news/detail/707cfbdb-8b07-4248-8337-374b1e849d39/0"
+    },
+    {
+      "text": "福建省局举办第一届烟草专卖无人机技能竞赛",
+      "href": "https://mooc.ctt.cn/#/news/detail/9737b19c-7ca5-4183-8d09-efd644a2c3c2/0"
+    },
+    {
+      "text": "南平市局（公司）举办全市系统科级干部履职能力提升培训班",
+      "href": "https://mooc.ctt.cn/#/news/detail/b7040105-b9a0-42fb-a3f4-e36eaef568f1/0"
+    },
+    {
+      "text": "漳州市局（公司）举办全市系统“一把手”政治能力提升暨科级以上干部履职能力提升培训班",
+      "href": "https://mooc.ctt.cn/#/news/detail/c75333e6-feba-4a4d-a096-d019bc689701/0"
+    },
+    {
+      "text": "福州市局（公司）组织召开2024年采购及工程建设管理主题培训",
+      "href": "https://mooc.ctt.cn/#/news/detail/06f88929-3dbc-46f8-962a-cd71c997706a/0"
+    },
+    {
+      "text": "习近平总书记的重要讲话精神\n                                    ",
+      "href": "https://mooc.ctt.cn/#/study/subject/detail/813d5d89-bea9-4e68-985f-86d936be6b81"
+    },
+    {
+      "text": "深入学习贯彻习近平总书记论述摘编\n                                 ",
+      "href": "https://mooc.ctt.cn/#/study/subject/detail/6a3153f5-9e94-4d26-926f-8aed05095341"
+    },
+    {
+      "text": "马列主义经典著作导读\n                                       ",
+      "href": "https://mooc.ctt.cn/#/study/subject/detail/faad900d-93a6-4760-ab57-2cf07de2c39a"
+    },
+    {
+      "text": "壮大战略性新兴产业，培育经济新动能\n                                ",
+      "href": "https://mooc.ctt.cn/#/study/subject/detail/a66f4509-e869-4a9e-ab96-389272ab087f"
+    },
+    {
+      "text": "抓党建促闽西乡村振兴的研究和探索\n                                 ",
+      "href": "https://mooc.ctt.cn/#/study/course/detail/4&4bf66726-52f6-424f-9765-ba5977f33d55"
+    },
+    {
+      "text": "激扬青春梦 奋进新征程\n                                      ",
+      "href": "https://mooc.ctt.cn/#/study/course/detail/4&fc6790ec-0244-4f24-945d-21be5bc6822f"
+    },
+    {
+      "text": "点亮农网终端“一抹红” 绘就乡村振兴“新画卷”\n                          ",
+      "href": "https://mooc.ctt.cn/#/study/course/detail/4&a6e26ede-ca0f-4af7-b75f-0577a71c9554"
+    },
+    {
+      "text": "学条例知敬畏 守党纪当表率——《中国共产党纪律处分条例》解读\n                   ",
+      "href": "https://mooc.ctt.cn/#/study/course/detail/4&9977d46f-25db-45c5-8bdb-8601a555d84d"
+    },
+    {
+      "text": "烟叶生产\n                                        0",
+      "href": "https://mooc.ctt.cn/#/staticConfigNew/40288177515b351601515b565d69000e/084e9e59-7891-48af-950f-0987fad3653a"
+    },
+    {
+      "text": "卷烟销售\n                                        0",
+      "href": "https://mooc.ctt.cn/#/staticConfigNew/40288177515b351601515b565d69000e/e4410ffe-8921-4c24-b259-f237ee2aa369"
+    },
+    {
+      "text": "专卖管理\n                                            0",
+      "href": "https://mooc.ctt.cn/#/staticConfigNew/40288177515b351601515b565d69000e/be68909a-51f2-4537-a4bf-1bc502587d8d"
+    },
+    {
+      "text": "烟草物流\n                                            0",
+      "href": "https://mooc.ctt.cn/#/staticConfigNew/40288177515b351601515b565d69000e/d14bc918-8df5-4631-a2e9-33f2cfcdc20a"
+    },
+    {
+      "text": "技能鉴定\n                                            0",
+      "href": "https://mooc.ctt.cn/#/staticConfigNew/40288177515b351601515b565d69000e/d2ee3881-577c-44ae-9093-e65817a21932"
+    },
+    {
+      "text": "综合管理\n                                            0",
+      "href": "https://mooc.ctt.cn/#/staticConfigNew/40288177515b351601515b565d69000e/97ce550b-bca5-4d62-ba91-a12126a47379"
+    },
+    {
+      "text": "本课程主要向学员介绍数字化运营的背景和意义、概念、新茶饮行业数字化运营以及烟草的展望。希望通过共同学",
+      "href": "https://mooc.ctt.cn/#/study/course/detail/4&e92c7bc6-5767-44e7-94ca-3b6b8f26afef"
+    },
+    {
+      "text": "本课程主要向学员介绍了“首违不罚”制度在烟草行政处罚领域的应用，内容主要分为“首违不罚”制度概述、制",
+      "href": "https://mooc.ctt.cn/#/study/course/detail/4&bde93f22-bb6a-4d5b-8448-6da5ed8bd062"
+    },
+    {
+      "text": "本课程主要向学员介绍了在制假窝点内的执法全过程记录怎么“拍”，才能让执法记录仪发挥其最佳功能。通过“",
+      "href": "https://mooc.ctt.cn/#/study/course/detail/4&23305004-7766-4ccb-8e46-7a24217e30b0"
+    },
+    {
+      "text": "本课程主要帮助学员了解安全管理数字化转型的必要性，并借助安全管理四大要素思考数字化转型动作，了解数字",
+      "href": "https://mooc.ctt.cn/#/study/course/detail/4&70c02da4-ffeb-4117-b4af-e45ece3df0b4"
+    },
+    {
+      "text": "本课程主要向学员介绍了烟叶烘烤特性的概念、烟叶烘烤特性的影响因素、如何判断烟叶的烘烤特性等内容。\n ",
+      "href": "https://mooc.ctt.cn/#/study/course/detail/4&d36e0e24-6d30-4668-bdfb-2d3da0592503"
+    },
+    {
+      "text": "本课程主要从概念（公式）解读、教材例题分析、真题分析、易错点分析等维度，向学员介绍了如何使用定量订货",
+      "href": "https://mooc.ctt.cn/#/study/course/detail/4&3f4c02a3-518c-4df7-b209-9df6741628c9"
+    },
+    {
+      "text": "本课程主要讲述当前海上走私卷烟犯罪活动特点和组织特征，并以“2101”专案为切入点，向学员介绍打击海",
+      "href": "https://mooc.ctt.cn/#/study/course/detail/4&88cd14bd-30f5-4e9b-b00d-020520567af7"
+    },
+    {
+      "text": "本课程主要向学员介绍了国际烟叶的种植、以及贸易，结合福建烟草进出口贸易经验，详细阐述了全球烟叶种植和",
+      "href": "https://mooc.ctt.cn/#/study/course/detail/4&dc8d508a-fb92-4f26-8d48-28354259b2b3"
+    },
+    {
+      "text": "豫ICP备10002843号",
+      "href": "http://beian.miit.gov.cn/"
+    },
+    {
+      "text": "上传图片",
+      "href": "javascript:;"
+    },
+    {
+      "text": "取消",
+      "href": "javascript:;"
+    }
+  ],
+  "api_responses_summary": {
+    "https://mooc.ctt.cn/api/v1/system/setting": 1,
+    "https://mooc.ctt.cn/api/v1/system/home-config/organization": 4,
+    "https://mooc.ctt.cn/api/v1/system/company-sync/get-company-by-id": 20,
+    "https://mooc.ctt.cn/api/v1/system/rule-config/key-not-login": 1,
+    "https://mooc.ctt.cn/api/v1/human/task/findMyTaskRemind": 1,
+    "https://mooc.ctt.cn/api/v1/system/home-config/personHomeConfig": 1,
+    "https://mooc.ctt.cn/api/v1/human/task/findMyTaskCalendar": 1,
+    "https://mooc.ctt.cn/api/v1/system/credit/detail-hour-member": 1,
+    "https://mooc.ctt.cn/api/v1/system/skin-config/skin": 1,
+    "https://mooc.ctt.cn/api/v1/system/cadre-education/detail-hour-member": 1,
+    "https://mooc.ctt.cn/api/v1/system/rule-config/getkey": 5,
+    "https://mooc.ctt.cn/api/v1/system/topic/hot-all": 1,
+    "https://mooc.ctt.cn/api/v1/system/operation/announcement/person-list-all": 1,
+    "https://mooc.ctt.cn/api/v1/system/integral-result/grade": 1,
+    "https://mooc.ctt.cn/api/v1/course-study/course-study-progress/history-and-now-duration": 1,
+    "https://mooc.ctt.cn/api/v1/system/msg-count": 1,
+    "https://mooc.ctt.cn/api/v1/system/message-at-me/get-count": 1,
+    "https://mooc.ctt.cn/api/v1/system/home-config/config": 5,
+    "https://mooc.ctt.cn/api/v1/system/message-notice/getCount": 1,
+    "https://mooc.ctt.cn/api/v1/course-study/course-info/front/recommend": 1,
+    "https://mooc.ctt.cn/api/v1/system/home-nav": 1,
+    "https://mooc.ctt.cn/api/v1/system/home-footer": 1,
+    "https://mooc.ctt.cn/api/v1/system/home-module": 1,
+    "https://mooc.ctt.cn/api/v1/system/home-content/companyFooterMemberCount": 1,
+    "https://mooc.ctt.cn/api/v1/system/rule-config/key": 1,
+    "https://mooc.ctt.cn/api/v1/system/home-content": 5,
+    "https://mooc.ctt.cn/api/v1/system/home-news": 1,
+    "https://mooc.ctt.cn/api/v1/training/home-lecturer": 1,
+    "https://mooc.ctt.cn/api/v1/system/home-advertisement": 1,
+    "https://mooc.ctt.cn/api/v1/course-study/course-total/course-finish-count": 1,
+    "https://mooc.ctt.cn/api/v1/course-study/course-total/findCityRankValue": 1,
+    "https://mooc.ctt.cn/api/v1/course-study/course-front/companyLecturerCourseRank": 1,
+    "https://mooc.ctt.cn/api/v1/system/home-footer/getLoginSumCount": 1,
+    "https://mooc.ctt.cn/api/v1/course-study/course-info/home/front/find-by-ids": 3
+  }
+}

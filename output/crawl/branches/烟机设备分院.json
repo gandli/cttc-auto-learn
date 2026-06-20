@@ -1,0 +1,629 @@
+{
+  "name": "烟机设备分院",
+  "configId": "95cdfef5-6c6c-498e-a999-6b78bf16e623",
+  "type": "分院",
+  "pages": [
+    {
+      "url": "home",
+      "title": "中国烟草网络学院",
+      "links_count": 23,
+      "courses_count": 4
+    },
+    {
+      "url": "homeBranch",
+      "title": "中国烟草网络学院",
+      "links_count": 23,
+      "courses_count": 4
+    },
+    {
+      "url": "news-dynamic/index",
+      "title": "中国烟草网络学院",
+      "links_count": 23,
+      "courses_count": 4
+    },
+    {
+      "url": "study/branch/index",
+      "title": "中国烟草网络学院",
+      "links_count": 23,
+      "courses_count": 4
+    },
+    {
+      "url": "study/course/index",
+      "title": "中国烟草网络学院",
+      "links_count": 23,
+      "courses_count": 4
+    },
+    {
+      "url": "study/subject/index",
+      "title": "中国烟草网络学院",
+      "links_count": 23,
+      "courses_count": 4
+    },
+    {
+      "url": "policy-statute/index",
+      "title": "中国烟草网络学院",
+      "links_count": 23,
+      "courses_count": 4
+    },
+    {
+      "url": "reading-space/index",
+      "title": "中国烟草网络学院",
+      "links_count": 23,
+      "courses_count": 4
+    },
+    {
+      "url": "expert-zone/index",
+      "title": "中国烟草网络学院",
+      "links_count": 23,
+      "courses_count": 4
+    },
+    {
+      "url": "activity/index",
+      "title": "中国烟草网络学院",
+      "links_count": 23,
+      "courses_count": 4
+    },
+    {
+      "url": "ask/index",
+      "title": "中国烟草网络学院",
+      "links_count": 23,
+      "courses_count": 4
+    },
+    {
+      "url": "knowledge/index",
+      "title": "中国烟草网络学院",
+      "links_count": 23,
+      "courses_count": 4
+    }
+  ],
+  "api_calls": [],
+  "courses": [],
+  "subjects": [
+    {
+      "text": "智慧物流规划与管理实战学习专题\n                                    \n                                    \n          ",
+      "href": "https://mooc.ctt.cn/#/study/subject/detail/103fbf23-648d-4f8c-aa63-f3bd049d2481"
+    },
+    {
+      "text": "精益数字化实战路径——从认知破局到增长飞轮学习专题\n                                        \n                                 ",
+      "href": "https://mooc.ctt.cn/#/study/subject/detail/7a23b089-4fe4-4f54-8f6c-6b95675b7ba3"
+    },
+    {
+      "text": "烟草制品购销员（二级）\n                                        \n                                        \n      ",
+      "href": "https://mooc.ctt.cn/#/study/subject/detail/eda113d6-c34f-4e4e-91c9-549a0f3cd4ef"
+    },
+    {
+      "text": "2026全国科技工作者日“逐光而行 薪火永续”口述科学家精神视频展播\n                                        \n                        ",
+      "href": "https://mooc.ctt.cn/#/study/subject/detail/688ab6f5-9a8e-4bd7-b3b2-78415b9a2df7"
+    }
+  ],
+  "articles": [
+    {
+      "text": "29\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/e5a3b3a3-bba1-4097-8577-b34023ce27d8/0"
+    },
+    {
+      "text": "13\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/06bf51b4-5955-4c83-80cc-15332dfb57ba/0"
+    },
+    {
+      "text": "29\n                                                            2026-04\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/75cd6cff-9c86-4935-b1da-3ae264ee94a1/0"
+    },
+    {
+      "text": "关于公布2026年度培训项目计划的通知\n                                                    \n                           ",
+      "href": "https://mooc.ctt.cn/#/news/detail/266f9696-38ad-4a8d-9b87-6ec3d11de04f/0"
+    },
+    {
+      "text": "关于举办第五届烟叶工匠人才（烟草栽培方向）培养第二次集中学习的通知\n                                                    \n             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/87a4e2b6-49f6-47b6-bdd5-ef9254de0e92/0"
+    },
+    {
+      "text": "关于举办2026年注册安全工程师研修班（总第7期）的通知\n                                                    \n                  ",
+      "href": "https://mooc.ctt.cn/#/news/detail/b8b9715e-ee1f-48b0-92db-4d4f695f952f/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟叶评级技师进修班（总第18期）的通知\n                                                    \n               ",
+      "href": "https://mooc.ctt.cn/#/news/detail/970cf314-1ccf-4fe8-be10-16535bc040d0/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟草制品购销员进修班（总第13期）的通知\n                                                    \n              ",
+      "href": "https://mooc.ctt.cn/#/news/detail/21311d68-7964-45d0-b018-95ecd3f4cd6e/0"
+    },
+    {
+      "text": "关于举办2026年度第一期“红帆·合心越”大讲堂的通知\n                                                    \n                   ",
+      "href": "https://mooc.ctt.cn/#/news/detail/0f849945-3637-4714-b732-61b30575a3e2/0"
+    },
+    {
+      "text": "关于举办烟叶原料质量感官评价技术培训班的通知\n                                                    \n                        ",
+      "href": "https://mooc.ctt.cn/#/news/detail/17a11ad6-8d9d-4dd9-94f1-69ebbf731154/0"
+    },
+    {
+      "text": "关于举办烟叶调制技术培训班（第三期）的通知\n                                                    \n                         ",
+      "href": "https://mooc.ctt.cn/#/news/detail/091ae83b-c9fb-46f8-9713-40ab2b978bfb/0"
+    },
+    {
+      "text": "29\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/e5a3b3a3-bba1-4097-8577-b34023ce27d8/0"
+    },
+    {
+      "text": "13\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/06bf51b4-5955-4c83-80cc-15332dfb57ba/0"
+    },
+    {
+      "text": "29\n                                                            2026-04\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/75cd6cff-9c86-4935-b1da-3ae264ee94a1/0"
+    },
+    {
+      "text": "关于公布2026年度培训项目计划的通知\n                                                    \n                           ",
+      "href": "https://mooc.ctt.cn/#/news/detail/266f9696-38ad-4a8d-9b87-6ec3d11de04f/0"
+    },
+    {
+      "text": "关于举办第五届烟叶工匠人才（烟草栽培方向）培养第二次集中学习的通知\n                                                    \n             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/87a4e2b6-49f6-47b6-bdd5-ef9254de0e92/0"
+    },
+    {
+      "text": "关于举办2026年注册安全工程师研修班（总第7期）的通知\n                                                    \n                  ",
+      "href": "https://mooc.ctt.cn/#/news/detail/b8b9715e-ee1f-48b0-92db-4d4f695f952f/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟叶评级技师进修班（总第18期）的通知\n                                                    \n               ",
+      "href": "https://mooc.ctt.cn/#/news/detail/970cf314-1ccf-4fe8-be10-16535bc040d0/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟草制品购销员进修班（总第13期）的通知\n                                                    \n              ",
+      "href": "https://mooc.ctt.cn/#/news/detail/21311d68-7964-45d0-b018-95ecd3f4cd6e/0"
+    },
+    {
+      "text": "关于举办2026年度第一期“红帆·合心越”大讲堂的通知\n                                                    \n                   ",
+      "href": "https://mooc.ctt.cn/#/news/detail/0f849945-3637-4714-b732-61b30575a3e2/0"
+    },
+    {
+      "text": "关于举办烟叶原料质量感官评价技术培训班的通知\n                                                    \n                        ",
+      "href": "https://mooc.ctt.cn/#/news/detail/17a11ad6-8d9d-4dd9-94f1-69ebbf731154/0"
+    },
+    {
+      "text": "关于举办烟叶调制技术培训班（第三期）的通知\n                                                    \n                         ",
+      "href": "https://mooc.ctt.cn/#/news/detail/091ae83b-c9fb-46f8-9713-40ab2b978bfb/0"
+    },
+    {
+      "text": "29\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/e5a3b3a3-bba1-4097-8577-b34023ce27d8/0"
+    },
+    {
+      "text": "13\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/06bf51b4-5955-4c83-80cc-15332dfb57ba/0"
+    },
+    {
+      "text": "29\n                                                            2026-04\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/75cd6cff-9c86-4935-b1da-3ae264ee94a1/0"
+    },
+    {
+      "text": "关于公布2026年度培训项目计划的通知\n                                                    \n                           ",
+      "href": "https://mooc.ctt.cn/#/news/detail/266f9696-38ad-4a8d-9b87-6ec3d11de04f/0"
+    },
+    {
+      "text": "关于举办第五届烟叶工匠人才（烟草栽培方向）培养第二次集中学习的通知\n                                                    \n             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/87a4e2b6-49f6-47b6-bdd5-ef9254de0e92/0"
+    },
+    {
+      "text": "关于举办2026年注册安全工程师研修班（总第7期）的通知\n                                                    \n                  ",
+      "href": "https://mooc.ctt.cn/#/news/detail/b8b9715e-ee1f-48b0-92db-4d4f695f952f/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟叶评级技师进修班（总第18期）的通知\n                                                    \n               ",
+      "href": "https://mooc.ctt.cn/#/news/detail/970cf314-1ccf-4fe8-be10-16535bc040d0/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟草制品购销员进修班（总第13期）的通知\n                                                    \n              ",
+      "href": "https://mooc.ctt.cn/#/news/detail/21311d68-7964-45d0-b018-95ecd3f4cd6e/0"
+    },
+    {
+      "text": "关于举办2026年度第一期“红帆·合心越”大讲堂的通知\n                                                    \n                   ",
+      "href": "https://mooc.ctt.cn/#/news/detail/0f849945-3637-4714-b732-61b30575a3e2/0"
+    },
+    {
+      "text": "关于举办烟叶原料质量感官评价技术培训班的通知\n                                                    \n                        ",
+      "href": "https://mooc.ctt.cn/#/news/detail/17a11ad6-8d9d-4dd9-94f1-69ebbf731154/0"
+    },
+    {
+      "text": "关于举办烟叶调制技术培训班（第三期）的通知\n                                                    \n                         ",
+      "href": "https://mooc.ctt.cn/#/news/detail/091ae83b-c9fb-46f8-9713-40ab2b978bfb/0"
+    },
+    {
+      "text": "29\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/e5a3b3a3-bba1-4097-8577-b34023ce27d8/0"
+    },
+    {
+      "text": "13\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/06bf51b4-5955-4c83-80cc-15332dfb57ba/0"
+    },
+    {
+      "text": "29\n                                                            2026-04\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/75cd6cff-9c86-4935-b1da-3ae264ee94a1/0"
+    },
+    {
+      "text": "关于公布2026年度培训项目计划的通知\n                                                    \n                           ",
+      "href": "https://mooc.ctt.cn/#/news/detail/266f9696-38ad-4a8d-9b87-6ec3d11de04f/0"
+    },
+    {
+      "text": "关于举办第五届烟叶工匠人才（烟草栽培方向）培养第二次集中学习的通知\n                                                    \n             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/87a4e2b6-49f6-47b6-bdd5-ef9254de0e92/0"
+    },
+    {
+      "text": "关于举办2026年注册安全工程师研修班（总第7期）的通知\n                                                    \n                  ",
+      "href": "https://mooc.ctt.cn/#/news/detail/b8b9715e-ee1f-48b0-92db-4d4f695f952f/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟叶评级技师进修班（总第18期）的通知\n                                                    \n               ",
+      "href": "https://mooc.ctt.cn/#/news/detail/970cf314-1ccf-4fe8-be10-16535bc040d0/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟草制品购销员进修班（总第13期）的通知\n                                                    \n              ",
+      "href": "https://mooc.ctt.cn/#/news/detail/21311d68-7964-45d0-b018-95ecd3f4cd6e/0"
+    },
+    {
+      "text": "关于举办2026年度第一期“红帆·合心越”大讲堂的通知\n                                                    \n                   ",
+      "href": "https://mooc.ctt.cn/#/news/detail/0f849945-3637-4714-b732-61b30575a3e2/0"
+    },
+    {
+      "text": "关于举办烟叶原料质量感官评价技术培训班的通知\n                                                    \n                        ",
+      "href": "https://mooc.ctt.cn/#/news/detail/17a11ad6-8d9d-4dd9-94f1-69ebbf731154/0"
+    },
+    {
+      "text": "关于举办烟叶调制技术培训班（第三期）的通知\n                                                    \n                         ",
+      "href": "https://mooc.ctt.cn/#/news/detail/091ae83b-c9fb-46f8-9713-40ab2b978bfb/0"
+    },
+    {
+      "text": "29\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/e5a3b3a3-bba1-4097-8577-b34023ce27d8/0"
+    },
+    {
+      "text": "13\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/06bf51b4-5955-4c83-80cc-15332dfb57ba/0"
+    },
+    {
+      "text": "29\n                                                            2026-04\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/75cd6cff-9c86-4935-b1da-3ae264ee94a1/0"
+    },
+    {
+      "text": "关于公布2026年度培训项目计划的通知\n                                                    \n                           ",
+      "href": "https://mooc.ctt.cn/#/news/detail/266f9696-38ad-4a8d-9b87-6ec3d11de04f/0"
+    },
+    {
+      "text": "关于举办第五届烟叶工匠人才（烟草栽培方向）培养第二次集中学习的通知\n                                                    \n             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/87a4e2b6-49f6-47b6-bdd5-ef9254de0e92/0"
+    },
+    {
+      "text": "关于举办2026年注册安全工程师研修班（总第7期）的通知\n                                                    \n                  ",
+      "href": "https://mooc.ctt.cn/#/news/detail/b8b9715e-ee1f-48b0-92db-4d4f695f952f/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟叶评级技师进修班（总第18期）的通知\n                                                    \n               ",
+      "href": "https://mooc.ctt.cn/#/news/detail/970cf314-1ccf-4fe8-be10-16535bc040d0/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟草制品购销员进修班（总第13期）的通知\n                                                    \n              ",
+      "href": "https://mooc.ctt.cn/#/news/detail/21311d68-7964-45d0-b018-95ecd3f4cd6e/0"
+    },
+    {
+      "text": "关于举办2026年度第一期“红帆·合心越”大讲堂的通知\n                                                    \n                   ",
+      "href": "https://mooc.ctt.cn/#/news/detail/0f849945-3637-4714-b732-61b30575a3e2/0"
+    },
+    {
+      "text": "关于举办烟叶原料质量感官评价技术培训班的通知\n                                                    \n                        ",
+      "href": "https://mooc.ctt.cn/#/news/detail/17a11ad6-8d9d-4dd9-94f1-69ebbf731154/0"
+    },
+    {
+      "text": "关于举办烟叶调制技术培训班（第三期）的通知\n                                                    \n                         ",
+      "href": "https://mooc.ctt.cn/#/news/detail/091ae83b-c9fb-46f8-9713-40ab2b978bfb/0"
+    },
+    {
+      "text": "29\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/e5a3b3a3-bba1-4097-8577-b34023ce27d8/0"
+    },
+    {
+      "text": "13\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/06bf51b4-5955-4c83-80cc-15332dfb57ba/0"
+    },
+    {
+      "text": "29\n                                                            2026-04\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/75cd6cff-9c86-4935-b1da-3ae264ee94a1/0"
+    },
+    {
+      "text": "关于公布2026年度培训项目计划的通知\n                                                    \n                           ",
+      "href": "https://mooc.ctt.cn/#/news/detail/266f9696-38ad-4a8d-9b87-6ec3d11de04f/0"
+    },
+    {
+      "text": "关于举办第五届烟叶工匠人才（烟草栽培方向）培养第二次集中学习的通知\n                                                    \n             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/87a4e2b6-49f6-47b6-bdd5-ef9254de0e92/0"
+    },
+    {
+      "text": "关于举办2026年注册安全工程师研修班（总第7期）的通知\n                                                    \n                  ",
+      "href": "https://mooc.ctt.cn/#/news/detail/b8b9715e-ee1f-48b0-92db-4d4f695f952f/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟叶评级技师进修班（总第18期）的通知\n                                                    \n               ",
+      "href": "https://mooc.ctt.cn/#/news/detail/970cf314-1ccf-4fe8-be10-16535bc040d0/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟草制品购销员进修班（总第13期）的通知\n                                                    \n              ",
+      "href": "https://mooc.ctt.cn/#/news/detail/21311d68-7964-45d0-b018-95ecd3f4cd6e/0"
+    },
+    {
+      "text": "关于举办2026年度第一期“红帆·合心越”大讲堂的通知\n                                                    \n                   ",
+      "href": "https://mooc.ctt.cn/#/news/detail/0f849945-3637-4714-b732-61b30575a3e2/0"
+    },
+    {
+      "text": "关于举办烟叶原料质量感官评价技术培训班的通知\n                                                    \n                        ",
+      "href": "https://mooc.ctt.cn/#/news/detail/17a11ad6-8d9d-4dd9-94f1-69ebbf731154/0"
+    },
+    {
+      "text": "关于举办烟叶调制技术培训班（第三期）的通知\n                                                    \n                         ",
+      "href": "https://mooc.ctt.cn/#/news/detail/091ae83b-c9fb-46f8-9713-40ab2b978bfb/0"
+    },
+    {
+      "text": "29\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/e5a3b3a3-bba1-4097-8577-b34023ce27d8/0"
+    },
+    {
+      "text": "13\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/06bf51b4-5955-4c83-80cc-15332dfb57ba/0"
+    },
+    {
+      "text": "29\n                                                            2026-04\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/75cd6cff-9c86-4935-b1da-3ae264ee94a1/0"
+    },
+    {
+      "text": "关于公布2026年度培训项目计划的通知\n                                                    \n                           ",
+      "href": "https://mooc.ctt.cn/#/news/detail/266f9696-38ad-4a8d-9b87-6ec3d11de04f/0"
+    },
+    {
+      "text": "关于举办第五届烟叶工匠人才（烟草栽培方向）培养第二次集中学习的通知\n                                                    \n             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/87a4e2b6-49f6-47b6-bdd5-ef9254de0e92/0"
+    },
+    {
+      "text": "关于举办2026年注册安全工程师研修班（总第7期）的通知\n                                                    \n                  ",
+      "href": "https://mooc.ctt.cn/#/news/detail/b8b9715e-ee1f-48b0-92db-4d4f695f952f/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟叶评级技师进修班（总第18期）的通知\n                                                    \n               ",
+      "href": "https://mooc.ctt.cn/#/news/detail/970cf314-1ccf-4fe8-be10-16535bc040d0/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟草制品购销员进修班（总第13期）的通知\n                                                    \n              ",
+      "href": "https://mooc.ctt.cn/#/news/detail/21311d68-7964-45d0-b018-95ecd3f4cd6e/0"
+    },
+    {
+      "text": "关于举办2026年度第一期“红帆·合心越”大讲堂的通知\n                                                    \n                   ",
+      "href": "https://mooc.ctt.cn/#/news/detail/0f849945-3637-4714-b732-61b30575a3e2/0"
+    },
+    {
+      "text": "关于举办烟叶原料质量感官评价技术培训班的通知\n                                                    \n                        ",
+      "href": "https://mooc.ctt.cn/#/news/detail/17a11ad6-8d9d-4dd9-94f1-69ebbf731154/0"
+    },
+    {
+      "text": "关于举办烟叶调制技术培训班（第三期）的通知\n                                                    \n                         ",
+      "href": "https://mooc.ctt.cn/#/news/detail/091ae83b-c9fb-46f8-9713-40ab2b978bfb/0"
+    },
+    {
+      "text": "29\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/e5a3b3a3-bba1-4097-8577-b34023ce27d8/0"
+    },
+    {
+      "text": "13\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/06bf51b4-5955-4c83-80cc-15332dfb57ba/0"
+    },
+    {
+      "text": "29\n                                                            2026-04\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/75cd6cff-9c86-4935-b1da-3ae264ee94a1/0"
+    },
+    {
+      "text": "关于公布2026年度培训项目计划的通知\n                                                    \n                           ",
+      "href": "https://mooc.ctt.cn/#/news/detail/266f9696-38ad-4a8d-9b87-6ec3d11de04f/0"
+    },
+    {
+      "text": "关于举办第五届烟叶工匠人才（烟草栽培方向）培养第二次集中学习的通知\n                                                    \n             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/87a4e2b6-49f6-47b6-bdd5-ef9254de0e92/0"
+    },
+    {
+      "text": "关于举办2026年注册安全工程师研修班（总第7期）的通知\n                                                    \n                  ",
+      "href": "https://mooc.ctt.cn/#/news/detail/b8b9715e-ee1f-48b0-92db-4d4f695f952f/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟叶评级技师进修班（总第18期）的通知\n                                                    \n               ",
+      "href": "https://mooc.ctt.cn/#/news/detail/970cf314-1ccf-4fe8-be10-16535bc040d0/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟草制品购销员进修班（总第13期）的通知\n                                                    \n              ",
+      "href": "https://mooc.ctt.cn/#/news/detail/21311d68-7964-45d0-b018-95ecd3f4cd6e/0"
+    },
+    {
+      "text": "关于举办2026年度第一期“红帆·合心越”大讲堂的通知\n                                                    \n                   ",
+      "href": "https://mooc.ctt.cn/#/news/detail/0f849945-3637-4714-b732-61b30575a3e2/0"
+    },
+    {
+      "text": "关于举办烟叶原料质量感官评价技术培训班的通知\n                                                    \n                        ",
+      "href": "https://mooc.ctt.cn/#/news/detail/17a11ad6-8d9d-4dd9-94f1-69ebbf731154/0"
+    },
+    {
+      "text": "关于举办烟叶调制技术培训班（第三期）的通知\n                                                    \n                         ",
+      "href": "https://mooc.ctt.cn/#/news/detail/091ae83b-c9fb-46f8-9713-40ab2b978bfb/0"
+    },
+    {
+      "text": "29\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/e5a3b3a3-bba1-4097-8577-b34023ce27d8/0"
+    },
+    {
+      "text": "13\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/06bf51b4-5955-4c83-80cc-15332dfb57ba/0"
+    },
+    {
+      "text": "29\n                                                            2026-04\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/75cd6cff-9c86-4935-b1da-3ae264ee94a1/0"
+    },
+    {
+      "text": "关于公布2026年度培训项目计划的通知\n                                                    \n                           ",
+      "href": "https://mooc.ctt.cn/#/news/detail/266f9696-38ad-4a8d-9b87-6ec3d11de04f/0"
+    },
+    {
+      "text": "关于举办第五届烟叶工匠人才（烟草栽培方向）培养第二次集中学习的通知\n                                                    \n             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/87a4e2b6-49f6-47b6-bdd5-ef9254de0e92/0"
+    },
+    {
+      "text": "关于举办2026年注册安全工程师研修班（总第7期）的通知\n                                                    \n                  ",
+      "href": "https://mooc.ctt.cn/#/news/detail/b8b9715e-ee1f-48b0-92db-4d4f695f952f/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟叶评级技师进修班（总第18期）的通知\n                                                    \n               ",
+      "href": "https://mooc.ctt.cn/#/news/detail/970cf314-1ccf-4fe8-be10-16535bc040d0/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟草制品购销员进修班（总第13期）的通知\n                                                    \n              ",
+      "href": "https://mooc.ctt.cn/#/news/detail/21311d68-7964-45d0-b018-95ecd3f4cd6e/0"
+    },
+    {
+      "text": "关于举办2026年度第一期“红帆·合心越”大讲堂的通知\n                                                    \n                   ",
+      "href": "https://mooc.ctt.cn/#/news/detail/0f849945-3637-4714-b732-61b30575a3e2/0"
+    },
+    {
+      "text": "关于举办烟叶原料质量感官评价技术培训班的通知\n                                                    \n                        ",
+      "href": "https://mooc.ctt.cn/#/news/detail/17a11ad6-8d9d-4dd9-94f1-69ebbf731154/0"
+    },
+    {
+      "text": "关于举办烟叶调制技术培训班（第三期）的通知\n                                                    \n                         ",
+      "href": "https://mooc.ctt.cn/#/news/detail/091ae83b-c9fb-46f8-9713-40ab2b978bfb/0"
+    },
+    {
+      "text": "29\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/e5a3b3a3-bba1-4097-8577-b34023ce27d8/0"
+    },
+    {
+      "text": "13\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/06bf51b4-5955-4c83-80cc-15332dfb57ba/0"
+    },
+    {
+      "text": "29\n                                                            2026-04\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/75cd6cff-9c86-4935-b1da-3ae264ee94a1/0"
+    },
+    {
+      "text": "关于公布2026年度培训项目计划的通知\n                                                    \n                           ",
+      "href": "https://mooc.ctt.cn/#/news/detail/266f9696-38ad-4a8d-9b87-6ec3d11de04f/0"
+    },
+    {
+      "text": "关于举办第五届烟叶工匠人才（烟草栽培方向）培养第二次集中学习的通知\n                                                    \n             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/87a4e2b6-49f6-47b6-bdd5-ef9254de0e92/0"
+    },
+    {
+      "text": "关于举办2026年注册安全工程师研修班（总第7期）的通知\n                                                    \n                  ",
+      "href": "https://mooc.ctt.cn/#/news/detail/b8b9715e-ee1f-48b0-92db-4d4f695f952f/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟叶评级技师进修班（总第18期）的通知\n                                                    \n               ",
+      "href": "https://mooc.ctt.cn/#/news/detail/970cf314-1ccf-4fe8-be10-16535bc040d0/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟草制品购销员进修班（总第13期）的通知\n                                                    \n              ",
+      "href": "https://mooc.ctt.cn/#/news/detail/21311d68-7964-45d0-b018-95ecd3f4cd6e/0"
+    },
+    {
+      "text": "关于举办2026年度第一期“红帆·合心越”大讲堂的通知\n                                                    \n                   ",
+      "href": "https://mooc.ctt.cn/#/news/detail/0f849945-3637-4714-b732-61b30575a3e2/0"
+    },
+    {
+      "text": "关于举办烟叶原料质量感官评价技术培训班的通知\n                                                    \n                        ",
+      "href": "https://mooc.ctt.cn/#/news/detail/17a11ad6-8d9d-4dd9-94f1-69ebbf731154/0"
+    },
+    {
+      "text": "关于举办烟叶调制技术培训班（第三期）的通知\n                                                    \n                         ",
+      "href": "https://mooc.ctt.cn/#/news/detail/091ae83b-c9fb-46f8-9713-40ab2b978bfb/0"
+    },
+    {
+      "text": "29\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/e5a3b3a3-bba1-4097-8577-b34023ce27d8/0"
+    },
+    {
+      "text": "13\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/06bf51b4-5955-4c83-80cc-15332dfb57ba/0"
+    },
+    {
+      "text": "29\n                                                            2026-04\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/75cd6cff-9c86-4935-b1da-3ae264ee94a1/0"
+    },
+    {
+      "text": "关于公布2026年度培训项目计划的通知\n                                                    \n                           ",
+      "href": "https://mooc.ctt.cn/#/news/detail/266f9696-38ad-4a8d-9b87-6ec3d11de04f/0"
+    },
+    {
+      "text": "关于举办第五届烟叶工匠人才（烟草栽培方向）培养第二次集中学习的通知\n                                                    \n             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/87a4e2b6-49f6-47b6-bdd5-ef9254de0e92/0"
+    },
+    {
+      "text": "关于举办2026年注册安全工程师研修班（总第7期）的通知\n                                                    \n                  ",
+      "href": "https://mooc.ctt.cn/#/news/detail/b8b9715e-ee1f-48b0-92db-4d4f695f952f/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟叶评级技师进修班（总第18期）的通知\n                                                    \n               ",
+      "href": "https://mooc.ctt.cn/#/news/detail/970cf314-1ccf-4fe8-be10-16535bc040d0/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟草制品购销员进修班（总第13期）的通知\n                                                    \n              ",
+      "href": "https://mooc.ctt.cn/#/news/detail/21311d68-7964-45d0-b018-95ecd3f4cd6e/0"
+    },
+    {
+      "text": "关于举办2026年度第一期“红帆·合心越”大讲堂的通知\n                                                    \n                   ",
+      "href": "https://mooc.ctt.cn/#/news/detail/0f849945-3637-4714-b732-61b30575a3e2/0"
+    },
+    {
+      "text": "关于举办烟叶原料质量感官评价技术培训班的通知\n                                                    \n                        ",
+      "href": "https://mooc.ctt.cn/#/news/detail/17a11ad6-8d9d-4dd9-94f1-69ebbf731154/0"
+    },
+    {
+      "text": "关于举办烟叶调制技术培训班（第三期）的通知\n                                                    \n                         ",
+      "href": "https://mooc.ctt.cn/#/news/detail/091ae83b-c9fb-46f8-9713-40ab2b978bfb/0"
+    },
+    {
+      "text": "29\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/e5a3b3a3-bba1-4097-8577-b34023ce27d8/0"
+    },
+    {
+      "text": "13\n                                                            2026-05\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/06bf51b4-5955-4c83-80cc-15332dfb57ba/0"
+    },
+    {
+      "text": "29\n                                                            2026-04\n                             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/75cd6cff-9c86-4935-b1da-3ae264ee94a1/0"
+    },
+    {
+      "text": "关于公布2026年度培训项目计划的通知\n                                                    \n                           ",
+      "href": "https://mooc.ctt.cn/#/news/detail/266f9696-38ad-4a8d-9b87-6ec3d11de04f/0"
+    },
+    {
+      "text": "关于举办第五届烟叶工匠人才（烟草栽培方向）培养第二次集中学习的通知\n                                                    \n             ",
+      "href": "https://mooc.ctt.cn/#/news/detail/87a4e2b6-49f6-47b6-bdd5-ef9254de0e92/0"
+    },
+    {
+      "text": "关于举办2026年注册安全工程师研修班（总第7期）的通知\n                                                    \n                  ",
+      "href": "https://mooc.ctt.cn/#/news/detail/b8b9715e-ee1f-48b0-92db-4d4f695f952f/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟叶评级技师进修班（总第18期）的通知\n                                                    \n               ",
+      "href": "https://mooc.ctt.cn/#/news/detail/970cf314-1ccf-4fe8-be10-16535bc040d0/0"
+    },
+    {
+      "text": "关于举办2026年第一期烟草制品购销员进修班（总第13期）的通知\n                                                    \n              ",
+      "href": "https://mooc.ctt.cn/#/news/detail/21311d68-7964-45d0-b018-95ecd3f4cd6e/0"
+    },
+    {
+      "text": "关于举办2026年度第一期“红帆·合心越”大讲堂的通知\n                                                    \n                   ",
+      "href": "https://mooc.ctt.cn/#/news/detail/0f849945-3637-4714-b732-61b30575a3e2/0"
+    },
+    {
+      "text": "关于举办烟叶原料质量感官评价技术培训班的通知\n                                                    \n                        ",
+      "href": "https://mooc.ctt.cn/#/news/detail/17a11ad6-8d9d-4dd9-94f1-69ebbf731154/0"
+    },
+    {
+      "text": "关于举办烟叶调制技术培训班（第三期）的通知\n                                                    \n                         ",
+      "href": "https://mooc.ctt.cn/#/news/detail/091ae83b-c9fb-46f8-9713-40ab2b978bfb/0"
+    }
+  ]
+}
