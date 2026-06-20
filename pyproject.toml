@@ -1,6 +1,6 @@
 [project]
 name = "cttc-login"
-version = "0.0.1"
+version = "0.0.2"
 description = "烟草网络学院自动登录与学习工具"
 readme = "README.md"
 requires-python = ">=3.11"

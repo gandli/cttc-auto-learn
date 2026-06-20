@@ -1,22 +1,21 @@
 # Changelog
 
-## v0.0.1 (2026-06-20)
-
-- 599ca90 docs: README 增加人类使用说明（克隆、安装依赖、运行）
-- 5b59d7c docs: 支持 pip + venv 原生安装方式
-- b19f80e docs: add development roadmap to README
-- 1ddf71f ci: fix changelog workflow — use git log instead of requarks action
-
 ## v0.0.2 (2026-06-20)
 
-### Roadmap
-- 新增「刷班级」模式开发计划 (`--mode classes`)
-- 油猴脚本版 (tampermonkey 分支) v0.1.0
-- CDP 版本 (cdp 分支) v0.1.0
+### Features
+- 登录后展示数据看板（学时进度条、课程/专题/任务统计）
+- 交互式目标选择（智能推荐：优先显示未达标项、进行中任务）
+- 二维码路径统一改为相对路径
+- `--mode` 参数改为可选，默认交互式选择
 
-### CI/CD
-- 修复 GitHub Actions changelog workflow（requarks → Python 脚本）
-- 去重逻辑：匹配已有 commit hash，避免重复条目
+### Fixes
+- 移除集中培训学时选项（线下进行，脚本不支持）
+- fetch_qr_codes 返回相对路径
+- 日志和回调统一使用相对路径
+- 更新测试适配新流程
+
+### Tests
+- 168 tests passed
 
 ## v0.0.1 (2026-06-20)
 
