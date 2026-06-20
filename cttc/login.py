@@ -450,13 +450,26 @@ class CTTCLogin:
     # ── 登录状态检测 ──
 
     async def is_logged_in(self) -> bool:
+        """检测是否已登录（多种方式）"""
         return await self.page.evaluate("""() => {
             const text = document.body?.innerText || '';
             const url = window.location.href;
-            return text.includes('退出') && !url.includes('/login') && !url.includes('/oauth/');
+            // 方式1: localStorage 有 token（最可靠，不检查 URL）
+            const has_token = !!localStorage.getItem('token');
+            if (has_token) return true;
+            // 方式2: 页面有"退出"按钮 + URL 已离开登录页
+            const has_logout = text.includes('退出') || text.includes('注销');
+            const not_login_page = !url.includes('/login') && !url.includes('/oauth/');
+            // 方式3: 页面有用户相关元素
+            const has_user_info = !!document.querySelector('.user-avatar, .avatar, [class*="user-info"]');
+            return (has_logout || has_user_info) && not_login_page;
         }""")
 
     async def is_qr_expired(self) -> bool:
+        """检测二维码是否过期（排除已登录的情况）"""
+        # 先检查是否已登录，已登录则不过期
+        if await self.is_logged_in():
+            return False
         return await self.page.evaluate("""() => {
             return (document.body?.innerText || '').includes('二维码已失效');
         }""")
@@ -483,8 +496,10 @@ class CTTCLogin:
                 if login_success:
                     return True
                 url = self.page.url
+                # 检测1: URL 已离开登录页
                 if "/login" not in url.lower() and "/oauth/" not in url.lower():
                     return True
+                # 检测2: 页面已登录（含 token 检测）
                 try:
                     if await self.is_logged_in():
                         return True

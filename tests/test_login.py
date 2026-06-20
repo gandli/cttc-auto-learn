@@ -69,14 +69,22 @@ async def test_is_logged_in_false(client, mock_page):
 
 @pytest.mark.asyncio
 async def test_is_qr_expired(client, mock_page):
-    mock_page.evaluate = AsyncMock(return_value=True)
+    # 模拟：未登录（token 为空）且二维码已失效
+    mock_page.evaluate = AsyncMock(side_effect=[
+        False,  # is_logged_in: localStorage.getItem('token') 返回 falsy
+        True    # is_qr_expired: 页面包含"二维码已失效"
+    ])
     result = await client.is_qr_expired()
     assert result is True
 
 
 @pytest.mark.asyncio
 async def test_is_qr_not_expired(client, mock_page):
-    mock_page.evaluate = AsyncMock(return_value=False)
+    # 模拟：未登录且二维码未过期
+    mock_page.evaluate = AsyncMock(side_effect=[
+        False,  # is_logged_in
+        False   # is_qr_expired
+    ])
     result = await client.is_qr_expired()
     assert result is False
 
