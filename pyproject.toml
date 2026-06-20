@@ -3,6 +3,7 @@ name = "cttc-login"
 version = "0.0.2"
 description = "烟草网络学院自动登录与学习工具"
 readme = "README.md"
+license = {text = "MIT"}
 requires-python = ">=3.11"
 dependencies = [
     "pillow>=12.2.0",
