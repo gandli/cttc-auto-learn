@@ -2,11 +2,8 @@ name: Update Changelog
 
 on:
   push:
-    branches:
-      - main
-    paths-ignore:
-      - 'CHANGELOG.md'
-      - '.github/**'
+    tags:
+      - 'v*'
   workflow_dispatch:
 
 permissions:
@@ -21,25 +18,28 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Latest Tag
-        id: latest_tag
-        run: |
-          TAG=$(git tag --sort=-v:refname | head -n1)
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
-
       - name: Generate Changelog
         run: |
           python3 - <<'PYEOF'
           import subprocess, re, os
+          from datetime import datetime
 
-          tag = "${{ steps.latest_tag.outputs.tag }}"
+          # Get current tag
+          tag = subprocess.check_output(
+              ["git", "describe", "--tags", "--exact-match"],
+              text=True
+          ).strip()
 
           # Get previous tag
           tags = subprocess.check_output(
               ["git", "tag", "--sort=-v:refname"],
               text=True
           ).strip().split("\n")
-          prev_tag = tags[1] if len(tags) > 1 else None
+          prev_tag = None
+          for t in tags:
+              if t != tag:
+                  prev_tag = t
+                  break
 
           # Get commits between tags
           if prev_tag:
@@ -57,27 +57,40 @@ jobs:
               print("No commits found")
               exit(0)
 
-          # Read existing changelog and extract already-listed hashes
-          existing_hashes = set()
-          if os.path.exists("CHANGELOG.md"):
-              with open("CHANGELOG.md", newline="") as f:
-                  content = f.read()
-              content = content.replace("\r\n", "\n").replace("\r", "\n")
-              existing_hashes = set(re.findall(r'\b([a-f0-9]{7,})\b', content))
-              print(f"Existing hashes in CHANGELOG.md: {existing_hashes}")
+          # Parse commits and categorize by type
+          categories = {
+              "新增": [],      # feat:
+              "变更": [],      # refactor:, style:, chore:, perf:
+              "修复": [],      # fix:
+              "文档": [],      # docs:
+              "测试": [],      # test:
+              "其他": [],      # everything else
+          }
 
-          # Filter new commits
-          new_lines = []
           for line in log.split("\n"):
-              m = re.match(r'^([a-f0-9]{7,})\s+(.*)', line)
-              if m:
-                  hash_, msg = m.group(1), m.group(2)
-                  if hash_ not in existing_hashes:
-                      new_lines.append(f"- {hash_} {msg}")
+              m = re.match(r'^[a-f0-9]+\s+(.*)', line)
+              if not m:
+                  continue
+              msg = m.group(1).strip()
 
-          if not new_lines:
-              print("No new commits to add")
-              exit(0)
+              # Remove conventional commit prefix
+              msg = re.sub(r'^(feat|fix|docs|style|refactor|perf|test|chore|ci|build|revert)(\(.+?\))?!?:\s*', '', msg)
+
+              # Categorize
+              if any(line.startswith(p) for p in ['feat:', 'feat(']):
+                  categories["新增"].append(msg)
+              elif any(line.startswith(p) for p in ['fix:', 'fix(']):
+                  categories["修复"].append(msg)
+              elif any(line.startswith(p) for p in ['docs:', 'docs(']):
+                  categories["文档"].append(msg)
+              elif any(line.startswith(p) for p in ['refactor:', 'refactor(', 'style:', 'style(', 'perf:', 'perf(']):
+                  categories["变更"].append(msg)
+              elif any(line.startswith(p) for p in ['test:', 'test(']):
+                  categories["测试"].append(msg)
+              elif any(line.startswith(p) for p in ['chore:', 'chore(', 'ci:', 'ci(', 'build:', 'build(']):
+                  categories["其他"].append(msg)
+              else:
+                  categories["其他"].append(msg)
 
           # Get tag date
           date = subprocess.check_output(
@@ -85,27 +98,43 @@ jobs:
               text=True
           ).strip().split()[0]
 
-          # Build new section
-          new_section = f"\n## {tag} ({date})\n\n" + "\n".join(new_lines) + "\n"
+          # Build new section (Keep a Changelog format)
+          version = tag.lstrip('v')
+          new_section = f"\n## [{version}] - {date}\n\n"
 
-          # Insert into changelog
+          for cat_name, items in categories.items():
+              if items:
+                  new_section += f"### {cat_name}\n"
+                  for item in items:
+                      new_section += f"- {item}\n"
+                  new_section += "\n"
+
+          # Read existing changelog
           if os.path.exists("CHANGELOG.md"):
               with open("CHANGELOG.md", newline="") as f:
-                  lines = f.readlines()
-              lines = [l.replace("\r\n", "\n").replace("\r", "\n") for l in lines]
-              for i, line in enumerate(lines):
-                  if line.startswith("# Changelog"):
-                      lines.insert(i + 1, new_section)
-                      break
-              else:
-                  lines.append(new_section)
-              with open("CHANGELOG.md", "w", newline="\n") as f:
-                  f.writelines(lines)
+                  content = f.read()
           else:
-              with open("CHANGELOG.md", "w", newline="\n") as f:
-                  f.write(f"# Changelog\n{new_section}")
+              content = "# Changelog\n\n本项目所有重要更改都记录在此文件。\n\n格式基于 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，\n并且本项目遵循 [语义化版本](https://semver.org/lang/zh-CN/)。\n"
 
-          print(f"Added {len(new_lines)} new commits")
+          # Insert after header (first ## line or end of header)
+          lines = content.split("\n")
+          insert_idx = 0
+          for i, line in enumerate(lines):
+              if line.startswith("## ["):
+                  insert_idx = i
+                  break
+              elif line.startswith("# "):
+                  # Find end of header description
+                  insert_idx = i + 1
+                  while insert_idx < len(lines) and not lines[insert_idx].startswith("#"):
+                      insert_idx += 1
+
+          lines.insert(insert_idx, new_section.rstrip())
+
+          with open("CHANGELOG.md", "w", newline="\n") as f:
+              f.write("\n".join(lines))
+
+          print(f"Added changelog for {tag}")
           PYEOF
 
       - name: Commit Changes
@@ -113,6 +142,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add CHANGELOG.md
-          git commit -m "docs: update CHANGELOG.md [skip ci]" || exit 0
+          git commit -m "docs: update CHANGELOG.md for ${GITHUB_REF_NAME} [skip ci]" || exit 0
           git pull --rebase
           git push
