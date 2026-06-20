@@ -18,6 +18,8 @@ from __future__ import annotations
 import argparse
 import asyncio
 import warnings
+from datetime import datetime
+from pathlib import Path
 from typing import TYPE_CHECKING
 
 from cttc.config import Config
@@ -79,6 +81,9 @@ async def login_flow(
         log.info("🎉 登录成功！")
         await client.page.wait_for_timeout(2000)
         await client._save_state()
+        # 写入信号文件供 Agent 监控
+        signal_file = Path(config.output_dir) / "login-success.txt"
+        signal_file.write_text(f"success\n{datetime.now().isoformat()}")
         return client, True, qr_paths
     else:
         log.error("❌ 登录超时")
