@@ -32,6 +32,52 @@ from cttc.planner import StudyPlanner
 
 
 # ──────────────────────────────────────────────
+# 用户交互 — 询问新目标
+# ──────────────────────────────────────────────
+
+def ask_new_target(current_hours: float, old_target: float) -> float | None:
+    """达到目标后询问用户是否继续
+    
+    Returns:
+        新的目标学时，None 表示退出
+    """
+    print(f"\n{'='*50}")
+    print(f"🎉 已达到目标学时 {old_target}h (当前 {current_hours:.1f}h)！")
+    print(f"{'='*50}")
+    print(f"\n请选择:")
+    print(f"  1. 输入新目标继续刷课")
+    print(f"  2. 无限制继续刷课")
+    print(f"  3. 退出程序")
+    print()
+    
+    while True:
+        try:
+            choice = input("请输入选项 (1/2/3): ").strip()
+        except (EOFError, KeyboardInterrupt):
+            return None
+        
+        if choice == "1":
+            while True:
+                try:
+                    new_target = input(f"请输入新目标学时 (当前 {current_hours:.1f}h): ").strip()
+                    new_target = float(new_target)
+                    if new_target > current_hours:
+                        return new_target
+                    else:
+                        print(f"⚠️ 新目标必须大于当前学时 {current_hours:.1f}h")
+                except ValueError:
+                    print("⚠️ 请输入有效数字")
+                except (EOFError, KeyboardInterrupt):
+                    return None
+        elif choice == "2":
+            return float("inf")  # 无限制
+        elif choice == "3":
+            return None
+        else:
+            print("⚠️ 无效选项，请输入 1、2 或 3")
+
+
+# ──────────────────────────────────────────────
 # 标签页管理 — 严格单标签
 # ──────────────────────────────────────────────
 
@@ -121,9 +167,12 @@ async def mode_hours(client, config, log, progress, status, courses, monitor):
     if target_hours:
         remaining = target_hours - current_hours
         if remaining <= 0:
-            log.info(f"🎉 已达到目标学时 {target_hours}h (当前 {current_hours}h)！")
-            return
-        log.info(f"🎯 目标: {target_hours}h, 还需: {remaining:.1f}h")
+            new_target = ask_new_target(current_hours, target_hours)
+            if new_target is None:
+                return
+            target_hours = new_target
+            config.target_hours = target_hours
+        log.info(f"🎯 目标: {target_hours}h, 还需: {max(0, target_hours - current_hours):.1f}h")
     else:
         log.info(f"🎯 无目标限制，将学习所有可用课程")
 
@@ -156,8 +205,11 @@ async def mode_hours(client, config, log, progress, status, courses, monitor):
             if target_hours:
                 current = progress.study_time.get("current_total", 0)
                 if current >= target_hours:
-                    log.info(f"🎉 达到目标学时 {target_hours}h (当前 {current:.1f}h)！")
-                    break
+                    new_target = ask_new_target(current, target_hours)
+                    if new_target is None:
+                        break
+                    target_hours = new_target
+                    config.target_hours = target_hours
 
             # 获取优先课程（专题/任务中的课程）
             priority_course_ids = set()
@@ -230,8 +282,11 @@ async def mode_hours(client, config, log, progress, status, courses, monitor):
                 if target_hours:
                     current = progress.study_time.get("current_total", 0)
                     if current >= target_hours:
-                        log.info(f"🎉 达到目标学时 {target_hours}h (当前 {current:.1f}h)！")
-                        break
+                        new_target = ask_new_target(current, target_hours)
+                        if new_target is None:
+                            break
+                        target_hours = new_target
+                        config.target_hours = target_hours
 
                 course_id = course["course_id"]
                 if progress.is_course_completed(course_id):
